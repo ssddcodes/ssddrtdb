@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
               // yo();
                 //yoi();
                 yoi();
-                this.y--;
+                this.y++;
             }else {
             //    for (int i = 0; i < 1000; i++) {
               //      interpreter.semd(String.valueOf(i));

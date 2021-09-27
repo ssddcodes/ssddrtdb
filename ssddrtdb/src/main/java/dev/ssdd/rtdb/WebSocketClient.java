@@ -34,99 +34,41 @@ import dev.ssdd.rtdb.exceptions.InvalidServerHandshakeException;
 import dev.ssdd.rtdb.exceptions.UnknownOpcodeException;
 
 public abstract class WebSocketClient {
-    /**
-     * GUID used when processing Sec-WebSocket-Accept response header
-     */
+
     private static final String GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
-    /**
-     * Denotes a continuation frame
-     */
     private static final int OPCODE_CONTINUATION = 0x0;
 
-    /**
-     * Denotes a UTF-8 encoded text frame
-     */
     private static final int OPCODE_TEXT = 0x1;
 
-    /**
-     * Denotes a binary frame
-     */
     private static final int OPCODE_BINARY = 0x2;
 
-    /**
-     * Denotes a close frame
-     */
     private static final int OPCODE_CLOSE = 0x8;
 
-    /**
-     * Denotes a Ping frame
-     */
     private static final int OPCODE_PING = 0x9;
 
-    /**
-     * Denotes a Pong frame
-     */
     private static final int OPCODE_PONG = 0xA;
 
-    /**
-     * Global lock for synchronized statements
-     */
     private final Object globalLock;
 
-    /**
-     * Connection URI
-     */
     private final URI uri;
 
-    /**
-     * Cryptographically secure random generator used for the masking key
-     */
     private final SecureRandom secureRandom;
 
-    /**
-     * Timeout in milliseconds to be used while the WebSocket is being connected
-     */
     private int connectTimeout;
 
-    /**
-     * Timeout in milliseconds for considering and idle connection as dead An
-     * idle connection is a connection that has not received data for a long
-     * time
-     */
     private int readTimeout;
 
-    /**
-     * Indicates if a connection must be reopened automatically due to an
-     * IOException
-     */
     private boolean automaticReconnection;
 
-    /**
-     * Time in milliseconds to wait before opening a new WebSocket connection
-     */
     private long waitTimeBeforeReconnection;
 
-    /**
-     * Indicates if the connect() method was called
-     */
     private volatile boolean isRunning;
 
-    /**
-     * Custom headers to be included into the handshake
-     */
     private final Map<String, String> headers;
 
-    /**
-     * Underlying WebSocket connection This instance could change due to an
-     * automatic reconnection Every time an automatic reconnection is fired,
-     * this reference changes
-     */
     private volatile WebSocketConnection webSocketConnection;
 
-    /**
-     * Thread used for reconnection intents
-     */
     private volatile Thread reconnectionThread;
 
     String TAG = "SSDDRTDB";
@@ -134,11 +76,7 @@ public abstract class WebSocketClient {
 
     private SSLSocketFactory socketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
     private String path;
-    /**
-     * Initialize all the variables
-     *
-     * @param uri URI of the WebSocket server
-     */
+
     public WebSocketClient(URI uri) {
         this.globalLock = new Object();
         this.uri = uri;
@@ -192,64 +130,28 @@ public abstract class WebSocketClient {
         this.path = "$";
     }
 
-    /**
-     * Called when a text message has been received
-     *
-     * @param message The UTF-8 encoded text received
-     */
     public abstract void onTextReceived(String message);
 
-    /**
-     * Called when a binary message has been received
-     *
-     * @param data The binary message received
-     */
     private void onBinaryReceived(byte[] data){
 
     }
 
-    /**
-     * Called when a ping message has been received
-     *
-     * @param data Optional data
-     */
     private void onPingReceived(byte[] data){
 
     }
 
-    /**
-     * Called when a pong message has been received
-     *
-     * @param data Optional data
-     */
     public void onPongReceived(byte[] data){
 
     }
 
-    /**
-     * Called when an exception has occurred
-     *
-     * @param e The exception that occurred
-     */
     private void onException(Exception e){
         Log.e("SSDDRTDB", "Exception: "+e );
     }
 
-    /**
-     * Called when a close code has been received
-     */
     private void onCloseReceived(){
         Log.e("SSDDRTDB", "Disconnected");
     }
 
-    /**
-     * Adds a new header to the set of headers that will be send into the
-     * handshake This header will be added to the set of headers: Host, Upgrade,
-     * Connection, Sec-WebSocket-Key, Sec-WebSocket-Version
-     *
-     * @param key   Name of the new header
-     * @param value Value of the new header
-     */
     public void addHeader(String key, String value) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -259,12 +161,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Set the timeout that will be used while the WebSocket is being connected
-     * If timeout expires before connecting, an IOException will be thrown
-     *
-     * @param connectTimeout Timeout in milliseconds
-     */
     public void setConnectTimeout(int connectTimeout) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -276,14 +172,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Sets the timeout for considering and idle connection as dead An idle
-     * connection is a connection that has not received data for a long time If
-     * timeout expires, an IOException will be thrown and you should consider
-     * opening a new WebSocket connection, or delegate this functionality to
-     * this WebSocketClient using the method setAutomaticReconnection(true)
-     *
-     */
      void setReadTimeout() {
         synchronized (globalLock) {
             if (isRunning) {
@@ -293,14 +181,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Indicates that a connection must be reopened automatically due to an
-     * IOException. Every time a connection fails due to an IOException,
-     * onException() method is called before establishing a new connection. A
-     * connection will be reopened automatically if an IOException occurred, but
-     * other kinds of Exception will not reopen a connection
-     *
-     */
      public void enableAutomaticReconnection(int timeout) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -316,10 +196,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Indicates that a connection must not be reopened automatically due to an
-     * IOException
-     */
     public void disableAutomaticReconnection() {
         synchronized (globalLock) {
             if (isRunning) {
@@ -330,9 +206,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Starts a new connection to the WebSocket server
-     */
     public void connect() {
         synchronized (globalLock) {
             if (isRunning) {
@@ -344,9 +217,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Creates and starts the thread that will handle the WebSocket connection
-     */
     private void createAndStartConnectionThread() {
         new Thread(() -> {
             try {
@@ -373,9 +243,6 @@ public abstract class WebSocketClient {
         }).start();
     }
 
-    /**
-     * Creates and starts the thread that will open a new WebSocket connection
-     */
     private void createAndStartReconnectionThread() {
         reconnectionThread = new Thread(() -> {
             try {
@@ -394,9 +261,6 @@ public abstract class WebSocketClient {
         reconnectionThread.start();
     }
 
-    /**
-     * If the close method wasn't called, call onOpen method.
-     */
     private void notifyOnOpen() {
         synchronized (globalLock) {
             if (isRunning) {
@@ -406,10 +270,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onTextReceived(String message)
-     * method.
-     */
     private synchronized void notifyOnTextReceived(String message) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -418,10 +278,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onBinaryReceived(byte[] data)
-     * method.
-     */
     private void notifyOnBinaryReceived(byte[] data) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -430,10 +286,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onPingReceived(byte[] data)
-     * method.
-     */
     private void notifyOnPingReceived(byte[] data) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -442,10 +294,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onPongReceived(byte[] data)
-     * method.
-     */
     private void notifyOnPongReceived(byte[] data) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -454,9 +302,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onException(Exception e) method.
-     */
     private void notifyOnException(Exception e) {
         synchronized (globalLock) {
             if (isRunning) {
@@ -465,9 +310,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * If the close method wasn't called, call onCloseReceived() method.
-     */
     private void notifyOnCloseReceived() {
         synchronized (globalLock) {
             if (isRunning) {
@@ -476,12 +318,6 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Sends a text message If the WebSocket is not connected yet, message will
-     * be send the next time the connection is opened
-     *
-     * @param message Message that will be send to the WebSocket server
-     */
     public void send(String message) {
         byte[] data = message.getBytes(StandardCharsets.UTF_8);
         final Payload payload = new Payload(OPCODE_TEXT, data);
@@ -499,43 +335,24 @@ public abstract class WebSocketClient {
         }
     }
 
-    /**
-     * Sends a binary message If the WebSocket is not connected yet, message
-     * will be send the next time the connection is opened
-     *
-     * @param data Binary data that will be send to the WebSocket server
-     */
     public void send(byte[] data) {
         final Payload payload = new Payload(OPCODE_BINARY, data);
 
         new Thread(() -> webSocketConnection.sendInternal(payload)).start();
     }
 
-    /**
-     * Sends a PING frame with an optional data.
-     *
-     * @param data Data to be sent, or null if there is no data.
-     */
     public void sendPing(byte[] data) {
         final Payload payload = new Payload(OPCODE_PING, data);
 
         new Thread(() -> webSocketConnection.sendInternal(payload)).start();
     }
 
-    /**
-     * Sends a PONG frame with an optional data.
-     *
-     * @param data Data to be sent, or null if there is no data.
-     */
     public void sendPong(byte[] data) {
         final Payload payload = new Payload(OPCODE_PONG, data);
 
         new Thread(() -> webSocketConnection.sendInternal(payload)).start();
     }
 
-    /**
-     * Closes the WebSocket connection
-     */
     public void close() {
         new Thread(() -> {
             synchronized (globalLock) {
@@ -550,58 +367,24 @@ public abstract class WebSocketClient {
         }).start();
     }
 
-    /**
-     * This represents an existing WebSocket connection
-     *
-     * @author Gustavo Avila
-     */
     private class WebSocketConnection {
-        /**
-         * Flag indicating if there are pending changes waiting to be read by
-         * the writer thread. It is used to avoid a missed signal between
-         * threads
-         */
+
         private volatile boolean pendingMessages;
 
-        /**
-         * Flag indicating if the closeInternal() method was called
-         */
         private volatile boolean isClosed;
 
-        /**
-         * Data waiting to be read from the writer thread
-         */
         private final LinkedList<Payload> outBuffer;
 
-        /**
-         * This will act as a lock for synchronized statements
-         */
         private final Object internalLock;
 
-        /**
-         * Writer thread
-         */
         private final Thread writerThread;
 
-        /**
-         * TCP socket for the underlying WebSocket connection
-         */
         private Socket socket;
 
-        /**
-         * Socket input stream
-         */
         private BufferedInputStream bis;
 
-        /**
-         * Socket output stream
-         */
         private BufferedOutputStream bos;
 
-        /**
-         * Initialize the variables that will be used during a valid WebSocket
-         * connection
-         */
         private WebSocketConnection() {
             this.pendingMessages = false;
             this.isClosed = false;
@@ -644,13 +427,6 @@ public abstract class WebSocketClient {
             });
         }
 
-        /**
-         * Creates and connects a TCP socket for the underlying connection
-         *
-         * @return true is the socket was successfully connected, false
-         * otherwise
-         * @throws IOException
-         */
         private boolean createAndConnectTCPSocket() throws IOException {
             synchronized (internalLock) {
                 if (!isClosed) {
@@ -690,11 +466,6 @@ public abstract class WebSocketClient {
             }
         }
 
-        /**
-         * Starts the WebSocket connection
-         *
-         * @throws IOException
-         */
         private void startConnection() throws IOException {
             bos = new BufferedOutputStream(socket.getOutputStream(), 65536);
 
@@ -718,12 +489,6 @@ public abstract class WebSocketClient {
             read();
         }
 
-        /**
-         * Creates and returns a byte array containing the client handshake
-         *
-         * @param base64Key Random generated Sec-WebSocket-Key
-         * @return Byte array containing the client handshake
-         */
         private byte[] createHandshake(String base64Key) {
             StringBuilder builder = new StringBuilder();
 
@@ -773,13 +538,6 @@ public abstract class WebSocketClient {
             return handshake.getBytes(StandardCharsets.US_ASCII);
         }
 
-        /**
-         * Verifies the validity of the server handshake
-         *
-         * @param inputStream     Socket input stream
-         * @param secWebSocketKey Random generated Sec-WebSocket-Key
-         * @throws IOException
-         */
         private void verifyServerHandshake(InputStream inputStream, String secWebSocketKey) throws IOException {
             try {
                 SessionInputBufferImpl sessionInputBuffer = new SessionInputBufferImpl(new HttpTransportMetricsImpl(),
@@ -849,13 +607,6 @@ public abstract class WebSocketClient {
             }
         }
 
-        /**
-         * Sends a message to the WebSocket server
-         *
-         * @param opcode  Message opcode
-         * @param payload Message payload
-         * @throws IOException
-         */
         private void send(int opcode, byte[] payload) throws IOException {
             // The position of the data frame in which the next portion of code
             // will start writing bytes
@@ -949,11 +700,6 @@ public abstract class WebSocketClient {
             bos.flush();
         }
 
-        /**
-         * Listen for changes coming from the WebSocket server
-         *
-         * @throws IOException
-         */
         private void read() throws IOException {
             // The first byte of every data frame
             int firstByte;
@@ -1055,12 +801,6 @@ public abstract class WebSocketClient {
             throw new IOException("Unexpected end of stream");
         }
 
-        /**
-         * Puts the payload into the out buffer and notifies the writer thread
-         * that new data is available
-         *
-         * @param payload Payload to be send to the WebSocket server
-         */
         private void sendInternal(Payload payload) {
             synchronized (internalLock) {
                 outBuffer.addLast(payload);
@@ -1069,10 +809,6 @@ public abstract class WebSocketClient {
             }
         }
 
-        /**
-         * Closes the underlying WebSocket connection and notifies the writer
-         * thread and the reconnection thread that they must finish
-         */
         private void closeInternal() {
             try {
                 synchronized (internalLock) {

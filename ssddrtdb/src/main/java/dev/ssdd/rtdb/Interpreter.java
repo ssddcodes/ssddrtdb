@@ -49,18 +49,15 @@ public abstract class Interpreter {
 
                     @Override
                     public void onTextReceived(String message) {
-
-                        if(!(isTime(message))){
-                            String tmp = null;
-                            try {
-                                JSONObject j = new JSONObject(message);
-                                tmp = j.get("message").toString();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if(!(Interpreter.this.isTime(message))){
+                                onTxt(message);
                             }
-                            onTxt(tmp);
-                        }
                     }
+
+                     @Override
+                     public void onTextReceived(int message) {
+                        onTxt(message);
+                     }
                  };
                 webSocketClient.setConnectTimeout(6000);
                 webSocketClient.enableAutomaticReconnection(5000);
@@ -74,7 +71,8 @@ public abstract class Interpreter {
         });
         t.start();
     }
-    private boolean isTime(String msg){
+
+    private boolean isTime(String msg) {
         String x = "message";
         try {
             JSONObject jsonObject = new JSONObject(msg);
@@ -89,6 +87,7 @@ public abstract class Interpreter {
         webSocketClient.send(msg);
     }
     public abstract void onTxt(String msg);
+    public abstract void onTxt(int msg);
 
     public String push(){
         synchronized (this) {
@@ -112,7 +111,11 @@ public abstract class Interpreter {
                     });
                     thread.start();
                 }
-            };
+
+                 @Override
+                 public void onTextReceived(int message) {
+                 }
+             };
             w.connect();
             w.send("time?");
         }

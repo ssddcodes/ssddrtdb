@@ -2,6 +2,9 @@ package dev.ssdd.rtdb;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -19,6 +22,9 @@ import java.util.Random;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
+import dev.ssdd.rtdb.exceptions.IllegalSchemeException;
+import dev.ssdd.rtdb.exceptions.InvalidServerHandshakeException;
+import dev.ssdd.rtdb.exceptions.UnknownOpcodeException;
 import dev.ssdd.rtdb.playground.commons.codec.binary.Base64;
 import dev.ssdd.rtdb.playground.commons.codec.digest.DigestUtils;
 import dev.ssdd.rtdb.playground.http.Header;
@@ -29,9 +35,6 @@ import dev.ssdd.rtdb.playground.http.impl.io.DefaultHttpResponseParser;
 import dev.ssdd.rtdb.playground.http.impl.io.HttpTransportMetricsImpl;
 import dev.ssdd.rtdb.playground.http.impl.io.SessionInputBufferImpl;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageParser;
-import dev.ssdd.rtdb.exceptions.IllegalSchemeException;
-import dev.ssdd.rtdb.exceptions.InvalidServerHandshakeException;
-import dev.ssdd.rtdb.exceptions.UnknownOpcodeException;
 
 public abstract class WebSocketClient {
 
@@ -131,6 +134,8 @@ public abstract class WebSocketClient {
     }
 
     public abstract void onTextReceived(String message);
+
+    public abstract void onTextReceived(int message);
 
     private void onBinaryReceived(byte[] data){
 
@@ -273,9 +278,34 @@ public abstract class WebSocketClient {
     private synchronized void notifyOnTextReceived(String message) {
         synchronized (globalLock) {
             if (isRunning) {
-                onTextReceived(message);
+
+                if (!(isTime(message))) {
+                    String tmp;
+                    try {
+                        JSONObject j = new JSONObject(message);
+                        tmp = j.get("message").toString();
+                        if (tmp.matches(".*[a-zA-Z]+.*")) {
+                            onTextReceived(message);
+                        } else {
+                            onTextReceived(Integer.parseInt(message));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
+    }
+
+    private boolean isTime(String msg) {
+        String x = "message";
+        try {
+            JSONObject jsonObject = new JSONObject(msg);
+            x = jsonObject.get("id").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return x.equals("time");
     }
 
     private void notifyOnBinaryReceived(byte[] data) {

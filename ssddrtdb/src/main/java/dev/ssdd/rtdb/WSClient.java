@@ -36,7 +36,7 @@ import dev.ssdd.rtdb.playground.http.impl.io.HttpTransportMetricsImpl;
 import dev.ssdd.rtdb.playground.http.impl.io.SessionInputBufferImpl;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageParser;
 
-public abstract class WebSocketClient {
+public abstract class WSClient {
 
     private static final String GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
@@ -80,7 +80,7 @@ public abstract class WebSocketClient {
     private SSLSocketFactory socketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
     private String path;
 
-    public WebSocketClient(URI uri) {
+    public WSClient(URI uri) {
         this.globalLock = new Object();
         this.uri = uri;
         this.secureRandom = new SecureRandom();

@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
 
-    WebSocketClient webSocketClient;
+    WSClient WSClient;
     TextView textView;
     EditText editText;
     Button button;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     void yo(){
         try {
             URI uri = new URI(editText.getText().toString());
-            webSocketClient = new WebSocketClient(uri) {
+            WSClient = new WSClient(uri) {
 
                 @Override
                 public void onTextReceived(String message) {
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onTextReceived: "+message);
                 }
             };
-            webSocketClient.enableAutomaticReconnection(5000);
-            webSocketClient.connect();
+            WSClient.enableAutomaticReconnection(5000);
+            WSClient.connect();
 
         } catch (URISyntaxException e) {
             e.printStackTrace();

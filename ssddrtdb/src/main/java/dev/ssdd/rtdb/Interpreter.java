@@ -18,7 +18,7 @@ import java.util.Random;
 public abstract class Interpreter {
 
     private URI uri;
-    private WebSocketClient webSocketClient,w;
+    private WSClient WSClient,w;
     private String tmpx;
 
     private static final int[] lastRandChars = new int[12];
@@ -45,16 +45,16 @@ public abstract class Interpreter {
                 for (String line; (line = r.readLine()) != null; ) {
                     this.uri = new URI(total.append(line).toString());
                 }
-                 webSocketClient = new WebSocketClient(this.uri) {
+                 WSClient = new WSClient(this.uri) {
 
                     @Override
                     public void onTextReceived(String message) {
                                 onTxt(message);
                     }
                 };
-                webSocketClient.setConnectTimeout(6000);
-                webSocketClient.enableAutomaticReconnection(5000);
-                webSocketClient.connect();
+                WSClient.setConnectTimeout(6000);
+                WSClient.enableAutomaticReconnection(5000);
+                WSClient.connect();
 
             } catch (IOException e) {
                 Log.e("SSDDRTDB", "An error occurred while fetching ws server details");
@@ -65,12 +65,12 @@ public abstract class Interpreter {
         t.start();
     }
     public void semd(String msg){
-        webSocketClient.send(msg);
+        WSClient.send(msg);
     }
     public abstract void onTxt(String msg);
     public String push(){
         synchronized (this) {
-             w = new WebSocketClient(this.uri) {
+             w = new WSClient(this.uri) {
                 @Override
                 public void onTextReceived(String message) {
                     Thread thread = new Thread(() -> {

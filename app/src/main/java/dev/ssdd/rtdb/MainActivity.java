@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
                 yoi();
                 this.y++;
             }else {
-            //    for (int i = 0; i < 1000; i++) {
-              //      interpreter.semd(String.valueOf(i));
-               // }
-                Log.d(TAG, "onCreate: "+ interpreter.push());
+                for (int i = 0; i < 1000; i++) {
+                    interpreter.semd(String.valueOf(i));
+                }
+//                Log.d(TAG, "onCreate: "+ interpreter.push());
 
                 // webSocketClient.send(editText.getText().toString());
             }

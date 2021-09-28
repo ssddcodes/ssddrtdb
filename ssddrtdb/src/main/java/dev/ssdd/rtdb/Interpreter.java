@@ -45,7 +45,6 @@ public abstract class Interpreter {
                 for (String line; (line = r.readLine()) != null; ) {
                     this.uri = new URI(total.append(line).toString());
                 }
-
                  webSocketClient = new WebSocketClient(this.uri) {
 
                     @Override

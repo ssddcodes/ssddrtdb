@@ -1,6 +1,7 @@
 package dev.ssdd.rtdb;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     EditText editText;
     Button button;
+
+    private Handler handler = new Handler();
+
     int y = 0;
 
     Interpreter interpreter;
@@ -38,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 yoi();
                 this.y++;
             }else {
-              //  Log.d(TAG, "onCreate: "+interpreter.push());
+             //   Log.d(TAG, "onCreate: "+interpreter.push());
                 for (int i = 0; i < 1000; i++) {
                     interpreter.semd(String.valueOf(i));
                 }
+//                textView.setText(interpreter.push());
 //                Log.d(TAG, "onCreate: "+ interpreter.push());
 
                 // webSocketClient.send(editText.getText().toString());
@@ -54,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
         interpreter = new Interpreter() {
             @Override
             public void onTxt(String msg) {
-                runOnUiThread(()->{
-                    textView.setText(msg);
-                });
+               handler.post(() -> textView.setText(msg));
+                // Log.d(TAG, "onTxt: "+msg);
             }
         };
     }

@@ -38,6 +38,8 @@ import dev.ssdd.rtdb.playground.http.io.HttpMessageParser;
 
 public abstract class WSClient {
 
+    private static Thread threado = null;
+
     private static final String GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
     private static final int OPCODE_CONTINUATION = 0x0;
@@ -276,16 +278,7 @@ public abstract class WSClient {
     private synchronized void notifyOnTextReceived(String message) {
         synchronized (globalLock) {
             if (isRunning) {
-                Thread th = new Thread(()->{
-                        onTextReceived(message);
-                });
-                th.start();
-                try {
-                    th.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                onTextReceived(message);
             }
         }
     }
@@ -344,7 +337,6 @@ public abstract class WSClient {
     public void send(String message) {
         byte[] data = message.getBytes(StandardCharsets.UTF_8);
         final Payload payload = new Payload(OPCODE_TEXT, data);
-
         synchronized (this) {
             Thread t = new Thread(() -> {
                 webSocketConnection.sendInternal(payload);

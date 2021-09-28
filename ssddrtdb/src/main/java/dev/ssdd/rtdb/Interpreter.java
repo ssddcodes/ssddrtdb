@@ -1,3 +1,4 @@
+
 package dev.ssdd.rtdb;
 
 import android.util.Log;
@@ -19,7 +20,9 @@ public abstract class Interpreter {
 
     private URI uri;
     private WSClient WSClient,w;
-    private String tmpx;
+    private String tmpx,TAG = "SSDDRTDB";
+
+    private boolean isRunun=false;
 
     private static final int[] lastRandChars = new int[12];
     private static final Random randGen = new Random();
@@ -31,7 +34,7 @@ public abstract class Interpreter {
         init();
     }
 
-    public void init(){
+    public synchronized void init(){
         Thread t =  new Thread(()->{
             // String urlx="https://ssdd.rf.gd/server/ssdd/";
             String urlx = "http://10.42.0.1:8000/ws.txt";
@@ -45,29 +48,43 @@ public abstract class Interpreter {
                 for (String line; (line = r.readLine()) != null; ) {
                     this.uri = new URI(total.append(line).toString());
                 }
-                 WSClient = new WSClient(this.uri) {
 
-                    @Override
-                    public void onTextReceived(String message) {
-                                onTxt(message);
-                    }
-                };
-                WSClient.setConnectTimeout(6000);
-                WSClient.enableAutomaticReconnection(5000);
-                WSClient.connect();
+                gitConnection();
 
             } catch (IOException e) {
                 Log.e("SSDDRTDB", "An error occurred while fetching ws server details");
+                isRunun = false;
             } catch (URISyntaxException e) {
                 e.printStackTrace();
+                isRunun = false;
             }
         });
         t.start();
     }
+
+    protected synchronized void gitConnection(){
+        WSClient = new WSClient(this.uri) {
+            @Override
+            public void onTextReceived(String message) {
+                onTxt(message);
+            }
+        };
+        WSClient.setConnectTimeout(6000);
+        WSClient.enableAutomaticReconnection(5000);
+        WSClient.connect();
+        isRunun = true;
+    }
+
     public void semd(String msg){
-        WSClient.send(msg);
+        if(isRunun) {
+            WSClient.send(msg);
+        }else {
+          //  throw new IllegalStateException("Please initialize connection first.");
+            Log.e(TAG, "semd: please initialize connection first.");
+        }
     }
     public abstract void onTxt(String msg);
+
     public String push(){
         synchronized (this) {
              w = new WSClient(this.uri) {
@@ -88,7 +105,14 @@ public abstract class Interpreter {
                         //TODO remove onTxt after debug
                         onTxt(tmpx);
                     });
-                    thread.start();
+                    synchronized (thread){
+                        thread.start();
+                        try {
+                            thread.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
              };
             w.connect();

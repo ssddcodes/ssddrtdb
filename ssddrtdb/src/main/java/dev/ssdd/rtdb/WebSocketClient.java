@@ -135,8 +135,6 @@ public abstract class WebSocketClient {
 
     public abstract void onTextReceived(String message);
 
-    public abstract void onTextReceived(int message);
-
     private void onBinaryReceived(byte[] data){
 
     }
@@ -278,21 +276,16 @@ public abstract class WebSocketClient {
     private synchronized void notifyOnTextReceived(String message) {
         synchronized (globalLock) {
             if (isRunning) {
-
-                if (!(isTime(message))) {
-                    String tmp;
-                    try {
-                        JSONObject j = new JSONObject(message);
-                        tmp = j.get("message").toString();
-                        if (tmp.matches(".*[a-zA-Z]+.*")) {
-                            onTextReceived(message);
-                        } else {
-                            onTextReceived(Integer.parseInt(message));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                Thread th = new Thread(()->{
+                        onTextReceived(message);
+                });
+                th.start();
+                try {
+                    th.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+
             }
         }
     }

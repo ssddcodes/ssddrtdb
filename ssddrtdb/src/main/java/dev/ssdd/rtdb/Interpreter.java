@@ -17,8 +17,8 @@ import java.util.Random;
 
 public abstract class Interpreter {
 
-     URI uri;
-    WebSocketClient webSocketClient,w;
+    private URI uri;
+    private WebSocketClient webSocketClient,w;
     private String tmpx;
 
     private static final int[] lastRandChars = new int[12];
@@ -49,16 +49,9 @@ public abstract class Interpreter {
 
                     @Override
                     public void onTextReceived(String message) {
-                            if(!(Interpreter.this.isTime(message))){
                                 onTxt(message);
-                            }
                     }
-
-                     @Override
-                     public void onTextReceived(int message) {
-                        onTxt(message);
-                     }
-                 };
+                };
                 webSocketClient.setConnectTimeout(6000);
                 webSocketClient.enableAutomaticReconnection(5000);
                 webSocketClient.connect();
@@ -71,24 +64,10 @@ public abstract class Interpreter {
         });
         t.start();
     }
-
-    private boolean isTime(String msg) {
-        String x = "message";
-        try {
-            JSONObject jsonObject = new JSONObject(msg);
-            x = jsonObject.get("id").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return x.equals("time");
-    }
-
     public void semd(String msg){
         webSocketClient.send(msg);
     }
     public abstract void onTxt(String msg);
-    public abstract void onTxt(int msg);
-
     public String push(){
         synchronized (this) {
              w = new WebSocketClient(this.uri) {
@@ -111,10 +90,6 @@ public abstract class Interpreter {
                     });
                     thread.start();
                 }
-
-                 @Override
-                 public void onTextReceived(int message) {
-                 }
              };
             w.connect();
             w.send("time?");

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 yoi();
                 this.y++;
             }else {
+              //  Log.d(TAG, "onCreate: "+interpreter.push());
                 for (int i = 0; i < 1000; i++) {
                     interpreter.semd(String.valueOf(i));
                 }
@@ -58,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     textView.setText(msg);
                 });
             }
-
-            @Override
-            public void onTxt(int msg) {
-            }
         };
     }
 
@@ -72,14 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextReceived(String message) {
-                    runOnUiThread(()->{
                         textView.setText(message);
                         Log.d(TAG, "onTextReceived: "+message);
-                    });
-                }
-
-                @Override
-                public void onTextReceived(int message) {
                 }
             };
             webSocketClient.enableAutomaticReconnection(5000);

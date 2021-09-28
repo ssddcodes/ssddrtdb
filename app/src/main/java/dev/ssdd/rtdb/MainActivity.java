@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onTextReceived: "+message);
                     });
                 }
+
+                @Override
+                public void onTextReceived(int message) {
+                }
             };
             webSocketClient.enableAutomaticReconnection(5000);
             webSocketClient.connect();

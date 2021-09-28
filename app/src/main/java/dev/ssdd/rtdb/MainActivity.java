@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                     textView.setText(msg);
                 });
             }
+
+            @Override
+            public void onTxt(int msg) {
+            }
         };
     }
 

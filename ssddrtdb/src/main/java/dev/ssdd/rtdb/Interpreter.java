@@ -6,23 +6,17 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Random;
 
-public abstract class Interpreter {
+public abstract class Interpreter extends Thread {
 
     private URI uri;
-    private WSClient WSClient,w;
-    private String tmpx,TAG = "SSDDRTDB";
+    private WSClient WSClient;
+    private String tmpx, TAG = "SSDDRTDB";
 
-    private boolean isRunun=false;
+    private boolean isRunun = false;
 
     private static final int[] lastRandChars = new int[12];
     private static final Random randGen = new Random();
@@ -30,39 +24,43 @@ public abstract class Interpreter {
     private static long lastPushTime;
     private static final String PUSH_CHARS = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
 
+    @Override
+    public void run() {
+        //TODO config this on publish
+        try {
+            this.uri = new URI("wss://45.79.48.63/");
+            gitConnection();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+//        String urlx = "http://10.42.0.1:8000/ws.txt";
+//        URL url;
+//        try {
+//            url = new URL(urlx);
+//            URLConnection urlConnection = url.openConnection();
+//            InputStream in = urlConnection.getInputStream();
+//            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+//            StringBuilder total = new StringBuilder();
+//            for (String line; (line = r.readLine()) != null; ) {
+//                this.uri = new URI(total.append(line).toString());
+//            }
+//
+//            gitConnection();
+//
+//        } catch (IOException e) {
+//            Log.e("SSDDRTDB", "An error occurred while fetching ws server details");
+//            isRunun = false;
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//            isRunun = false;
+//        }
+    }
+
     public Interpreter() {
-        init();
+        start();
     }
 
-    public synchronized void init(){
-        Thread t =  new Thread(()->{
-            // String urlx="https://ssdd.rf.gd/server/ssdd/";
-            String urlx = "http://10.42.0.1:8000/ws.txt";
-            URL url;
-            try {
-                url = new URL(urlx);
-                URLConnection urlConnection = url.openConnection();
-                InputStream in = urlConnection.getInputStream();
-                BufferedReader r = new BufferedReader(new InputStreamReader(in));
-                StringBuilder total = new StringBuilder();
-                for (String line; (line = r.readLine()) != null; ) {
-                    this.uri = new URI(total.append(line).toString());
-                }
-
-                gitConnection();
-
-            } catch (IOException e) {
-                Log.e("SSDDRTDB", "An error occurred while fetching ws server details");
-                isRunun = false;
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-                isRunun = false;
-            }
-        });
-        t.start();
-    }
-
-    protected synchronized void gitConnection(){
+    protected synchronized void gitConnection() {
         WSClient = new WSClient(this.uri) {
             @Override
             public void onTextReceived(String message) {
@@ -87,7 +85,8 @@ public abstract class Interpreter {
 
     public String push(){
         synchronized (this) {
-             w = new WSClient(this.uri) {
+            //TODO remove onTxt after debug
+            dev.ssdd.rtdb.WSClient w = new WSClient(this.uri) {
                 @Override
                 public void onTextReceived(String message) {
                     Thread thread = new Thread(() -> {
@@ -105,16 +104,14 @@ public abstract class Interpreter {
                         //TODO remove onTxt after debug
                         onTxt(tmpx);
                     });
-                    synchronized (thread){
-                        thread.start();
-                        try {
-                            thread.join();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    thread.start();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-             };
+            };
             w.connect();
             w.send("time?");
         }

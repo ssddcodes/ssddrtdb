@@ -8,9 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     EditText editText;
     Button button;
+    List<String> mesgs;
+    RecyclerView recyclerView;
 
     private Handler handler = new Handler();
 
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.txt);
         editText = findViewById(R.id.et);
         button = findViewById(R.id.btn);
+        recyclerView = findViewById(R.id.recy);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
         button.setOnClickListener(view -> {
             if(this.y == 0){
@@ -45,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
              //   Log.d(TAG, "onCreate: "+interpreter.push());
                 for (int i = 0; i < 1000; i++) {
                     interpreter.semd(String.valueOf(i));
+                //    Log.d(TAG, "onCreate: "+i);
                 }
-//                textView.setText(interpreter.push());
+               // textView.setText(interpreter.push());
 //                Log.d(TAG, "onCreate: "+ interpreter.push());
 
                 // webSocketClient.send(editText.getText().toString());
@@ -59,10 +69,14 @@ public class MainActivity extends AppCompatActivity {
         interpreter = new Interpreter() {
             @Override
             public void onTxt(String msg) {
-               handler.post(() -> textView.setText(msg));
+                handler.post(() -> setT(msg));
                 // Log.d(TAG, "onTxt: "+msg);
             }
         };
+    }
+
+    private synchronized void setT(String msg) {
+        textView.setText(msg);
     }
 
     void yo(){

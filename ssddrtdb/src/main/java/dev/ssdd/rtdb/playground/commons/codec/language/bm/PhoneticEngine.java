@@ -171,7 +171,7 @@ public class PhoneticEngine {
         private final Map<String, List<Rule>> finalRules;
         private final CharSequence input;
 
-        private PhonemeBuilder phonemeBuilder;
+        private final PhonemeBuilder phonemeBuilder;
         private int i;
         private final int maxPhonemes;
         private boolean found;
@@ -407,7 +407,7 @@ public class PhoneticEngine {
         input = input.toLowerCase(Locale.ENGLISH).replace('-', ' ').trim();
 
         if (this.nameType == NameType.GENERIC) {
-            if (input.length() >= 2 && input.substring(0, 2).equals("d'")) { // check for d'
+            if (input.length() >= 2 && input.startsWith("d'")) { // check for d'
                 final String remainder = input.substring(2);
                 final String combined = "d" + remainder;
                 return "(" + encode(remainder) + ")-(" + encode(combined) + ")";

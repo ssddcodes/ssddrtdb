@@ -587,7 +587,7 @@ public class Rule {
         }
 
         return new RPattern() {
-            Pattern pattern = Pattern.compile(regex);
+            final Pattern pattern = Pattern.compile(regex);
 
             @Override
             public boolean isMatch(final CharSequence input) {

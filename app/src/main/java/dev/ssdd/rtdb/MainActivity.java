@@ -2,100 +2,118 @@ package dev.ssdd.rtdb;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     WSClient WSClient;
     TextView textView;
     EditText editText;
-    Button button;
-    List<String> mesgs;
-    RecyclerView recyclerView;
+    Button button, button2;
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
     int y = 0;
 
     Interpreter interpreter;
 
     String TAG = "MainAc";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String TAG = "MainAc";
         textView = findViewById(R.id.txt);
         editText = findViewById(R.id.et);
         button = findViewById(R.id.btn);
-        recyclerView = findViewById(R.id.recy);
+        button2 = findViewById(R.id.btn2);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
+        editText.setText("abc/xyz");
 
+        button2.setOnClickListener(view -> {
+            interpreter = new Interpreter();
+        });
         button.setOnClickListener(view -> {
-            if(this.y == 0){
-              // yo();
-                //yoi();
-                yoi();
-                this.y++;
-            }else {
-             //   Log.d(TAG, "onCreate: "+interpreter.push());
-                for (int i = 0; i < 1000; i++) {
-                    interpreter.semd(String.valueOf(i));
-                //    Log.d(TAG, "onCreate: "+i);
-                }
-               // textView.setText(interpreter.push());
-//                Log.d(TAG, "onCreate: "+ interpreter.push());
-
-                // webSocketClient.send(editText.getText().toString());
-            }
+            interpreter.child(editText.getText().toString()).setValue("yo");
         });
 
-    }
 
-    void yoi(){
-        interpreter = new Interpreter() {
-            @Override
-            public void onTxt(String msg) {
-                handler.post(() -> setT(msg));
-                // Log.d(TAG, "onTxt: "+msg);
-            }
-        };
-    }
-
-    private synchronized void setT(String msg) {
-        textView.setText(msg);
-    }
-
-    void yo(){
-        try {
-            URI uri = new URI(editText.getText().toString());
-            WSClient = new WSClient(uri) {
-
-                @Override
-                public void onTextReceived(String message) {
-                        textView.setText(message);
-                        Log.d(TAG, "onTextReceived: "+message);
-                }
-            };
-            WSClient.enableAutomaticReconnection(5000);
-            WSClient.connect();
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 
 }
+
+
+/*
+
+    public Interpreter child(String path){
+        if(isRunun){
+            StringBuilder sb = new StringBuilder(path);
+            try {
+                if(childrenChecker(path)){
+                    if(!path.startsWith("/")){
+                        path = "/"+path;
+                        if(path.endsWith("/")){
+                            path = sb.deleteCharAt(path.length()-1).toString();
+                            children = children+path;
+                        }
+                    }else {
+                        if(path.endsWith("/")){
+                            path = sb.deleteCharAt(path.length()-1).toString();
+                            children = children+path;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return this;
+    }
+
+    private boolean childrenChecker(String children) throws Exception{
+        if(children.contains("\"")){
+            throw new Exception("Child:- you can not put double inverted commas \"\" in children");
+        }else {
+            return true;
+        }
+    }
+    public void setValue(String value){
+        if(isRunun){
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("id","sv");
+                String x  = children+"="+value;
+                jsonObject.put("message",x);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void setValue(Object value){
+        if(isRunun){
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream out;
+            try {
+                out = new ObjectOutputStream(bos);
+                out.writeObject(value);
+                out.flush();
+                byte[] bytes = bos.toByteArray();
+                wsClient.send(bytes);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bos.close();
+                } catch (IOException ex) {
+                    // ignore close exception
+                }
+            }
+        }
+    }
+
+ */

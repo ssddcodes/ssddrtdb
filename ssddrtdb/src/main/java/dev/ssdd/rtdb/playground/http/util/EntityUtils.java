@@ -157,7 +157,7 @@ public final class EntityUtils {
         Args.notNull(entity, "Entity");
         String charset = null;
         if (entity.getContentType() != null) {
-            final HeaderElement values[] = entity.getContentType().getElements();
+            final HeaderElement[] values = entity.getContentType().getElements();
             if (values.length > 0) {
                 final NameValuePair param = values[0].getParameterByName("charset");
                 if (param != null) {
@@ -185,7 +185,7 @@ public final class EntityUtils {
         Args.notNull(entity, "Entity");
         String mimeType = null;
         if (entity.getContentType() != null) {
-            final HeaderElement values[] = entity.getContentType().getElements();
+            final HeaderElement[] values = entity.getContentType().getElements();
             if (values.length > 0) {
                 mimeType = values[0].getName();
             }

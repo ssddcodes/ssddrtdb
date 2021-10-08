@@ -109,9 +109,7 @@ abstract class RouteSpecificPool<T, C, E extends PoolEntry<T, C>> {
     public boolean remove(final E entry) {
         Args.notNull(entry, "Pool entry");
         if (!this.available.remove(entry)) {
-            if (!this.leased.remove(entry)) {
-                return false;
-            }
+            return this.leased.remove(entry);
         }
         return true;
     }

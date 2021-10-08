@@ -252,9 +252,9 @@ public class ProtocolVersion implements Serializable, Cloneable {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.protocol);
         buffer.append('/');
-        buffer.append(Integer.toString(this.major));
+        buffer.append(this.major);
         buffer.append('.');
-        buffer.append(Integer.toString(this.minor));
+        buffer.append(this.minor);
         return buffer.toString();
     }
 

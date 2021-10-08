@@ -37,7 +37,7 @@ import dev.ssdd.rtdb.playground.http.impl.io.HttpTransportMetricsImpl;
 import dev.ssdd.rtdb.playground.http.impl.io.SessionInputBufferImpl;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageParser;
 
-public abstract class WSClient {
+abstract class WSClient {
 
     private static final String GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
@@ -67,7 +67,7 @@ public abstract class WSClient {
 
     private long waitTimeBeforeReconnection;
 
-    private volatile boolean isRunning;
+    public volatile boolean isRunning;
 
     private final Map<String, String> headers;
 
@@ -97,41 +97,6 @@ public abstract class WSClient {
 
     public void setSSLSocketFactory(SSLSocketFactory sslSocketFactory) {
         socketFactory = sslSocketFactory;
-    }
-
-
-    public void child(String path){
-        if(this.path.length() != 0 && this.path.startsWith("$")){
-            String holder;
-            if(path.contains("/")){
-                holder = path.replace("/",".");
-            }else {
-                holder = path;
-            }
-            if(!(holder.contains("$"))){
-                if(!(holder.startsWith("."))){
-                    if(!(holder.endsWith("."))) {
-                        this.path = this.path+"."+holder;
-                    }else if(holder.endsWith(".")){
-                        throw new IllegalStateException("remove / at the end of the path");
-                    }
-                }else {
-                    if(!(holder.endsWith("."))) {
-                        this.path = this.path+holder;
-                    }else if(holder.endsWith(".")){
-                        throw new IllegalStateException("remove / at the end of the path");
-                    }
-                }
-            }else {
-                throw new IllegalStateException("can not use any special characters except / in it");
-            }
-        }else {
-            throw new IllegalStateException("Database not initialized.");
-        }
-    }
-
-    public void getRef(){
-        this.path = "$";
     }
 
     public abstract void onTextReceived(String message);

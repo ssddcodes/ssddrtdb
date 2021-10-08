@@ -384,9 +384,7 @@ public class BasicTokenIterator implements TokenIterator {
         }
 
         // no common sense extension for this
-        if (isHttpSeparator(ch)) {
-            return false;
-        }
+        return !isHttpSeparator(ch);
 
         // RFC 2616, section 2.2 defines a token character as
         // "any CHAR except CTLs or separators". The controls
@@ -394,7 +392,6 @@ public class BasicTokenIterator implements TokenIterator {
         // This will yield unexpected results for Unicode format characters.
         // If that is a problem, overwrite isHttpSeparator(char) to filter
         // out the false positives.
-        return true;
     }
 
 

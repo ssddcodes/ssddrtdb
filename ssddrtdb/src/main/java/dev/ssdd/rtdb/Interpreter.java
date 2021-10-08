@@ -72,11 +72,6 @@ public class Interpreter extends Thread {
 
     }
 
-
-    public void semd(String msg) {
-        wsClient.send("");
-    }
-
     public Interpreter child(String path) {
 
         StringBuilder sb = new StringBuilder(path);
@@ -144,7 +139,7 @@ public class Interpreter extends Thread {
         } finally {
             try {
                 bos.close();
-            } catch (IOException ex) {
+            } catch (IOException ignored) {
                 // ignore close exception
             }
         }

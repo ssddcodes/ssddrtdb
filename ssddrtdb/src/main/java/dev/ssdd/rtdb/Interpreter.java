@@ -33,7 +33,7 @@ public class Interpreter extends Thread {
     public void run() {
         //TODO config this on publish
         try {
-            this.uri = new URI("ws://10.42.0.1:56118/");
+            this.uri = new URI("ws://localhost:56118/");
             // this.uri = new URI("wss://45.79.48.63/");
             gitConnection();
 

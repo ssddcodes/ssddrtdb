@@ -299,6 +299,7 @@ abstract class WSClient {
     }
 
     public void send(String message) {
+        Log.d(TAG, "send: sent!");
         byte[] data = message.getBytes(StandardCharsets.UTF_8);
         final Payload payload = new Payload(OPCODE_TEXT, data);
         synchronized (this) {

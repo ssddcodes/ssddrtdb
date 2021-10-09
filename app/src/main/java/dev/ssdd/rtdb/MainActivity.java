@@ -1,23 +1,26 @@
 package dev.ssdd.rtdb;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    WSClient WSClient;
     TextView textView;
     EditText editText;
-    Button button, button2;
-
-    private final Handler handler = new Handler();
-
-    int y = 0;
+    Button button, button2, button3;
 
     Interpreter interpreter;
 
@@ -31,14 +34,63 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.et);
         button = findViewById(R.id.btn);
         button2 = findViewById(R.id.btn2);
+        button3 = findViewById(R.id.btn3);
 
         editText.setText("abc/xyz");
 
-        button2.setOnClickListener(view -> {
+        List<Model> models = new ArrayList<>();
+
+        button3.setOnClickListener(v -> {
+            interpreter.children2.clear();
+            interpreter.child(editText.getText().toString());
+            interpreter.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@Nullable List<DataSnapshot> dataSnapshots) {
+                    if (dataSnapshots != null) {
+                        for (DataSnapshot d : dataSnapshots) {
+                            Model m = d.getValue(Model.class);
+                            models.add(m);
+                            Log.d(TAG, "onDataChange: "+m.getXyz());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(@Nullable JSONException e) {
+
+                }
+            });
+
+//            JSONObject j = new JSONObject();
+//            String x = "{\"root\":{\"id\":\"id1\"},\"root1\":{\"id\":\"id2\"}}";
+//
+//            List<Model> models = new ArrayList<>();
+//            DocumentContext context = JsonPath.parse(x);
+//            List<String> xs = context.read("$.*");
+//
+//            String[] xx = context.read("$.*").toString().replace("[", "").replace("]", "").split(",");
+//
+//            try {
+//                for (String xsa : xx) {
+//                    JSONObject object = new JSONObject(xsa);
+//                    Model m = get(xsa, Model.class);
+//                    Log.d(TAG, "onCreate: " + m.getId());
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+
+        });
+
+        button2.setOnClickListener(view ->
+
+        {
             interpreter = new Interpreter();
         });
-        button.setOnClickListener(view -> {
-            interpreter.child(editText.getText().toString()).setValue("yo");
+        button.setOnClickListener(view -> { interpreter.children2.clear();
+            if(editText.getText().toString().contains("=")) {
+                interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
+            }
         });
 
 

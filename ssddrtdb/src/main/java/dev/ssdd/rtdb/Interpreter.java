@@ -3,6 +3,8 @@ package dev.ssdd.rtdb;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,13 +13,17 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Interpreter extends Thread {
 
     private URI uri;
     private final String TAG = "SSDDRTDB";
     private WSClient wsClient;
-    private String children = "";
+    public List<String> children2 = new ArrayList<>();
+    private ValueEventListener ve;
 
     public Interpreter() {
         start();
@@ -34,6 +40,9 @@ public class Interpreter extends Thread {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        //TODO remove LAN ws client and get from the server on lib release.
+
 //        String urlx = "http://10.42.0.1:8000/ws.txt";
 //        URL url;
 //        try {
@@ -62,7 +71,32 @@ public class Interpreter extends Thread {
         wsClient = new WSClient(this.uri) {
             @Override
             public void onTextReceived(String message) {
-                //    onTxt(message);
+                Log.d(TAG, "onTextReceived: "+message);
+                if (message.startsWith("[") && message.contains(",")) {
+                    String[] snapshots = message.replace("[", "").replace("]", "").split(",");
+
+                    List<DataSnapshot> snapshots1 = new ArrayList<>();
+                    for (String x : snapshots) {
+                        if(x.startsWith("{")) {
+                            snapshots1.add(new DataSnapshot(x));
+                        }
+                    }
+                    ve.updateData(snapshots1);
+                } else if (message.startsWith("[")) {
+                    String snapshots = message.replace("[", "").replace("]", "");
+                    List<DataSnapshot> snapshots1 = new ArrayList<>();
+                    if(snapshots.startsWith("{")) {
+                        snapshots1.add(new DataSnapshot(snapshots));
+                        ve.updateData(snapshots1);
+                    }
+                } else {
+                    try {
+                        throw new JSONException("recieved data is not in correct format");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        ve.throwError(e);
+                    }
+                }
             }
         };
 
@@ -72,28 +106,32 @@ public class Interpreter extends Thread {
 
     }
 
-    public Interpreter child(String path) {
-
-        StringBuilder sb = new StringBuilder(path);
+    void push(){
+        WSClient client = new WSClient(this.uri) {
+            @Override
+            public void onTextReceived(String message) {
+            }
+        };
+        client.connect();
+        JSONObject o = new JSONObject();
         try {
-            if (childrenChecker(path)) {
-                if (!path.startsWith("/")) {
-                    path = "/" + path;
-                    Log.d(TAG, "child: ! "+path);
-                    if (path.endsWith("/")) {
-                        path = sb.deleteCharAt(path.length() - 1).toString();
-                        children = children + path;
-                        Log.d(TAG, "child: end "+path);
-                    }else {
-                        children = children + path;
-                    }
-                } else {
-                    if (path.endsWith("/")) {
-                        Log.d(TAG, "child: end 2"+path);
-                        path = sb.deleteCharAt(path.length() - 1).toString();
-                        children = children + path;
-                    }
-                }
+            o.put("id","time");
+            o.put("message","time?");
+            client.send(o.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Interpreter child(String path) {
+        try {
+            if (path.contains("/")) {
+                String[] children = path.split("/");
+                children2.addAll(Arrays.asList(children));
+                Log.d(TAG, "child: " + Arrays.toString(children) + " " + children2);
+            } else {
+                children2.add(path);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,11 +151,22 @@ public class Interpreter extends Thread {
 
         JSONObject jsonObject = new JSONObject();
         try {
+            StringBuilder tm = new StringBuilder();
             jsonObject.put("id", "sv");
-            String x = children + "=" + value;
-            jsonObject.put("message", x);
-            wsClient.send("" + jsonObject);
-            Log.d(TAG, "setValue: " + children + jsonObject);
+            for (int i = 0; i < children2.size(); i++) {
+                if (i < (children2.size() - 1)) {
+                    tm.append(children2.get(i)).append("/");
+                } else {
+                    String x = tm + children2.get(i) + "=" + value;
+                    jsonObject.put("message", x);
+                    wsClient.send("" + jsonObject);
+                    Log.d(TAG, "setValue: " + jsonObject);
+                }
+            }
+//            String x = children + "=" + value;
+//            jsonObject.put("message", x);
+//            wsClient.send("" + jsonObject);
+//            Log.d(TAG, "setValue: " + children + jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -142,6 +191,28 @@ public class Interpreter extends Thread {
             } catch (IOException ignored) {
                 // ignore close exception
             }
+        }
+    }
+
+    public void addValueEventListener(ValueEventListener valueEventListener) {
+        this.ve = valueEventListener;
+        JSONObject object = new JSONObject();
+        try {
+            object.put("id","nsv");
+            StringBuilder tm = new StringBuilder();
+            for (int i = 0; i < children2.size(); i++) {
+                if (i < (children2.size() - 1)) {
+                    tm.append(children2.get(i)).append("/");
+                } else {
+                    String x = tm + children2.get(i);
+                    object.put("message", x);
+                    wsClient.send("" + object);
+                    Log.d(TAG, "aVEL: " + object);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "addValueEventListener: "+e);
         }
     }
 

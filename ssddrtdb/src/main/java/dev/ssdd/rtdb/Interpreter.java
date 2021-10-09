@@ -681,8 +681,6 @@ package dev.ssdd.rtdb;
 
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -698,6 +696,7 @@ import java.util.List;
 public class Interpreter extends Thread {
 
     private URI uri;
+    private int tmpint = 0;
     private final String TAG = "SSDDRTDB";
     private WSClient wsClient;
     public List<String> children2 = new ArrayList<>();
@@ -711,7 +710,7 @@ public class Interpreter extends Thread {
     public void run() {
         //TODO config this on publish
         try {
-            this.uri = new URI("ws://10.42.0.1:56118/");
+            this.uri = new URI("ws://10.42.0.1:56169/");
             // this.uri = new URI("wss://45.79.48.63/");
             gitConnection();
 
@@ -720,7 +719,6 @@ public class Interpreter extends Thread {
         }
 
         //TODO remove LAN ws client and get from the server on lib release.
-
 //        String urlx = "http://10.42.0.1:8000/ws.txt";
 //        URL url;
 //        try {
@@ -748,46 +746,50 @@ public class Interpreter extends Thread {
         //    onTxt(message);
         wsClient = new WSClient(this.uri) {
             @Override
-            public void onTextReceived(String message) {
-                Log.d(TAG, "onTextReceived: "+message);
-                if (message.startsWith("[") && message.contains(",")) {
-                    String[] snapshots = message.replace("[", "").replace("]", "").split(",");
+            public void onText(String message) {
+                Log.d(TAG, "onText: "+message);
+                Log.d(TAG, "onInt: " + tmpint);
+                new Thread(() -> {
+                    if (message.startsWith("[") && message.contains(",")) {
+                        String[] snapshots = message.replace("[", "").replace("]", "").split(",");
 
-                    List<DataSnapshot> snapshots1 = new ArrayList<>();
-                    for (String x : snapshots) {
-                        if(x.startsWith("{")) {
-                            snapshots1.add(new DataSnapshot(x));
+                        Log.d(TAG, "onTextReceived0: "+snapshots.length);
+
+                        List<DataSnapshot> snapshots1 = new ArrayList<>();
+                        for (String x : snapshots) {
+                            if (x.startsWith("{")) {
+                                Log.d(TAG, "onTextReceived1: "+x);
+                                snapshots1.add(new DataSnapshot(x));
+                            }
+                        }
+                        ve.updateData(snapshots1);
+                    } else if (message.startsWith("[")&&!(message.contains(","))) {
+                        String snapshots = message.replace("[", "").replace("]", "");
+                        List<DataSnapshot> snapshots1 = new ArrayList<>();
+                        if (snapshots.startsWith("{")) {
+                            snapshots1.add(new DataSnapshot(snapshots));
+                            ve.updateData(snapshots1);
+                        }
+                    } else {
+                        try {
+                            throw new JSONException("recieved data is not in correct format");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ve.throwError(e);
                         }
                     }
-                    ve.updateData(snapshots1);
-                } else if (message.startsWith("[")) {
-                    String snapshots = message.replace("[", "").replace("]", "");
-                    List<DataSnapshot> snapshots1 = new ArrayList<>();
-                    if(snapshots.startsWith("{")) {
-                        snapshots1.add(new DataSnapshot(snapshots));
-                        ve.updateData(snapshots1);
-                    }
-                } else {
-                    try {
-                        throw new JSONException("recieved data is not in correct format");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        ve.throwError(e);
-                    }
-                }
+                }).start();
             }
         };
-
         wsClient.setConnectTimeout(6000);
         wsClient.enableAutomaticReconnection(5000);
         wsClient.connect();
-
     }
 
     void push(){
         WSClient client = new WSClient(this.uri) {
             @Override
-            public void onTextReceived(String message) {
+            public void onText(String message) {
             }
         };
         client.connect();
@@ -824,7 +826,6 @@ public class Interpreter extends Thread {
             return true;
         }
     }
-
     public void setValue(String value) {
 
         JSONObject jsonObject = new JSONObject();
@@ -836,40 +837,21 @@ public class Interpreter extends Thread {
                     tm.append(children2.get(i)).append("/");
                 } else {
                     String x = tm + children2.get(i) + "=" + value;
-                    jsonObject.put("message", x);
-                    wsClient.send("" + jsonObject);
-                    Log.d(TAG, "setValue: " + jsonObject);
+                    if (childrenChecker(x)) {
+                        jsonObject.put("message", x);
+                        wsClient.send("" + jsonObject);
+                        Log.d(TAG, "setValue: " + jsonObject);
+                    }
                 }
             }
 //            String x = children + "=" + value;
 //            jsonObject.put("message", x);
 //            wsClient.send("" + jsonObject);
 //            Log.d(TAG, "setValue: " + children + jsonObject);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-    }
-
-    public void setValue(Object value) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream out;
-        try {
-            out = new ObjectOutputStream(bos);
-            out.writeObject(value);
-            out.flush();
-            byte[] bytes = bos.toByteArray();
-            wsClient.send(bytes);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                bos.close();
-            } catch (IOException ignored) {
-                // ignore close exception
-            }
-        }
     }
 
     public void addValueEventListener(ValueEventListener valueEventListener) {
@@ -885,7 +867,7 @@ public class Interpreter extends Thread {
                     String x = tm + children2.get(i);
                     object.put("message", x);
                     wsClient.send("" + object);
-                    Log.d(TAG, "aVEL: " + object);
+                    Log.d(TAG, "addValueEventListener: " + object);
                 }
             }
         } catch (JSONException e) {
@@ -893,8 +875,4 @@ public class Interpreter extends Thread {
             Log.d(TAG, "addValueEventListener: "+e);
         }
     }
-
-
-    //  public abstract void onTxt(String msg);
-
 }

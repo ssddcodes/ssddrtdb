@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -37,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         button3 = findViewById(R.id.btn3);
 
         editText.setText("abc/xyz");
+
+        interpreter = new Interpreter();
 
         List<Model> models = new ArrayList<>();
 
@@ -81,14 +81,9 @@ public class MainActivity extends AppCompatActivity {
 //            }
 
         });
-
-        button2.setOnClickListener(view ->
-
-        {
-            interpreter = new Interpreter();
-        });
-        button.setOnClickListener(view -> { interpreter.children2.clear();
-            if(editText.getText().toString().contains("=")) {
+        button.setOnClickListener(view -> {
+            interpreter.children2.clear();
+            if (editText.getText().toString().contains("=")) {
                 interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
             }
         });

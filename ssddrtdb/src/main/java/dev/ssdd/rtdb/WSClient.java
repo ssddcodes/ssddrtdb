@@ -721,6 +721,8 @@ abstract class WSClient {
 
     private static final int OPCODE_CONTINUATION = 0x0;
 
+    private String container = "";
+
     private static final int OPCODE_TEXT = 0x1;
 
     private static final int OPCODE_BINARY = 0x2;
@@ -777,7 +779,7 @@ abstract class WSClient {
         socketFactory = sslSocketFactory;
     }
 
-    public abstract void onTextReceived(String message);
+    public abstract void onText(String message);
 
     private void onBinaryReceived(byte[] data){
 
@@ -920,7 +922,7 @@ abstract class WSClient {
     private synchronized void notifyOnTextReceived(String message) {
         synchronized (globalLock) {
             if (isRunning) {
-                onTextReceived(message);
+                onText(message);
             }
         }
     }
@@ -1428,7 +1430,11 @@ abstract class WSClient {
                         // Should be implemented
                         break;
                     case OPCODE_TEXT:
-                        notifyOnTextReceived(new String(data, StandardCharsets.UTF_8));
+                        String tmp = new String(data, StandardCharsets.UTF_8);
+                        if(!(container.equals(tmp))) {
+                            notifyOnTextReceived(tmp);
+                            container = tmp;
+                        }
                         break;
                     case OPCODE_BINARY:
                         notifyOnBinaryReceived(data);

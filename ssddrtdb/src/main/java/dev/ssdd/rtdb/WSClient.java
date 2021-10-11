@@ -779,7 +779,7 @@ abstract class WSClient {
         socketFactory = sslSocketFactory;
     }
 
-    public abstract void onText(String message);
+    public abstract void onText(Object message);
 
     private void onBinaryReceived(byte[] data){
 
@@ -919,7 +919,7 @@ abstract class WSClient {
         }
     }
 
-    private synchronized void notifyOnTextReceived(String message) {
+    private synchronized void notifyOnTextReceived(Object message) {
         synchronized (globalLock) {
             if (isRunning) {
                 onText(message);
@@ -978,8 +978,9 @@ abstract class WSClient {
         }
     }
 
-    public void send(String message) {
+    public void send(Object msg) {
         Log.d(TAG, "send: sent!");
+        String message = msg.toString();
         byte[] data = message.getBytes(StandardCharsets.UTF_8);
         final Payload payload = new Payload(OPCODE_TEXT, data);
         synchronized (this) {

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         editText.setText("abc/xyz");
 
-        interpreter = new Interpreter();
+        button2.setOnClickListener(view -> {
+            interpreter = new Interpreter();
+        });
 
         List<Model> models = new ArrayList<>();
 
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot d : dataSnapshots) {
                             Model m = d.getValue(Model.class);
                             models.add(m);
+                            runOnUiThread(()->{
+                                Toast.makeText(MainActivity.this,m.getXyz(),Toast.LENGTH_SHORT).show();
+                            });
                             Log.d(TAG, "onDataChange: "+m.getXyz());
                         }
                     }
@@ -83,9 +89,10 @@ public class MainActivity extends AppCompatActivity {
         });
         button.setOnClickListener(view -> {
             interpreter.children2.clear();
-            if (editText.getText().toString().contains("=")) {
-                interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
-            }
+            interpreter.child("abc/xyz");
+            List<Integer> integers = new ArrayList<>();
+            integers.add(1);integers.add(2);integers.add(3);
+            interpreter.setValue(integers);//interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
         });
 
 

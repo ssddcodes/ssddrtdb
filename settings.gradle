@@ -9,4 +9,3 @@ dependencyResolutionManagement {
 rootProject.name = "SSDD RTDB"
 include ':app'
 include ':ssddrtdb'
-include ':benchmark'

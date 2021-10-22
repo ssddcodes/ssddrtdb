@@ -1,14 +1,14 @@
 package dev.ssdd.rtdb;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
@@ -16,56 +16,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    TextView textView;
     EditText editText;
-    Button button, button2, button3;
+    Button button;
+    RecyclerView recyclerView;
+    Adapter adapter;
 
     Interpreter interpreter;
 
     String TAG = "MainAc";
+    boolean ijCon = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.txt);
         editText = findViewById(R.id.et);
         button = findViewById(R.id.btn);
-        button2 = findViewById(R.id.btn2);
-        button3 = findViewById(R.id.btn3);
+        recyclerView = findViewById(R.id.recy);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
-        editText.setText("abc/xyz");
+        editText.setText("abc/xyz/xyz1");
 
-        button2.setOnClickListener(view -> {
-            interpreter = new Interpreter();
-        });
-
-        List<Model> models = new ArrayList<>();
-
-        button3.setOnClickListener(v -> {
-            interpreter.children2.clear();
-            interpreter.child(editText.getText().toString());
-            interpreter.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@Nullable List<DataSnapshot> dataSnapshots) {
-                    if (dataSnapshots != null) {
-                        for (DataSnapshot d : dataSnapshots) {
-                            Model m = d.getValue(Model.class);
-                            models.add(m);
-                            runOnUiThread(()->{
-                                Toast.makeText(MainActivity.this,m.getXyz(),Toast.LENGTH_SHORT).show();
-                            });
-                            Log.d(TAG, "onDataChange: "+m.getXyz());
-                        }
-                    }
-                }
-
-                @Override
-                public void onError(@Nullable JSONException e) {
-
-                }
-            });
+        interpreter = new Interpreter();
 
 //            JSONObject j = new JSONObject();
 //            String x = "{\"root\":{\"id\":\"id1\"},\"root1\":{\"id\":\"id2\"}}";
@@ -86,23 +59,47 @@ public class MainActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 
-        });
         button.setOnClickListener(view -> {
-            interpreter.children2.clear();
-            interpreter.child("abc/xyz");
-            List<Integer> integers = new ArrayList<>();
-            integers.add(1);integers.add(2);integers.add(3);
-            interpreter.setValue(integers);//interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
+
+            if(ijCon){
+                interpreter.children2.clear();
+                String[] x = editText.getText().toString().split("=");
+                interpreter.child(x[0]);
+                interpreter.setValue(x[1]);
+            }else {
+                if (!(interpreter.children2.size() < 1)){
+                    interpreter.children2.clear();
+                }
+                interpreter.child(editText.getText().toString());
+                interpreter.addSingleValueEventListener(new SingleValueEventListener() {
+                    @Override
+                    public void onDataChange(@Nullable Object o) {
+                        runOnUiThread(() -> {
+                            assert o != null;
+                            Toast.makeText(MainActivity.this, o.toString(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+
+                    @Override
+                    public void onError(@Nullable Exception e) {
+                    }
+                });
+                ijCon = true;
+            }
+
+/*
+            interpreter.child("msgs");
+            i++;
+            integers.add(i);
+            interpreter.setValue(integers);
+*/
+
+            //interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
         });
-
-
     }
 
 }
-
-
 /*
-
     public Interpreter child(String path){
         if(isRunun){
             StringBuilder sb = new StringBuilder(path);
@@ -169,5 +166,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
  */

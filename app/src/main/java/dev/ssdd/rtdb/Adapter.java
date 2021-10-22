@@ -674,259 +674,54 @@
  * Public License instead of this License.  But first, please read
  * <https://www.gnu.org/licenses/why-not-lgpl.html>.
  *
- * Created by SSDD on 09/10/21, 9:30 AM
+ * Created by SSDD on 11/10/21, 10:41 PM
  * Copyright (c) 2021. SSDD All Rights Reserved.
  */
+
 package dev.ssdd.rtdb;
 
-import android.os.Looper;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
-public class Interpreter extends Thread {
+public class Adapter extends RecyclerView.Adapter<Adapter.viewHolder> {
+    List<Model> models;
 
-    private static final int[] lastRandChars = new int[12];
-    private static final Random randGen = new Random();
+    public Adapter(List<Model> models) {
+        this.models = models;
+    }
 
-    private static long lastPushTime;
-    private static final String PUSH_CHARS = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
-
-    private URI uri;
-    private final String TAG = "SSDDRTDB";
-    private WSClient wsClient;
-    public List<String> children2 = new ArrayList<>();
-    private ValueEventListener ve;
-    private SingleValueEventListener sVEL;
-    private final Object lock;
-
-    public Interpreter() {
-        start();
-        this.lock = new Object();
+    @NonNull
+    @Override
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single,parent,false);
+        return new viewHolder(view);
     }
 
     @Override
-    public void run() {
-        //TODO config this on publish
-        try {
-            this.uri = new URI("wss://45.79.48.63/");
-            // this.uri = new URI("wss://45.79.48.63/");
-            gitConnection();
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        //TODO remove LAN ws client and get from the server on lib release.
-/*        String urlx = "http://10.42.0.1:8000/ws.txt";
-        URL url;
-        try {
-            url = new URL(urlx);
-            URLConnection urlConnection = url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            StringBuilder total = new StringBuilder();
-            for (String line; (line = r.readLine()) != null; ) {
-                this.uri = new URI(total.append(line).toString());
-            }
-
-            gitConnection();
-
-        } catch (IOException e) {
-            Log.e("SSDDRTDB", "An error occurred while fetching ws server details");
-            isRunun = false;
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            isRunun = false;
-        }*/
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        String x = models.get(position).getXyz1();
+        String y = models.get(position).getXyz2();
+        String z = x+"\n"+y;
+        holder.textView.setText(z);
     }
 
-    private synchronized void gitConnection() {
-            new Thread(()->{
-                synchronized (lock) {
-                    wsClient = new WSClient(this.uri) {
-                        @Override
-                        public void onText(Object msg) {
-                            Log.d(TAG, "onText: "+msg);
-                            try {
-                                JSONObject object = new JSONObject(msg.toString());
-
-                                if (object.get("id").equals("nsv")) {
-                                    String message = object.getString("message");
-                                    Log.d(TAG, "onText: " + message);
-                                    JSONArray array = new JSONArray(message);
-
-                                    List<DataSnapshot> snapshots1 = new ArrayList<>();
-
-                                    for (int i = 0; i < array.length(); i++) {
-                                        snapshots1.add(new DataSnapshot(array.get(i).toString()));
-                                    }
-                                    ve.updateData(snapshots1);
-                                } else if (object.get("id").equals("single")) {
-                                    sVEL.updateData(object.get("message"));
-                                }
-
-                            } catch (JSONException e) {
-                                ve.throwError(e);
-                                sVEL.throwError(e);
-                            }
-                        }
-                    };
-                    wsClient.setConnectTimeout(6000);
-                    wsClient.enableAutomaticReconnection(5000);
-                    wsClient.connect();
-                }
-            }).start();
+    @Override
+    public int getItemCount() {
+        return models.size();
     }
 
-    public Interpreter push() {
-        children2.add(generateUID(System.currentTimeMillis()));
-        return this;
-    }
-
-    public static synchronized String generateUID(long now) {
-        boolean duplicateTime = (now == lastPushTime);
-        lastPushTime = now;
-
-        char[] timeStampChars = new char[8];
-        StringBuilder result = new StringBuilder(20);
-        for (int i = 7; i >= 0; i--) {
-            timeStampChars[i] = PUSH_CHARS.charAt((int) (now % 64));
-            //  Log.d("MainAc", "generatePushChildName: "+ PUSH_CHARS.charAt((int) (now % 64)));
-            now = now / 64;
-        }
-        hardAssert(now == 0);
-
-        result.append(timeStampChars);
-
-        if (!duplicateTime) {
-            for (int i = 0; i < 12; i++) {
-                lastRandChars[i] = randGen.nextInt(64);
-            }
-        } else {
-            incrementArray();
-        }
-        for (int i = 0; i < 12; i++) {
-            result.append(PUSH_CHARS.charAt(lastRandChars[i]));
-        }
-        hardAssert(result.length() == 20);
-        return result.toString();
-    }
-
-    public static void hardAssert(boolean condition) {
-        hardAssert(condition, "");
-    }
-
-    private static void incrementArray() {
-        for (int i = 11; i >= 0; i--) {
-            if (lastRandChars[i] != 63) {
-                lastRandChars[i] = lastRandChars[i] + 1;
-                return;
-            }
-            lastRandChars[i] = 0;
-        }
-    }
-
-    public static void hardAssert(boolean condition, String message) {
-        if (!condition) {
-            System.out.println("Assertion failed " + message);
-        }
-    }
-    public Interpreter child(String path) {
-        try {
-            if (path.contains("/")) {
-                String[] children = path.split("/");
-                children2.addAll(Arrays.asList(children));
-                Log.d(TAG, "child: " + Arrays.toString(children) + " " + children2);
-            } else {
-                children2.add(path);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
-
-    public void setValue(Object value) {
-
-        Log.d(TAG, "setValue: "+value);
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            StringBuilder tm = new StringBuilder();
-            jsonObject.put("id", "sv");
-            for (int i = 0; i < children2.size(); i++) {
-                if (i < (children2.size() - 1)) {
-                    tm.append(children2.get(i)).append("/");
-                } else {
-                    String x = tm + children2.get(i);
-                        jsonObject.put("path", x);
-                        jsonObject.put("message", value);
-
-                }
-            }
-            wsClient.send(jsonObject);
-            Log.d(TAG, "setValue: " + jsonObject+" "+ children2.size());
-//            String x = children + "=" + value;
-//            jsonObject.put("message", x);
-//            wsClient.send("" + jsonObject);
-//            Log.d(TAG, "setValue: " + children + jsonObject);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void addSingleValueEventListener(SingleValueEventListener singleValueEventListener){
-        this.sVEL = singleValueEventListener;
-        JSONObject object = new JSONObject();
-        try {
-            object.put("id","single");
-            StringBuilder tm = new StringBuilder();
-            for (int i = 0; i < children2.size(); i++) {
-                if (i < (children2.size() - 1)) {
-                    tm.append(children2.get(i)).append("/");
-                } else {
-                    String x = tm + children2.get(i);
-                    object.put("message", x);
-                    wsClient.send(object);
-                }
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void addValueEventListener(ValueEventListener valueEventListener) {
-        this.ve = valueEventListener;
-        JSONObject object = new JSONObject();
-        try {
-            object.put("id", "nsv");
-            StringBuilder tm = new StringBuilder();
-            for (int i = 0; i < children2.size(); i++) {
-                if (i < (children2.size() - 1)) {
-                    tm.append(children2.get(i)).append("/");
-                } else {
-                    String x = tm + children2.get(i);
-                    object.put("message", x);
-                    wsClient.send(object);
-                    Log.d(TAG, "addValueEventListener: " + object);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.d(TAG, "addValueEventListener: " + e);
+    public static class viewHolder extends RecyclerView.ViewHolder{
+        TextView textView;
+        public viewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.tv);
         }
     }
 }

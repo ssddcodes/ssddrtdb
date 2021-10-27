@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
 
             if(ijCon){
+
                 interpreter.children2.clear();
                 String[] x = editText.getText().toString().split("=");
-                interpreter.child(x[0]);
-                interpreter.setValue(x[1]);
+                interpreter.child(x[0]).setValue(x[1]);
             }else {
                 if (!(interpreter.children2.size() < 1)){
                     interpreter.children2.clear();
                 }
                 interpreter.child(editText.getText().toString());
-                interpreter.addSingleValueEventListener(new SingleValueEventListener() {
+               /* interpreter.addSingleValueEventListener(new SingleValueEventListener() {
                     @Override
                     public void onDataChange(@Nullable Object o) {
                         runOnUiThread(() -> {
@@ -83,7 +83,31 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(@Nullable Exception e) {
                     }
+                });*/
+
+                List<Model> models = new ArrayList<>();
+
+                interpreter.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@Nullable List<DataSnapshot> list) {
+                        assert list != null;
+                        if (models.size() != 0) {
+                            models.clear();
+                        }
+                        for (DataSnapshot d : list) {
+                            models.add(d.getValue(Model.class));
+                        }
+                        for (Model m: models) {
+                            runOnUiThread(()-> Toast.makeText(MainActivity.this, m.getXyz1()+ " "+ m.getXyz2() , Toast.LENGTH_SHORT).show());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@Nullable JSONException e) {
+
+                    }
                 });
+
                 ijCon = true;
             }
 

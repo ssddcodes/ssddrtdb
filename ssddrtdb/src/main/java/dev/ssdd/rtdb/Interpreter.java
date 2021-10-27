@@ -679,7 +679,6 @@
  */
 package dev.ssdd.rtdb;
 
-import android.os.Looper;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -692,8 +691,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Interpreter extends Thread {
 
@@ -710,6 +709,7 @@ public class Interpreter extends Thread {
     private ValueEventListener ve;
     private SingleValueEventListener sVEL;
     private final Object lock;
+    private final String ssddKeepAlive = "ssdd-keep-alive";
 
     public Interpreter() {
         start();
@@ -720,7 +720,8 @@ public class Interpreter extends Thread {
     public void run() {
         //TODO config this on publish
         try {
-            this.uri = new URI("wss://45.79.48.63/");
+            this.uri = new URI("ws://192.168.0.105:19194/");
+                            //wss://45.79.48.63/ , ws://192.168.0.105:19194/
             // this.uri = new URI("wss://45.79.48.63/");
             gitConnection();
 
@@ -758,36 +759,51 @@ public class Interpreter extends Thread {
                     wsClient = new WSClient(this.uri) {
                         @Override
                         public void onText(Object msg) {
-                            Log.d(TAG, "onText: "+msg);
-                            try {
-                                JSONObject object = new JSONObject(msg.toString());
+                            if (!(msg.toString().equals(ssddKeepAlive))) {
+                                Log.d(TAG, "onText: 1= "+msg);
+                                try {
+                                    JSONObject object = new JSONObject(msg.toString());
 
-                                if (object.get("id").equals("nsv")) {
-                                    String message = object.getString("message");
-                                    Log.d(TAG, "onText: " + message);
-                                    JSONArray array = new JSONArray(message);
+                                    if (object.getString("id").equals("nsv")) {
+                                        String message = object.getString("message");
+                                        Log.d(TAG, "onText: msg= " + message);
+                                        JSONArray array = new JSONArray(message);
 
-                                    List<DataSnapshot> snapshots1 = new ArrayList<>();
+                                        List<DataSnapshot> snapshots1 = new ArrayList<>();
 
-                                    for (int i = 0; i < array.length(); i++) {
-                                        snapshots1.add(new DataSnapshot(array.get(i).toString()));
+                                        for (int i = 0; i < array.length(); i++) {
+                                            Log.d(TAG, "onText: i= "+ array.get(i));
+                                            snapshots1.add(new DataSnapshot(array.get(i).toString()));
+                                        }
+                                        ve.updateData(snapshots1);
+                                    } else if (object.getString("id").equals("single")) {
+                                        sVEL.updateData(object.get("message"));
                                     }
-                                    ve.updateData(snapshots1);
-                                } else if (object.get("id").equals("single")) {
-                                    sVEL.updateData(object.get("message"));
-                                }
 
-                            } catch (JSONException e) {
-                                ve.throwError(e);
-                                sVEL.throwError(e);
+                                } catch (JSONException e) {
+                                    ve.throwError(e);
+                                    sVEL.throwError(e);
+                                }
                             }
                         }
                     };
-                    wsClient.setConnectTimeout(6000);
+
+                    Timer timer = new Timer();
+                    timer.scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            semd(wsClient);
+                        }
+                    },82800000,82800000);
+                    //wsClient.setConnectTimeout(6000);
                     wsClient.enableAutomaticReconnection(5000);
                     wsClient.connect();
                 }
             }).start();
+    }
+
+    private void semd(WSClient wsClient){
+        wsClient.send("ssdd");
     }
 
     public Interpreter push() {
@@ -848,7 +864,6 @@ public class Interpreter extends Thread {
             if (path.contains("/")) {
                 String[] children = path.split("/");
                 children2.addAll(Arrays.asList(children));
-                Log.d(TAG, "child: " + Arrays.toString(children) + " " + children2);
             } else {
                 children2.add(path);
             }
@@ -871,6 +886,7 @@ public class Interpreter extends Thread {
                     tm.append(children2.get(i)).append("/");
                 } else {
                     String x = tm + children2.get(i);
+                    Log.d(TAG, "setValue: "+x+" "+children2);
                         jsonObject.put("path", x);
                         jsonObject.put("message", value);
 

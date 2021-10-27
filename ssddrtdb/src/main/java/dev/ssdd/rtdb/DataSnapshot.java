@@ -680,15 +680,23 @@
 
 package dev.ssdd.rtdb;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 public class DataSnapshot {
-
     private final String json;
+
     public DataSnapshot(String json) {
         this.json = json;
     }
     public <T> T getValue(Class<T> valueType){
-        return new Gson().fromJson(json,valueType);
+        try {
+            return new Gson().fromJson(json,valueType);
+        }catch (Exception e){
+            String TAG = "SSDDRTDB";
+            Log.e(TAG, "getValue: something went wrong (maybe the json format is incorrect) file received: "+ json);
+            return new Gson().fromJson(new Gson().toJson(valueType),valueType);
+        }
     }
 }

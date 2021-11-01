@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import dev.ssddRtdbClient.rtdb.R;
-
 public class MainActivity extends AppCompatActivity {
     EditText editText;
     Button button;
@@ -40,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("abc/xyz/xyz1");
 
         try {
-            SSDD ssdd = new SSDD(new URI("ws://192.168.0.105:19194/"));
-            ssdd.child(editText.getText().toString());
+            SSDD SSDD = new SSDD(new URI("ws://192.168.0.105:19194/"));
+            SSDD.child(editText.getText().toString());
 
             for (int i = 0; i < 100; i++) {
-                ssdd.children.clear();
-                ssdd.child(editText.getText().toString()).push().setValue(i);
+                SSDD.children.clear();
+                SSDD.child(editText.getText().toString()).push().setValue(i);
                 Log.d(TAG, "onCreate: "+i);
             }
 
-            ssdd.addSingleValueEventListener(new SingleValueEventListener() {
+            SSDD.addSingleValueEventListener(new SingleValueEventListener() {
                 @Override
                 public void onDataChange(@Nullable Object o) {
                     runOnUiThread(()->{

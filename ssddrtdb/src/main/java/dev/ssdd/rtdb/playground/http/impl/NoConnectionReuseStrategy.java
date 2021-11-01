@@ -29,8 +29,8 @@ package dev.ssdd.rtdb.playground.http.impl;
 
 import dev.ssdd.rtdb.playground.http.ConnectionReuseStrategy;
 import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.protocol.HttpContext;
 
 /**

@@ -27,10 +27,10 @@
 
 package dev.ssdd.rtdb.playground.http.io;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.HttpException;
 import dev.ssdd.rtdb.playground.http.HttpMessage;
+
+import java.io.IOException;
 
 /**
  * Abstract message writer intended to serialize HTTP messages to an arbitrary

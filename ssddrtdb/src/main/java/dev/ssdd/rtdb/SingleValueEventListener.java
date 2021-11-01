@@ -680,16 +680,13 @@
 
 package dev.ssdd.rtdb;
 
-import androidx.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * @author Sandipsinh Rathod - SSDD
+ */
 
 public abstract class SingleValueEventListener {
     public abstract void onDataChange(@Nullable Object data);
     public abstract void onError(@Nullable Exception e);
-
-    public void updateData(Object data){
-        onDataChange(data);
-    }
-    public void throwError(Exception e){
-        onError(e);
-    }
 }

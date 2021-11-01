@@ -26,14 +26,14 @@
  */
 package dev.ssdd.rtdb.playground.http.pool;
 
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.concurrent.FutureCallback;
+import dev.ssdd.rtdb.playground.http.util.Args;
+import dev.ssdd.rtdb.playground.http.util.Asserts;
+
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -41,12 +41,6 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.concurrent.FutureCallback;
-import dev.ssdd.rtdb.playground.http.util.Args;
-import dev.ssdd.rtdb.playground.http.util.Asserts;
 
 /**
  * Abstract synchronous (blocking) pool of connections.

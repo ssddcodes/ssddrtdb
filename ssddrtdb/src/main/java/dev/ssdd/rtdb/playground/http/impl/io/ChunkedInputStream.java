@@ -27,19 +27,15 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import dev.ssdd.rtdb.playground.http.ConnectionClosedException;
-import dev.ssdd.rtdb.playground.http.Header;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.MalformedChunkCodingException;
-import dev.ssdd.rtdb.playground.http.TruncatedChunkException;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.config.MessageConstraints;
 import dev.ssdd.rtdb.playground.http.io.BufferInfo;
 import dev.ssdd.rtdb.playground.http.io.SessionInputBuffer;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Implements chunked transfer coding. The content is received in small chunks.
@@ -311,7 +307,7 @@ public class ChunkedInputStream extends InputStream {
             try {
                 if (!eof && state != CHUNK_INVALID) {
                     // read and discard the remainder of the message
-                    final byte[] buff = new byte[BUFFER_SIZE];
+                    final byte buff[] = new byte[BUFFER_SIZE];
                     while (read(buff) >= 0) {
                     }
                 }

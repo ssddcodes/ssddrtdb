@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import dev.ssdd.rtdb.playground.http.Header;
 import dev.ssdd.rtdb.playground.http.HttpEntity;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Base class for wrapping entities.

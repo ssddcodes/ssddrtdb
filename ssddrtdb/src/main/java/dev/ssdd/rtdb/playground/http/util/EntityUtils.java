@@ -27,21 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
-
-import dev.ssdd.rtdb.playground.http.HeaderElement;
-import dev.ssdd.rtdb.playground.http.HttpEntity;
-import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.NameValuePair;
-import dev.ssdd.rtdb.playground.http.ParseException;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.entity.ContentType;
 import dev.ssdd.rtdb.playground.http.protocol.HTTP;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 /**
  * Static helpers for dealing with {@link HttpEntity}s.
@@ -157,7 +149,7 @@ public final class EntityUtils {
         Args.notNull(entity, "Entity");
         String charset = null;
         if (entity.getContentType() != null) {
-            final HeaderElement[] values = entity.getContentType().getElements();
+            final HeaderElement values[] = entity.getContentType().getElements();
             if (values.length > 0) {
                 final NameValuePair param = values[0].getParameterByName("charset");
                 if (param != null) {
@@ -185,7 +177,7 @@ public final class EntityUtils {
         Args.notNull(entity, "Entity");
         String mimeType = null;
         if (entity.getContentType() != null) {
-            final HeaderElement[] values = entity.getContentType().getElements();
+            final HeaderElement values[] = entity.getContentType().getElements();
             if (values.length > 0) {
                 mimeType = values[0].getName();
             }

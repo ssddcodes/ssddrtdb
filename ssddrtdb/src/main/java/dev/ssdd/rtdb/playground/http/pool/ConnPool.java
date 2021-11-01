@@ -26,9 +26,9 @@
  */
 package dev.ssdd.rtdb.playground.http.pool;
 
-import java.util.concurrent.Future;
-
 import dev.ssdd.rtdb.playground.http.concurrent.FutureCallback;
+
+import java.util.concurrent.Future;
 
 /**
  * {@code ConnPool} represents a shared pool connections can be leased from

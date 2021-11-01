@@ -26,17 +26,17 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.pool;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import dev.ssdd.rtdb.playground.http.HttpClientConnection;
 import dev.ssdd.rtdb.playground.http.HttpHost;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.config.ConnectionConfig;
 import dev.ssdd.rtdb.playground.http.config.SocketConfig;
 import dev.ssdd.rtdb.playground.http.params.HttpParams;
 import dev.ssdd.rtdb.playground.http.pool.AbstractConnPool;
 import dev.ssdd.rtdb.playground.http.pool.ConnFactory;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * A very basic {@link dev.ssdd.rtdb.playground.http.pool.ConnPool} implementation that

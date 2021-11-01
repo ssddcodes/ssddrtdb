@@ -27,8 +27,8 @@
 
 package dev.ssdd.rtdb.playground.http.config;
 
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 
 import java.util.Locale;
 import java.util.Map;

@@ -27,9 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.io;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.io.IOException;
 
 /**
  * Session input buffer for blocking connections. This interface is similar to

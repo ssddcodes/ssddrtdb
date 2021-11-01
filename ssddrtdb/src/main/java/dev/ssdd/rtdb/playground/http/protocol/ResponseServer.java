@@ -27,14 +27,14 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.HttpException;
 import dev.ssdd.rtdb.playground.http.HttpResponse;
 import dev.ssdd.rtdb.playground.http.HttpResponseInterceptor;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
 
 /**
  * ResponseServer is responsible for adding {@code Server} header. This

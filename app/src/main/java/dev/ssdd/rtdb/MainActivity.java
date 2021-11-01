@@ -1,27 +1,26 @@
 package dev.ssdd.rtdb;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import java.util.ArrayList;
-import java.util.List;
+import dev.ssddRtdbClient.rtdb.R;
 
 public class MainActivity extends AppCompatActivity {
     EditText editText;
     Button button;
     RecyclerView recyclerView;
     Adapter adapter;
-
-    Interpreter interpreter;
 
     String TAG = "MainAc";
     boolean ijCon = false;
@@ -36,92 +35,41 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
+        TextView textView = findViewById(R.id.tmx);
+
         editText.setText("abc/xyz/xyz1");
 
-        interpreter = new Interpreter();
+        try {
+            SSDD ssdd = new SSDD(new URI("ws://192.168.0.105:19194/"));
+            ssdd.child(editText.getText().toString());
 
-//            JSONObject j = new JSONObject();
-//            String x = "{\"root\":{\"id\":\"id1\"},\"root1\":{\"id\":\"id2\"}}";
-//
-//            List<Model> models = new ArrayList<>();
-//            DocumentContext context = JsonPath.parse(x);
-//            List<String> xs = context.read("$.*");
-//
-//            String[] xx = context.read("$.*").toString().replace("[", "").replace("]", "").split(",");
-//
-//            try {
-//                for (String xsa : xx) {
-//                    JSONObject object = new JSONObject(xsa);
-//                    Model m = get(xsa, Model.class);
-//                    Log.d(TAG, "onCreate: " + m.getId());
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-
-        button.setOnClickListener(view -> {
-
-            if(ijCon){
-
-                interpreter.children2.clear();
-                String[] x = editText.getText().toString().split("=");
-                interpreter.child(x[0]).setValue(x[1]);
-            }else {
-                if (!(interpreter.children2.size() < 1)){
-                    interpreter.children2.clear();
-                }
-                interpreter.child(editText.getText().toString());
-               /* interpreter.addSingleValueEventListener(new SingleValueEventListener() {
-                    @Override
-                    public void onDataChange(@Nullable Object o) {
-                        runOnUiThread(() -> {
-                            assert o != null;
-                            Toast.makeText(MainActivity.this, o.toString(), Toast.LENGTH_SHORT).show();
-                        });
-                    }
-
-                    @Override
-                    public void onError(@Nullable Exception e) {
-                    }
-                });*/
-
-                List<Model> models = new ArrayList<>();
-
-                interpreter.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@Nullable List<DataSnapshot> list) {
-                        assert list != null;
-                        if (models.size() != 0) {
-                            models.clear();
-                        }
-                        for (DataSnapshot d : list) {
-                            models.add(d.getValue(Model.class));
-                        }
-                        for (Model m: models) {
-                            runOnUiThread(()-> Toast.makeText(MainActivity.this, m.getXyz1()+ " "+ m.getXyz2() , Toast.LENGTH_SHORT).show());
-                        }
-                    }
-
-                    @Override
-                    public void onError(@Nullable JSONException e) {
-
-                    }
-                });
-
-                ijCon = true;
+            for (int i = 0; i < 100; i++) {
+                ssdd.children.clear();
+                ssdd.child(editText.getText().toString()).push().setValue(i);
+                Log.d(TAG, "onCreate: "+i);
             }
 
-/*
-            interpreter.child("msgs");
-            i++;
-            integers.add(i);
-            interpreter.setValue(integers);
-*/
+            ssdd.addSingleValueEventListener(new SingleValueEventListener() {
+                @Override
+                public void onDataChange(@Nullable Object o) {
+                    runOnUiThread(()->{
+                        assert o != null;
+                        runOnUiThread(()->{
+                            textView.setText(o.toString());
+                        });
+                    });
+                }
 
-            //interpreter.child(editText.getText().toString().split("=")[0]).setValue(editText.getText().toString().split("=")[1]);
-        });
+                @Override
+                public void onError(@Nullable Exception e) {
+
+                }
+            });
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
     }
-
 }
 /*
     public Interpreter child(String path){

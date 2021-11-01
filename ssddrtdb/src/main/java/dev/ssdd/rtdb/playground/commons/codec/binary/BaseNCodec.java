@@ -17,12 +17,12 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.binary;
 
-import java.util.Arrays;
-
 import dev.ssdd.rtdb.playground.commons.codec.BinaryDecoder;
 import dev.ssdd.rtdb.playground.commons.codec.BinaryEncoder;
 import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
 import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
+
+import java.util.Arrays;
 
 /**
  * Abstract superclass for Base-N encoders and decoders.

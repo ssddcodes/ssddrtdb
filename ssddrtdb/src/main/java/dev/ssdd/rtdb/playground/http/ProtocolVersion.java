@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http;
 
-import java.io.Serializable;
-
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.Serializable;
 
 /**
  * Represents a protocol version. The "major.minor" numbering
@@ -252,9 +252,9 @@ public class ProtocolVersion implements Serializable, Cloneable {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.protocol);
         buffer.append('/');
-        buffer.append(this.major);
+        buffer.append(Integer.toString(this.major));
         buffer.append('.');
-        buffer.append(this.minor);
+        buffer.append(Integer.toString(this.minor));
         return buffer.toString();
     }
 

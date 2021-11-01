@@ -27,12 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * Default implementation of {@link HttpContext}.

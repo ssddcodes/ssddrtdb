@@ -17,21 +17,15 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.net;
 
+import dev.ssdd.rtdb.playground.commons.codec.*;
+import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.BitSet;
-
-import dev.ssdd.rtdb.playground.commons.codec.BinaryDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.BinaryEncoder;
-import dev.ssdd.rtdb.playground.commons.codec.Charsets;
-import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
-import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
-import dev.ssdd.rtdb.playground.commons.codec.StringDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
-import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
 
 /**
  * Codec for the Quoted-Printable section of <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a>.

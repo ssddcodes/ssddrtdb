@@ -27,23 +27,7 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import dev.ssdd.rtdb.playground.http.Consts;
-import dev.ssdd.rtdb.playground.http.Header;
-import dev.ssdd.rtdb.playground.http.HeaderElement;
-import dev.ssdd.rtdb.playground.http.HttpEntity;
-import dev.ssdd.rtdb.playground.http.NameValuePair;
-import dev.ssdd.rtdb.playground.http.ParseException;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
 import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.message.BasicHeaderValueFormatter;
@@ -53,6 +37,11 @@ import dev.ssdd.rtdb.playground.http.message.ParserCursor;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
 import dev.ssdd.rtdb.playground.http.util.TextUtils;
+
+import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
+import java.util.*;
 
 /**
  * Content type information consisting of a MIME type and an optional charset.

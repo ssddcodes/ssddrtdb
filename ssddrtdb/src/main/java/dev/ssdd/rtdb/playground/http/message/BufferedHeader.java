@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.io.Serializable;
-
 import dev.ssdd.rtdb.playground.http.FormattedHeader;
 import dev.ssdd.rtdb.playground.http.HeaderElement;
 import dev.ssdd.rtdb.playground.http.ParseException;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.io.Serializable;
 
 /**
  * This class represents a raw HTTP header whose content is parsed 'on demand'

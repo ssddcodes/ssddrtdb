@@ -27,19 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
-import dev.ssdd.rtdb.playground.http.HttpEntity;
-import dev.ssdd.rtdb.playground.http.HttpEntityEnclosingRequest;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpVersion;
-import dev.ssdd.rtdb.playground.http.ProtocolVersion;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.params.CoreProtocolPNames;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
 
 /**
  * RequestExpectContinue is responsible for enabling the 'expect-continue'
@@ -55,7 +49,7 @@ public class RequestExpectContinue implements HttpRequestInterceptor {
     private final boolean activeByDefault;
 
     /**
-     * @deprecated (4.3) use {@link dev.ssdd.rtdb.playground.http.protocol.RequestExpectContinue#RequestExpectContinue(boolean)}
+     * @deprecated (4.3) use {@link RequestExpectContinue#RequestExpectContinue(boolean)}
      */
     @Deprecated
     public RequestExpectContinue() {

@@ -27,14 +27,14 @@
 
 package dev.ssdd.rtdb.playground.http;
 
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.util.Args;
+import dev.ssdd.rtdb.playground.http.util.LangUtils;
+
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Locale;
-
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.util.Args;
-import dev.ssdd.rtdb.playground.http.util.LangUtils;
 
 /**
  * Holds all of the variables needed to describe an HTTP connection to a host.
@@ -269,7 +269,7 @@ public final class HttpHost implements Cloneable, Serializable {
         buffer.append(this.hostname);
         if (this.port != -1) {
             buffer.append(':');
-            buffer.append(this.port);
+            buffer.append(Integer.toString(this.port));
         }
         return buffer.toString();
     }
@@ -286,7 +286,7 @@ public final class HttpHost implements Cloneable, Serializable {
             final StringBuilder buffer = new StringBuilder(this.hostname.length() + 6);
             buffer.append(this.hostname);
             buffer.append(":");
-            buffer.append(this.port);
+            buffer.append(Integer.toString(this.port));
             return buffer.toString();
         } else {
             return this.hostname;

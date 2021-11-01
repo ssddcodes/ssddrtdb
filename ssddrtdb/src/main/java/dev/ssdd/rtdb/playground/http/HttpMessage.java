@@ -191,8 +191,8 @@ public interface HttpMessage {
      * Returns the parameters effective for this message as set by
      * {@link #setParams(HttpParams)}.
      *
-     * @deprecated (4.3) use configuration classes provided 'dev.ssdd.rtdb.apache.http.config'
-     *  and 'dev.ssdd.rtdb.apache.http.client.config'
+     * @deprecated (4.3) use configuration classes provided 'dev.ssdd.dev.ssdd.rtdb.playground.http.config'
+     *  and 'dev.ssdd.dev.ssdd.rtdb.playground.http.client.config'
      */
     @Deprecated
     HttpParams getParams();
@@ -201,8 +201,8 @@ public interface HttpMessage {
      * Provides parameters to be used for the processing of this message.
      * @param params the parameters
      *
-     * @deprecated (4.3) use configuration classes provided 'dev.ssdd.rtdb.apache.http.config'
-     *  and 'dev.ssdd.rtdb.apache.http.client.config'
+     * @deprecated (4.3) use configuration classes provided 'dev.ssdd.dev.ssdd.rtdb.playground.http.config'
+     *  and 'dev.ssdd.dev.ssdd.rtdb.playground.http.client.config'
      */
     @Deprecated
     void setParams(HttpParams params);

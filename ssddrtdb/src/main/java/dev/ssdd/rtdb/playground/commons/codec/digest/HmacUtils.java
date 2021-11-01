@@ -17,17 +17,16 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.digest;
 
+import dev.ssdd.rtdb.playground.commons.codec.binary.Hex;
+import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import dev.ssdd.rtdb.playground.commons.codec.binary.Hex;
-import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
 
 /**
  * Simplifies common {@link Mac} tasks. This class is immutable and thread-safe.

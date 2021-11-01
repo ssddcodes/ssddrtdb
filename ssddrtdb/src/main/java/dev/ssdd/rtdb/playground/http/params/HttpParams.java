@@ -44,8 +44,8 @@ package dev.ssdd.rtdb.playground.http.params;
  *
  * @since 4.0
  *
- * @deprecated (4.3) use configuration classes provided 'dev.ssdd.rtdb.apache.http.config'
- *  and 'dev.ssdd.rtdb.apache.http.client.config'
+ * @deprecated (4.3) use configuration classes provided 'dev.ssdd.dev.ssdd.rtdb.playground.http.config'
+ *  and 'dev.ssdd.dev.ssdd.rtdb.playground.http.client.config'
  */
 @Deprecated
 public interface HttpParams {

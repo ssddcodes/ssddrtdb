@@ -226,8 +226,12 @@ public class Metaphone implements StringEncoder {
                           regionMatch(local, n, "GNED") ) ) {
                         break; // silent G
                     }
-                    // NOTE: Given that duplicated chars are removed, I don't see how this can ever be true
-                    hard = isPreviousChar(local, n, 'G');
+                    if (isPreviousChar(local, n, 'G')) {
+                        // NOTE: Given that duplicated chars are removed, I don't see how this can ever be true
+                        hard = true;
+                    } else {
+                        hard = false;
+                    }
                     if (!isLastChar(wdsz, n) &&
                         FRONTV.indexOf(local.charAt(n + 1)) >= 0 &&
                         !hard) {

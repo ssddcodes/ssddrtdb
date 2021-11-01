@@ -29,8 +29,8 @@ package dev.ssdd.rtdb.playground.http.message;
 
 import dev.ssdd.rtdb.playground.http.HeaderElement;
 import dev.ssdd.rtdb.playground.http.NameValuePair;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
 

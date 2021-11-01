@@ -26,13 +26,13 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.pool;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.HttpClientConnection;
 import dev.ssdd.rtdb.playground.http.HttpHost;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.pool.PoolEntry;
+
+import java.io.IOException;
 
 /**
  * A very basic {@link PoolEntry} implementation that represents an entry

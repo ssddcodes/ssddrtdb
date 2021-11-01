@@ -17,11 +17,11 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.binary;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-
 import dev.ssdd.rtdb.playground.commons.codec.CharEncoding;
 import dev.ssdd.rtdb.playground.commons.codec.Charsets;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 /**
  * Converts String to and from bytes using the encodings required by the Java specification. These encodings are

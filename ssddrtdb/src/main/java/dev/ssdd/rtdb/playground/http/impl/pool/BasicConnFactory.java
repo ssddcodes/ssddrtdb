@@ -26,18 +26,11 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.pool;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
-
 import dev.ssdd.rtdb.playground.http.HttpClientConnection;
 import dev.ssdd.rtdb.playground.http.HttpConnectionFactory;
 import dev.ssdd.rtdb.playground.http.HttpHost;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.config.ConnectionConfig;
 import dev.ssdd.rtdb.playground.http.config.SocketConfig;
 import dev.ssdd.rtdb.playground.http.impl.DefaultBHttpClientConnection;
@@ -47,6 +40,12 @@ import dev.ssdd.rtdb.playground.http.params.HttpParamConfig;
 import dev.ssdd.rtdb.playground.http.params.HttpParams;
 import dev.ssdd.rtdb.playground.http.pool.ConnFactory;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 /**
  * A very basic {@link ConnFactory} implementation that creates

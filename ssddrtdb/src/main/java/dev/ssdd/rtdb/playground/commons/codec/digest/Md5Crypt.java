@@ -16,12 +16,12 @@
  */
 package dev.ssdd.rtdb.playground.commons.codec.digest;
 
+import dev.ssdd.rtdb.playground.commons.codec.Charsets;
+
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import dev.ssdd.rtdb.playground.commons.codec.Charsets;
 
 /**
  * The libc crypt() "$1$" and Apache "$apr1$" MD5-based hash algorithm.

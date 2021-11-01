@@ -29,8 +29,8 @@ package dev.ssdd.rtdb.playground.http.impl.io;
 
 import dev.ssdd.rtdb.playground.http.HttpRequest;
 import dev.ssdd.rtdb.playground.http.HttpRequestFactory;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.config.MessageConstraints;
 import dev.ssdd.rtdb.playground.http.impl.DefaultHttpRequestFactory;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageParser;

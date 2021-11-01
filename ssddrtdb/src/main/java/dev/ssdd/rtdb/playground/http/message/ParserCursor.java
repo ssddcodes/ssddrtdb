@@ -85,11 +85,11 @@ public class ParserCursor {
     public String toString() {
         final StringBuilder buffer = new StringBuilder();
         buffer.append('[');
-        buffer.append(this.lowerBound);
+        buffer.append(Integer.toString(this.lowerBound));
         buffer.append('>');
-        buffer.append(this.pos);
+        buffer.append(Integer.toString(this.pos));
         buffer.append('>');
-        buffer.append(this.upperBound);
+        buffer.append(Integer.toString(this.upperBound));
         buffer.append(']');
         return buffer.toString();
     }

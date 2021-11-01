@@ -26,37 +26,21 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.bootstrap;
 
-import java.net.InetAddress;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
-import javax.net.ServerSocketFactory;
-import javax.net.ssl.SSLContext;
-
-import dev.ssdd.rtdb.playground.http.ConnectionReuseStrategy;
-import dev.ssdd.rtdb.playground.http.ExceptionLogger;
-import dev.ssdd.rtdb.playground.http.HttpConnectionFactory;
-import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpResponseFactory;
-import dev.ssdd.rtdb.playground.http.HttpResponseInterceptor;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.config.ConnectionConfig;
 import dev.ssdd.rtdb.playground.http.config.SocketConfig;
 import dev.ssdd.rtdb.playground.http.impl.DefaultBHttpServerConnection;
 import dev.ssdd.rtdb.playground.http.impl.DefaultBHttpServerConnectionFactory;
 import dev.ssdd.rtdb.playground.http.impl.DefaultConnectionReuseStrategy;
 import dev.ssdd.rtdb.playground.http.impl.DefaultHttpResponseFactory;
-import dev.ssdd.rtdb.playground.http.protocol.HttpExpectationVerifier;
-import dev.ssdd.rtdb.playground.http.protocol.HttpProcessor;
-import dev.ssdd.rtdb.playground.http.protocol.HttpProcessorBuilder;
-import dev.ssdd.rtdb.playground.http.protocol.HttpRequestHandler;
-import dev.ssdd.rtdb.playground.http.protocol.HttpRequestHandlerMapper;
-import dev.ssdd.rtdb.playground.http.protocol.HttpService;
-import dev.ssdd.rtdb.playground.http.protocol.ResponseConnControl;
-import dev.ssdd.rtdb.playground.http.protocol.ResponseContent;
-import dev.ssdd.rtdb.playground.http.protocol.ResponseDate;
-import dev.ssdd.rtdb.playground.http.protocol.ResponseServer;
-import dev.ssdd.rtdb.playground.http.protocol.UriHttpRequestHandlerMapper;
+import dev.ssdd.rtdb.playground.http.protocol.*;
+
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLContext;
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * @since 4.4
@@ -276,7 +260,7 @@ public class ServerBootstrap {
     }
 
     /**
-     * Assigns {@link dev.ssdd.rtdb.playground.http.impl.bootstrap.SSLServerSetupHandler} instance.
+     * Assigns {@link SSLServerSetupHandler} instance.
      */
     public final ServerBootstrap setSslSetupHandler(final SSLServerSetupHandler sslSetupHandler) {
         this.sslSetupHandler = sslSetupHandler;

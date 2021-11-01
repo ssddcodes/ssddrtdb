@@ -27,19 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
-import dev.ssdd.rtdb.playground.http.HttpEntity;
-import dev.ssdd.rtdb.playground.http.HttpEntityEnclosingRequest;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpVersion;
-import dev.ssdd.rtdb.playground.http.ProtocolException;
-import dev.ssdd.rtdb.playground.http.ProtocolVersion;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
 
 /**
  * RequestContent is the most important interceptor for outgoing requests.

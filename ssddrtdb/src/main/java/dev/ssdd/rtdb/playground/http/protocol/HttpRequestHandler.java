@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.HttpException;
 import dev.ssdd.rtdb.playground.http.HttpRequest;
 import dev.ssdd.rtdb.playground.http.HttpResponse;
+
+import java.io.IOException;
 
 /**
  * HttpRequestHandler represents a routine for processing of a specific group

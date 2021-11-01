@@ -17,18 +17,12 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.net;
 
+import dev.ssdd.rtdb.playground.commons.codec.*;
+import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.BitSet;
-
-import dev.ssdd.rtdb.playground.commons.codec.BinaryDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.BinaryEncoder;
-import dev.ssdd.rtdb.playground.commons.codec.CharEncoding;
-import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
-import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
-import dev.ssdd.rtdb.playground.commons.codec.StringDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
-import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
 
 /**
  * Implements the 'www-form-urlencoded' encoding scheme, also misleadingly known as URL encoding.

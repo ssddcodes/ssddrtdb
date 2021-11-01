@@ -27,8 +27,8 @@
 
 package dev.ssdd.rtdb.playground.http.params;
 
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -44,8 +44,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @since 4.0
  *
- * @deprecated (4.3) use configuration classes provided 'dev.ssdd.rtdb.apache.http.config'
- *  and 'dev.ssdd.rtdb.apache.http.client.config'
+ * @deprecated (4.3) use configuration classes provided 'dev.ssdd.dev.ssdd.rtdb.playground.http.config'
+ *  and 'dev.ssdd.dev.ssdd.rtdb.playground.http.client.config'
  */
 @Deprecated
 @Contract(threading = ThreadingBehavior.SAFE)

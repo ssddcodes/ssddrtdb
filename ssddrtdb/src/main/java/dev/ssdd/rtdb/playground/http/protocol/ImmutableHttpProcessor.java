@@ -26,16 +26,12 @@
  */
 package dev.ssdd.rtdb.playground.http.protocol;
 
+import dev.ssdd.rtdb.playground.http.*;
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+
 import java.io.IOException;
 import java.util.List;
-
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.HttpResponseInterceptor;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
 
 /**
  * Immutable {@link HttpProcessor}.

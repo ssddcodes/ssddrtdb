@@ -26,9 +26,9 @@
  */
 package dev.ssdd.rtdb.playground.http.util;
 
-import java.io.UnsupportedEncodingException;
-
 import dev.ssdd.rtdb.playground.http.Consts;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * The home for utility methods that handle various encoding tasks.

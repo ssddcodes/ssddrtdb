@@ -26,14 +26,14 @@
  */
 package dev.ssdd.rtdb.playground.http.pool;
 
+import dev.ssdd.rtdb.playground.http.util.Args;
+import dev.ssdd.rtdb.playground.http.util.Asserts;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.Future;
-
-import dev.ssdd.rtdb.playground.http.util.Args;
-import dev.ssdd.rtdb.playground.http.util.Asserts;
 
 abstract class RouteSpecificPool<T, C, E extends PoolEntry<T, C>> {
 
@@ -109,7 +109,9 @@ abstract class RouteSpecificPool<T, C, E extends PoolEntry<T, C>> {
     public boolean remove(final E entry) {
         Args.notNull(entry, "Pool entry");
         if (!this.available.remove(entry)) {
-            return this.leased.remove(entry);
+            if (!this.leased.remove(entry)) {
+                return false;
+            }
         }
         return true;
     }

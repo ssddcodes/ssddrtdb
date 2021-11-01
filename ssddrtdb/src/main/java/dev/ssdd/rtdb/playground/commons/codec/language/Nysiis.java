@@ -17,10 +17,10 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.language;
 
-import java.util.regex.Pattern;
-
 import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
 import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
+
+import java.util.regex.Pattern;
 
 /**
  * Encodes a string into a NYSIIS value. NYSIIS is an encoding used to relate similar names, but can also be used as a

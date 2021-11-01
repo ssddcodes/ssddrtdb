@@ -27,16 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
-
 import dev.ssdd.rtdb.playground.http.protocol.HTTP;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 /**
  * A self contained, repeatable entity that obtains its content from

@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import dev.ssdd.rtdb.playground.http.HttpConnectionMetrics;
 import dev.ssdd.rtdb.playground.http.io.HttpTransportMetrics;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Default implementation of the {@link HttpConnectionMetrics} interface.

@@ -27,12 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * A self contained, repeatable entity that obtains its content from a byte array.

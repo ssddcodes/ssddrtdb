@@ -27,9 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.util.List;
-
 import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
+
+import java.util.List;
 
 /**
  * Provides access to an ordered list of request interceptors.

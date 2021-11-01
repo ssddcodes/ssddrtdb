@@ -27,20 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
-import dev.ssdd.rtdb.playground.http.HttpClientConnection;
-import dev.ssdd.rtdb.playground.http.HttpEntityEnclosingRequest;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.HttpStatus;
-import dev.ssdd.rtdb.playground.http.HttpVersion;
-import dev.ssdd.rtdb.playground.http.ProtocolException;
-import dev.ssdd.rtdb.playground.http.ProtocolVersion;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
 
 /**
  * {@code HttpRequestExecutor} is a client side HTTP protocol handler based
@@ -288,7 +280,7 @@ public class HttpRequestExecutor {
      * This method does <i>not</i> read the response entity, if any.
      * The connection over which content of the response entity is being
      * streamed from cannot be reused until
-     * {@link dev.ssdd.rtdb.playground.http.util.EntityUtils#consume(dev.ssdd.rtdb.playground.http.HttpEntity)}
+     * {@link dev.ssdd.rtdb.playground.http.util.EntityUtils#consume(HttpEntity)}
      * has been invoked.
      *
      * @param response  the response object to post-process

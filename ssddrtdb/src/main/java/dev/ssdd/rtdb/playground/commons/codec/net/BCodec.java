@@ -17,15 +17,11 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.net;
 
+import dev.ssdd.rtdb.playground.commons.codec.*;
+import dev.ssdd.rtdb.playground.commons.codec.binary.Base64;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-
-import dev.ssdd.rtdb.playground.commons.codec.Charsets;
-import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
-import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
-import dev.ssdd.rtdb.playground.commons.codec.StringDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
-import dev.ssdd.rtdb.playground.commons.codec.binary.Base64;
 
 /**
  * Identical to the Base64 encoding defined by <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a>

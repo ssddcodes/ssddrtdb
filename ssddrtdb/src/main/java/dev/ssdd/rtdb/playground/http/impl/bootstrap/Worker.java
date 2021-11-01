@@ -26,13 +26,13 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.bootstrap;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.ExceptionLogger;
 import dev.ssdd.rtdb.playground.http.HttpServerConnection;
 import dev.ssdd.rtdb.playground.http.protocol.BasicHttpContext;
 import dev.ssdd.rtdb.playground.http.protocol.HttpCoreContext;
 import dev.ssdd.rtdb.playground.http.protocol.HttpService;
+
+import java.io.IOException;
 
 /**
  * @since 4.4

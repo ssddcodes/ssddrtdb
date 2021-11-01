@@ -27,12 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.params;
 
-import java.nio.charset.Charset;
-import java.nio.charset.CodingErrorAction;
-
 import dev.ssdd.rtdb.playground.http.config.ConnectionConfig;
 import dev.ssdd.rtdb.playground.http.config.MessageConstraints;
 import dev.ssdd.rtdb.playground.http.config.SocketConfig;
+
+import java.nio.charset.Charset;
+import java.nio.charset.CodingErrorAction;
 
 /**
  * @deprecated (4.3) provided for compatibility with {@link HttpParams}. Do not use.

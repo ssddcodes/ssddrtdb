@@ -27,13 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.*;
 
 /**
  * A self contained, repeatable entity that obtains its content from a file.

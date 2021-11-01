@@ -27,12 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.Header;
 import dev.ssdd.rtdb.playground.http.HttpEntity;
 import dev.ssdd.rtdb.playground.http.message.BasicHeader;
 import dev.ssdd.rtdb.playground.http.protocol.HTTP;
+
+import java.io.IOException;
 
 /**
  * Abstract base class for entities.

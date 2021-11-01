@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import dev.ssdd.rtdb.playground.http.ConnectionClosedException;
 import dev.ssdd.rtdb.playground.http.io.BufferInfo;
 import dev.ssdd.rtdb.playground.http.io.SessionInputBuffer;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Input stream that cuts off after a defined number of bytes. This class
@@ -97,7 +97,7 @@ public class ContentLengthInputStream extends InputStream {
         if (!closed) {
             try {
                 if (pos < contentLength) {
-                    final byte[] buffer = new byte[BUFFER_SIZE];
+                    final byte buffer[] = new byte[BUFFER_SIZE];
                     while (read(buffer) >= 0) {
                     }
                 }

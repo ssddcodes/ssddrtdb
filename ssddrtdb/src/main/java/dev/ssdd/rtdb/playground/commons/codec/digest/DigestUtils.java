@@ -17,13 +17,13 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.digest;
 
+import dev.ssdd.rtdb.playground.commons.codec.binary.Hex;
+import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import dev.ssdd.rtdb.playground.commons.codec.binary.Hex;
-import dev.ssdd.rtdb.playground.commons.codec.binary.StringUtils;
 
 /**
  * Operations to simplify common {@link MessageDigest} tasks.

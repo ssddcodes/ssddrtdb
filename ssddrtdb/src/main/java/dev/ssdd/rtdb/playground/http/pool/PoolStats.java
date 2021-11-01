@@ -26,8 +26,8 @@
  */
 package dev.ssdd.rtdb.playground.http.pool;
 
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 
 import java.io.Serializable;
 

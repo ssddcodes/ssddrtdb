@@ -32,8 +32,8 @@ package dev.ssdd.rtdb.playground.http.params;
  *
  * @since 4.0
  *
- * @deprecated (4.3) use configuration classes provided 'dev.ssdd.rtdb.apache.http.config'
- *  and 'dev.ssdd.rtdb.apache.http.client.config'
+ * @deprecated (4.3) use configuration classes provided 'dev.ssdd.dev.ssdd.rtdb.playground.http.config'
+ *  and 'dev.ssdd.dev.ssdd.rtdb.playground.http.client.config'
  */
 @Deprecated
 public interface CoreConnectionPNames {
@@ -48,7 +48,7 @@ public interface CoreConnectionPNames {
      * </p>
      * @see java.net.SocketOptions#SO_TIMEOUT
      */
-    String SO_TIMEOUT = "http.socket.timeout";
+    public static final String SO_TIMEOUT = "http.socket.timeout";
 
     /**
      * Determines whether Nagle's algorithm is to be used. The Nagle's algorithm
@@ -62,7 +62,7 @@ public interface CoreConnectionPNames {
      * </p>
      * @see java.net.SocketOptions#TCP_NODELAY
      */
-    String TCP_NODELAY = "http.tcp.nodelay";
+    public static final String TCP_NODELAY = "http.tcp.nodelay";
 
     /**
      * Determines the size of the internal socket buffer used to buffer data
@@ -71,7 +71,7 @@ public interface CoreConnectionPNames {
      * This parameter expects a value of type {@link Integer}.
      * </p>
      */
-    String SOCKET_BUFFER_SIZE = "http.socket.buffer-size";
+    public static final String SOCKET_BUFFER_SIZE = "http.socket.buffer-size";
 
     /**
      * Sets SO_LINGER with the specified linger time in seconds. The maximum
@@ -83,7 +83,7 @@ public interface CoreConnectionPNames {
      * </p>
      * @see java.net.SocketOptions#SO_LINGER
      */
-    String SO_LINGER = "http.socket.linger";
+    public static final String SO_LINGER = "http.socket.linger";
 
     /**
      * Defines whether the socket can be bound even though a previous connection is
@@ -95,7 +95,7 @@ public interface CoreConnectionPNames {
      *
      * @since 4.1
      */
-    String SO_REUSEADDR = "http.socket.reuseaddr";
+    public static final String SO_REUSEADDR = "http.socket.reuseaddr";
 
     /**
      * Determines the timeout in milliseconds until a connection is established.
@@ -107,7 +107,7 @@ public interface CoreConnectionPNames {
      * This parameter expects a value of type {@link Integer}.
      * </p>
      */
-    String CONNECTION_TIMEOUT = "http.connection.timeout";
+    public static final String CONNECTION_TIMEOUT = "http.connection.timeout";
 
     /**
      * Determines whether stale connection check is to be used. The stale
@@ -118,7 +118,7 @@ public interface CoreConnectionPNames {
      * This parameter expects a value of type {@link Boolean}.
      * </p>
      */
-    String STALE_CONNECTION_CHECK = "http.connection.stalecheck";
+    public static final String STALE_CONNECTION_CHECK = "http.connection.stalecheck";
 
     /**
      * Determines the maximum line length limit. If set to a positive value,
@@ -128,7 +128,7 @@ public interface CoreConnectionPNames {
      * This parameter expects a value of type {@link Integer}.
      * </p>
      */
-    String MAX_LINE_LENGTH = "http.connection.max-line-length";
+    public static final String MAX_LINE_LENGTH = "http.connection.max-line-length";
 
     /**
      * Determines the maximum HTTP header count allowed. If set to a positive
@@ -139,7 +139,7 @@ public interface CoreConnectionPNames {
      * This parameter expects a value of type {@link Integer}.
      * </p>
      */
-    String MAX_HEADER_COUNT = "http.connection.max-header-count";
+    public static final String MAX_HEADER_COUNT = "http.connection.max-header-count";
 
     /**
      * Defines the size limit below which data chunks should be buffered in a session I/O buffer
@@ -152,7 +152,7 @@ public interface CoreConnectionPNames {
      *
      * @since 4.1
      */
-    String MIN_CHUNK_LIMIT = "http.connection.min-chunk-limit";
+    public static final String MIN_CHUNK_LIMIT = "http.connection.min-chunk-limit";
 
 
     /**
@@ -165,6 +165,6 @@ public interface CoreConnectionPNames {
      * @see java.net.SocketOptions#SO_KEEPALIVE
      * @since 4.2
      */
-    String SO_KEEPALIVE = "http.socket.keepalive";
+    public static final String SO_KEEPALIVE = "http.socket.keepalive";
 
 }

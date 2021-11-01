@@ -16,10 +16,10 @@
  */
 package dev.ssdd.rtdb.playground.commons.codec.language;
 
-import java.util.Locale;
-
 import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
 import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
+
+import java.util.Locale;
 
 /**
  * Match Rating Approach Phonetic Algorithm Developed by <CITE>Western Airlines</CITE> in 1977.

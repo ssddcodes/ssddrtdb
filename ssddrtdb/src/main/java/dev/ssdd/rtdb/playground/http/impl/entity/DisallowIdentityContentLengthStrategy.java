@@ -30,8 +30,8 @@ package dev.ssdd.rtdb.playground.http.impl.entity;
 import dev.ssdd.rtdb.playground.http.HttpException;
 import dev.ssdd.rtdb.playground.http.HttpMessage;
 import dev.ssdd.rtdb.playground.http.ProtocolException;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.entity.ContentLengthStrategy;
 
 /**

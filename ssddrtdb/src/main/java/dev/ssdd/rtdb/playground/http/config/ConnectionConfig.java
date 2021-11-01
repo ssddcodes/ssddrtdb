@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.config;
 
+import dev.ssdd.rtdb.playground.http.Consts;
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.nio.charset.Charset;
 import java.nio.charset.CodingErrorAction;
-
-import dev.ssdd.rtdb.playground.http.Consts;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * HTTP connection configuration.

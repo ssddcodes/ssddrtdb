@@ -27,9 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.protocol.HttpContext;
+
+import java.io.IOException;
 
 /**
  * HTTP protocol interceptor is a routine that implements a specific aspect of

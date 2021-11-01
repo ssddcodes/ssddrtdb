@@ -16,21 +16,12 @@
  */
 package dev.ssdd.rtdb.playground.commons.codec.language;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-
 import dev.ssdd.rtdb.playground.commons.codec.CharEncoding;
 import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
 import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
+
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * Encodes a string into a Daitch-Mokotoff Soundex value.
@@ -183,7 +174,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
             }
 
             final int nextIndex = getPatternLength();
-            final boolean nextCharIsVowel = nextIndex < context.length() && isVowel(context.charAt(nextIndex));
+            final boolean nextCharIsVowel = nextIndex < context.length() ? isVowel(context.charAt(nextIndex)) : false;
             if (nextCharIsVowel) {
                 return replacementBeforeVowel;
             }

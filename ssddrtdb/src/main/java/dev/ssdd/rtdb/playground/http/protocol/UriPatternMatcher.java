@@ -27,12 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * Maintains a map of objects keyed by a request URI pattern.
@@ -152,7 +152,7 @@ public class UriPatternMatcher<T> {
         } else {
             return
             (pattern.endsWith("*") && path.startsWith(pattern.substring(0, pattern.length() - 1))) ||
-            (pattern.startsWith("*") && path.endsWith(pattern.substring(1)));
+            (pattern.startsWith("*") && path.endsWith(pattern.substring(1, pattern.length())));
         }
     }
 

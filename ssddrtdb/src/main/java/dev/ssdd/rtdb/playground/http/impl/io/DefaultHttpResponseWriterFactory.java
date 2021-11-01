@@ -28,8 +28,8 @@
 package dev.ssdd.rtdb.playground.http.impl.io;
 
 import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageWriter;
 import dev.ssdd.rtdb.playground.http.io.HttpMessageWriterFactory;
 import dev.ssdd.rtdb.playground.http.io.SessionOutputBuffer;

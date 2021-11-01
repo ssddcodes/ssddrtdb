@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * A streamed, non-repeatable entity that obtains its content from

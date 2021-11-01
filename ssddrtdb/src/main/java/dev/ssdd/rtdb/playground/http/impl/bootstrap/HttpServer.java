@@ -26,6 +26,15 @@
  */
 package dev.ssdd.rtdb.playground.http.impl.bootstrap;
 
+import dev.ssdd.rtdb.playground.http.ExceptionLogger;
+import dev.ssdd.rtdb.playground.http.HttpConnectionFactory;
+import dev.ssdd.rtdb.playground.http.HttpServerConnection;
+import dev.ssdd.rtdb.playground.http.config.SocketConfig;
+import dev.ssdd.rtdb.playground.http.impl.DefaultBHttpServerConnection;
+import dev.ssdd.rtdb.playground.http.protocol.HttpService;
+
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -34,16 +43,6 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
-
-import javax.net.ServerSocketFactory;
-import javax.net.ssl.SSLServerSocket;
-
-import dev.ssdd.rtdb.playground.http.ExceptionLogger;
-import dev.ssdd.rtdb.playground.http.HttpConnectionFactory;
-import dev.ssdd.rtdb.playground.http.HttpServerConnection;
-import dev.ssdd.rtdb.playground.http.config.SocketConfig;
-import dev.ssdd.rtdb.playground.http.impl.DefaultBHttpServerConnection;
-import dev.ssdd.rtdb.playground.http.protocol.HttpService;
 
 /**
  * @since 4.4

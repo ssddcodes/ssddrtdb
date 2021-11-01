@@ -27,17 +27,17 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-
 import dev.ssdd.rtdb.playground.http.HeaderElement;
 import dev.ssdd.rtdb.playground.http.NameValuePair;
 import dev.ssdd.rtdb.playground.http.ParseException;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
 
 /**
  * Basic implementation for parsing header values into elements.
@@ -254,7 +254,7 @@ public class BasicHeaderValueParser implements HeaderValueParser {
     }
 
     /**
-     * @deprecated (4.4) use {@link dev.ssdd.rtdb.playground.http.message.TokenParser}
+     * @deprecated (4.4) use {@link TokenParser}
      */
     @Deprecated
     public NameValuePair parseNameValuePair(final CharArrayBuffer buffer,

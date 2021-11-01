@@ -27,14 +27,7 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.HttpResponseFactory;
-import dev.ssdd.rtdb.playground.http.NoHttpResponseException;
-import dev.ssdd.rtdb.playground.http.ParseException;
-import dev.ssdd.rtdb.playground.http.StatusLine;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.config.MessageConstraints;
 import dev.ssdd.rtdb.playground.http.impl.DefaultHttpResponseFactory;
 import dev.ssdd.rtdb.playground.http.io.SessionInputBuffer;
@@ -43,6 +36,8 @@ import dev.ssdd.rtdb.playground.http.message.ParserCursor;
 import dev.ssdd.rtdb.playground.http.params.HttpParams;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.io.IOException;
 
 /**
  * HTTP response parser that obtain its input from an instance
@@ -115,9 +110,8 @@ public class DefaultHttpResponseParser extends AbstractMessageParser<HttpRespons
 
     /**
      * @since 4.3
-     * @param buffer
      */
-    public DefaultHttpResponseParser(final SessionInputBufferImpl buffer) {
+    public DefaultHttpResponseParser(final SessionInputBuffer buffer) {
         this(buffer, null, null, MessageConstraints.DEFAULT);
     }
 

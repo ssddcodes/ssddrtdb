@@ -17,21 +17,10 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.language.bm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
 import dev.ssdd.rtdb.playground.commons.codec.language.bm.Languages.LanguageSet;
 import dev.ssdd.rtdb.playground.commons.codec.language.bm.Rule.Phoneme;
+
+import java.util.*;
 
 /**
  * Converts words into potential phonetic representations.
@@ -68,18 +57,18 @@ public class PhoneticEngine {
          * @param languages the set of languages
          * @return  a new, empty phoneme builder
          */
-        public static PhonemeBuilder empty(final Languages.LanguageSet languages) {
-            return new PhonemeBuilder(new Rule.Phoneme("", languages));
+        public static PhonemeBuilder empty(final LanguageSet languages) {
+            return new PhonemeBuilder(new Phoneme("", languages));
         }
 
-        private final Set<Rule.Phoneme> phonemes;
+        private final Set<Phoneme> phonemes;
 
-        private PhonemeBuilder(final Rule.Phoneme phoneme) {
-            this.phonemes = new LinkedHashSet<Rule.Phoneme>();
+        private PhonemeBuilder(final Phoneme phoneme) {
+            this.phonemes = new LinkedHashSet<Phoneme>();
             this.phonemes.add(phoneme);
         }
 
-        private PhonemeBuilder(final Set<Rule.Phoneme> phonemes) {
+        private PhonemeBuilder(final Set<Phoneme> phonemes) {
             this.phonemes = phonemes;
         }
 
@@ -89,7 +78,7 @@ public class PhoneticEngine {
          * @param str   the characters to append to the phonemes
          */
         public void append(final CharSequence str) {
-            for (final Rule.Phoneme ph : this.phonemes) {
+            for (final Phoneme ph : this.phonemes) {
                 ph.append(str);
             }
         }
@@ -104,13 +93,13 @@ public class PhoneticEngine {
          * @param maxPhonemes   the maximum number of phonemes to build up
          */
         public void apply(final Rule.PhonemeExpr phonemeExpr, final int maxPhonemes) {
-            final Set<Rule.Phoneme> newPhonemes = new LinkedHashSet<Rule.Phoneme>(maxPhonemes);
+            final Set<Phoneme> newPhonemes = new LinkedHashSet<Phoneme>(maxPhonemes);
 
-            EXPR: for (final Rule.Phoneme left : this.phonemes) {
-                for (final Rule.Phoneme right : phonemeExpr.getPhonemes()) {
+            EXPR: for (final Phoneme left : this.phonemes) {
+                for (final Phoneme right : phonemeExpr.getPhonemes()) {
                     final LanguageSet languages = left.getLanguages().restrictTo(right.getLanguages());
                     if (!languages.isEmpty()) {
-                        final Rule.Phoneme join = new Phoneme(left, right, languages);
+                        final Phoneme join = new Phoneme(left, right, languages);
                         if (newPhonemes.size() < maxPhonemes) {
                             newPhonemes.add(join);
                             if (newPhonemes.size() >= maxPhonemes) {
@@ -130,7 +119,7 @@ public class PhoneticEngine {
          *
          * @return  the phoneme set
          */
-        public Set<Rule.Phoneme> getPhonemes() {
+        public Set<Phoneme> getPhonemes() {
             return this.phonemes;
         }
 
@@ -144,7 +133,7 @@ public class PhoneticEngine {
         public String makeString() {
             final StringBuilder sb = new StringBuilder();
 
-            for (final Rule.Phoneme ph : this.phonemes) {
+            for (final Phoneme ph : this.phonemes) {
                 if (sb.length() > 0) {
                     sb.append("|");
                 }
@@ -171,7 +160,7 @@ public class PhoneticEngine {
         private final Map<String, List<Rule>> finalRules;
         private final CharSequence input;
 
-        private final PhonemeBuilder phonemeBuilder;
+        private PhonemeBuilder phonemeBuilder;
         private int i;
         private final int maxPhonemes;
         private boolean found;
@@ -335,10 +324,10 @@ public class PhoneticEngine {
             return phonemeBuilder;
         }
 
-        final Map<Rule.Phoneme, Rule.Phoneme> phonemes =
-            new TreeMap<Rule.Phoneme, Rule.Phoneme>(Rule.Phoneme.COMPARATOR);
+        final Map<Phoneme, Phoneme> phonemes =
+            new TreeMap<Phoneme, Phoneme>(Phoneme.COMPARATOR);
 
-        for (final Rule.Phoneme phoneme : phonemeBuilder.getPhonemes()) {
+        for (final Phoneme phoneme : phonemeBuilder.getPhonemes()) {
             PhonemeBuilder subBuilder = PhonemeBuilder.empty(phoneme.getLanguages());
             final String phonemeText = phoneme.getPhonemeText().toString();
 
@@ -359,10 +348,10 @@ public class PhoneticEngine {
             // the phonemes map orders the phonemes only based on their text, but ignores the language set
             // when adding new phonemes, check for equal phonemes and merge their language set, otherwise
             // phonemes with the same text but different language set get lost
-            for (final Rule.Phoneme newPhoneme : subBuilder.getPhonemes()) {
+            for (final Phoneme newPhoneme : subBuilder.getPhonemes()) {
                 if (phonemes.containsKey(newPhoneme)) {
-                    final Rule.Phoneme oldPhoneme = phonemes.remove(newPhoneme);
-                    final Rule.Phoneme mergedPhoneme = oldPhoneme.mergeWithLanguage(newPhoneme.getLanguages());
+                    final Phoneme oldPhoneme = phonemes.remove(newPhoneme);
+                    final Phoneme mergedPhoneme = oldPhoneme.mergeWithLanguage(newPhoneme.getLanguages());
                     phonemes.put(mergedPhoneme, mergedPhoneme);
                 } else {
                     phonemes.put(newPhoneme, newPhoneme);
@@ -381,7 +370,7 @@ public class PhoneticEngine {
      * @return the encoding of the input
      */
     public String encode(final String input) {
-        final Languages.LanguageSet languageSet = this.lang.guessLanguages(input);
+        final LanguageSet languageSet = this.lang.guessLanguages(input);
         return encode(input, languageSet);
     }
 
@@ -395,7 +384,7 @@ public class PhoneticEngine {
      * @return a phonetic representation of the input; a String containing '-'-separated phonetic representations of the
      *         input
      */
-    public String encode(String input, final Languages.LanguageSet languageSet) {
+    public String encode(String input, final LanguageSet languageSet) {
         final Map<String, List<Rule>> rules = Rule.getInstanceMap(this.nameType, RuleType.RULES, languageSet);
         // rules common across many (all) languages
         final Map<String, List<Rule>> finalRules1 = Rule.getInstanceMap(this.nameType, this.ruleType, "common");
@@ -407,7 +396,7 @@ public class PhoneticEngine {
         input = input.toLowerCase(Locale.ENGLISH).replace('-', ' ').trim();
 
         if (this.nameType == NameType.GENERIC) {
-            if (input.length() >= 2 && input.startsWith("d'")) { // check for d'
+            if (input.length() >= 2 && input.substring(0, 2).equals("d'")) { // check for d'
                 final String remainder = input.substring(2);
                 final String combined = "d" + remainder;
                 return "(" + encode(remainder) + ")-(" + encode(combined) + ")";

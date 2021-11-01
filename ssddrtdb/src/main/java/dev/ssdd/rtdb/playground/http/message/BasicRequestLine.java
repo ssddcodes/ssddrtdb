@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.io.Serializable;
-
 import dev.ssdd.rtdb.playground.http.ProtocolVersion;
 import dev.ssdd.rtdb.playground.http.RequestLine;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.Serializable;
 
 /**
  * Basic implementation of {@link RequestLine}.

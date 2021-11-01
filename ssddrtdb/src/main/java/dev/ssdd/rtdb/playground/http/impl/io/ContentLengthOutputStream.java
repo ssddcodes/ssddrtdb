@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
 import dev.ssdd.rtdb.playground.http.io.SessionOutputBuffer;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Output stream that cuts off after a defined number of bytes. This class

@@ -17,22 +17,12 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.language.bm;
 
+import dev.ssdd.rtdb.playground.commons.codec.language.bm.Languages.LanguageSet;
+
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import dev.ssdd.rtdb.playground.commons.codec.language.bm.Languages.LanguageSet;
 
 /**
  * A phoneme rule.
@@ -104,9 +94,9 @@ public class Rule {
         };
 
         private final StringBuilder phonemeText;
-        private final Languages.LanguageSet languages;
+        private final LanguageSet languages;
 
-        public Phoneme(final CharSequence phonemeText, final Languages.LanguageSet languages) {
+        public Phoneme(final CharSequence phonemeText, final LanguageSet languages) {
             this.phonemeText = new StringBuilder(phonemeText);
             this.languages = languages;
         }
@@ -116,7 +106,7 @@ public class Rule {
             this.phonemeText.append(phonemeRight.phonemeText);
         }
 
-        public Phoneme(final Phoneme phonemeLeft, final Phoneme phonemeRight, final Languages.LanguageSet languages) {
+        public Phoneme(final Phoneme phonemeLeft, final Phoneme phonemeRight, final LanguageSet languages) {
             this(phonemeLeft.phonemeText, languages);
             this.phonemeText.append(phonemeRight.phonemeText);
         }
@@ -126,7 +116,7 @@ public class Rule {
             return this;
         }
 
-        public Languages.LanguageSet getLanguages() {
+        public LanguageSet getLanguages() {
             return this.languages;
         }
 
@@ -296,7 +286,7 @@ public class Rule {
      * @return a list of Rules that apply
      */
     public static List<Rule> getInstance(final NameType nameType, final RuleType rt,
-                                         final Languages.LanguageSet langs) {
+                                         final LanguageSet langs) {
         final Map<String, List<Rule>> ruleMap = getInstanceMap(nameType, rt, langs);
         final List<Rule> allRules = new ArrayList<Rule>();
         for (final List<Rule> rules : ruleMap.values()) {
@@ -333,7 +323,7 @@ public class Rule {
      * @since 1.9
      */
     public static Map<String, List<Rule>> getInstanceMap(final NameType nameType, final RuleType rt,
-                                                         final Languages.LanguageSet langs) {
+                                                         final LanguageSet langs) {
         return langs.isSingleton() ? getInstanceMap(nameType, rt, langs.getAny()) :
                                      getInstanceMap(nameType, rt, Languages.ANY);
     }
@@ -372,7 +362,7 @@ public class Rule {
             final String in = ph.substring(open + 1, ph.length() - 1);
             final Set<String> langs = new HashSet<String>(Arrays.asList(in.split("[+]")));
 
-            return new Phoneme(before, Languages.LanguageSet.from(langs));
+            return new Phoneme(before, LanguageSet.from(langs));
         } else {
             return new Phoneme(ph, Languages.ANY_LANGUAGE);
         }
@@ -587,7 +577,7 @@ public class Rule {
         }
 
         return new RPattern() {
-            final Pattern pattern = Pattern.compile(regex);
+            Pattern pattern = Pattern.compile(regex);
 
             @Override
             public boolean isMatch(final CharSequence input) {

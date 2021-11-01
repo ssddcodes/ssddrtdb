@@ -213,7 +213,7 @@ public class VersionInfo {
      * Loads version information for a package.
      *
      * @param pckg      the package for which to load version information,
-     *                  for example "dev.ssdd.rtdb.apache.http".
+     *                  for example "dev.ssdd.dev.ssdd.rtdb.playground.http".
      *                  The package name should NOT end with a dot.
      * @param clsldr    the classloader to load from, or
      *                  {@code null} for the thread context classloader
@@ -228,7 +228,7 @@ public class VersionInfo {
 
         Properties vip = null; // version info properties, if available
         try {
-            // dev.ssdd.rtdb.apache.http      becomes
+            // dev.ssdd.dev.ssdd.rtdb.playground.http      becomes
             // org/apache/http/version.properties
             final InputStream is = cl.getResourceAsStream
                 (pckg.replace('.', '/') + "/" + VERSION_PROPERTY_FILE);
@@ -308,7 +308,7 @@ public class VersionInfo {
      *
      * @param name the component name, like "Apache-HttpClient".
      * @param pkg
-     *            the package for which to load version information, for example "dev.ssdd.rtdb.apache.http". The package name
+     *            the package for which to load version information, for example "dev.ssdd.dev.ssdd.rtdb.playground.http". The package name
      *            should NOT end with a dot.
      * @param cls
      *            the class' class loader to load from, or {@code null} for the thread context class loader

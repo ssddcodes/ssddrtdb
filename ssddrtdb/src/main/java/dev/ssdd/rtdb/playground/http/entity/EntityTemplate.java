@@ -27,13 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.*;
 
 /**
  * Entity that delegates the process of content generation

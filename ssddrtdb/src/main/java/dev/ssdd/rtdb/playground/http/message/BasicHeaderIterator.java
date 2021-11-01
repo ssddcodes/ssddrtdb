@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.util.NoSuchElementException;
-
 import dev.ssdd.rtdb.playground.http.Header;
 import dev.ssdd.rtdb.playground.http.HeaderIterator;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.util.NoSuchElementException;
 
 /**
  * Basic implementation of a {@link HeaderIterator}.

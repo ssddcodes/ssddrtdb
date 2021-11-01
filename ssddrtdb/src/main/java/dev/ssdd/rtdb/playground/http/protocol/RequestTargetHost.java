@@ -27,21 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
+import dev.ssdd.rtdb.playground.http.*;
+import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.io.IOException;
 import java.net.InetAddress;
-
-import dev.ssdd.rtdb.playground.http.HttpConnection;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpHost;
-import dev.ssdd.rtdb.playground.http.HttpInetConnection;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpRequestInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpVersion;
-import dev.ssdd.rtdb.playground.http.ProtocolException;
-import dev.ssdd.rtdb.playground.http.ProtocolVersion;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
-import dev.ssdd.rtdb.playground.http.annotation.Contract;
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * RequestTargetHost is responsible for adding {@code Host} header. This

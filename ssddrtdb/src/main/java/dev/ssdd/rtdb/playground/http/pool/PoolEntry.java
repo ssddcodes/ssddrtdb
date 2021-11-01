@@ -26,11 +26,11 @@
  */
 package dev.ssdd.rtdb.playground.http.pool;
 
-import java.util.concurrent.TimeUnit;
-
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
 import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Pool entry containing a pool connection object along with its route.

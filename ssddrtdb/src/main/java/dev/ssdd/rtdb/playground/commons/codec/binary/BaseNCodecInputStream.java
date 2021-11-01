@@ -17,13 +17,13 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.binary;
 
-import static dev.ssdd.rtdb.playground.commons.codec.binary.BaseNCodec.EOF;
+import dev.ssdd.rtdb.playground.commons.codec.binary.BaseNCodec.Context;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import dev.ssdd.rtdb.playground.commons.codec.binary.BaseNCodec.Context;
+import static dev.ssdd.rtdb.playground.commons.codec.binary.BaseNCodec.EOF;
 
 /**
  * Abstract superclass for Base-N input streams.
@@ -125,7 +125,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      *             if offset, len or buffer size are invalid
      */
     @Override
-    public int read(final byte[] b, final int offset, final int len) throws IOException {
+    public int read(final byte b[], final int offset, final int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
         } else if (offset < 0 || len < 0) {

@@ -27,10 +27,10 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
+import dev.ssdd.rtdb.playground.http.io.SessionOutputBuffer;
+
 import java.io.IOException;
 import java.io.OutputStream;
-
-import dev.ssdd.rtdb.playground.http.io.SessionOutputBuffer;
 
 /**
  * Implements chunked transfer coding. The content is sent in small chunks.
@@ -116,7 +116,7 @@ public class ChunkedOutputStream extends OutputStream {
      * Writes the cache and bufferToAppend to the underlying stream
      * as one large chunk
      */
-    protected void flushCacheWithAppend(final byte[] bufferToAppend, final int off, final int len) throws IOException {
+    protected void flushCacheWithAppend(final byte bufferToAppend[], final int off, final int len) throws IOException {
         this.out.writeLine(Integer.toHexString(this.cachePosition + len));
         this.out.write(this.cache, 0, this.cachePosition);
         this.out.write(bufferToAppend, off, len);
@@ -162,7 +162,7 @@ public class ChunkedOutputStream extends OutputStream {
      * not split, but rather written out as one large chunk.
      */
     @Override
-    public void write(final byte[] b) throws IOException {
+    public void write(final byte b[]) throws IOException {
         write(b, 0, b.length);
     }
 
@@ -171,7 +171,7 @@ public class ChunkedOutputStream extends OutputStream {
      * not split, but rather written out as one large chunk.
      */
     @Override
-    public void write(final byte[] src, final int off, final int len) throws IOException {
+    public void write(final byte src[], final int off, final int len) throws IOException {
         if (this.closed) {
             throw new IOException("Attempted write to closed stream.");
         }

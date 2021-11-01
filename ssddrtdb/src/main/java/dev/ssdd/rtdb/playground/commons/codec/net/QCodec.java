@@ -17,15 +17,11 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.net;
 
+import dev.ssdd.rtdb.playground.commons.codec.*;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.BitSet;
-
-import dev.ssdd.rtdb.playground.commons.codec.Charsets;
-import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
-import dev.ssdd.rtdb.playground.commons.codec.EncoderException;
-import dev.ssdd.rtdb.playground.commons.codec.StringDecoder;
-import dev.ssdd.rtdb.playground.commons.codec.StringEncoder;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in

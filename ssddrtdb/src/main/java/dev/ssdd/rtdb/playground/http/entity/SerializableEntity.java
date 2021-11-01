@@ -27,15 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.entity;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.*;
 
 /**
  * A streamed entity that obtains its content from a {@link Serializable}.

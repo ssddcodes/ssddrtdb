@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.HttpRequest;
 import dev.ssdd.rtdb.playground.http.io.SessionOutputBuffer;
 import dev.ssdd.rtdb.playground.http.message.LineFormatter;
+
+import java.io.IOException;
 
 /**
  * HTTP request writer that serializes its output to an instance of {@link SessionOutputBuffer}.

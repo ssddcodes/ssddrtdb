@@ -27,20 +27,12 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.io.IOException;
-
-import dev.ssdd.rtdb.playground.http.Header;
-import dev.ssdd.rtdb.playground.http.HttpEntity;
-import dev.ssdd.rtdb.playground.http.HttpException;
-import dev.ssdd.rtdb.playground.http.HttpRequest;
-import dev.ssdd.rtdb.playground.http.HttpResponse;
-import dev.ssdd.rtdb.playground.http.HttpResponseInterceptor;
-import dev.ssdd.rtdb.playground.http.HttpStatus;
-import dev.ssdd.rtdb.playground.http.HttpVersion;
-import dev.ssdd.rtdb.playground.http.ProtocolVersion;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
+import dev.ssdd.rtdb.playground.http.*;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.IOException;
 
 /**
  * ResponseConnControl is responsible for adding {@code Connection} header

@@ -27,8 +27,6 @@
 
 package dev.ssdd.rtdb.playground.http.impl.io;
 
-import java.io.IOException;
-
 import dev.ssdd.rtdb.playground.http.Header;
 import dev.ssdd.rtdb.playground.http.HeaderIterator;
 import dev.ssdd.rtdb.playground.http.HttpException;
@@ -40,6 +38,8 @@ import dev.ssdd.rtdb.playground.http.message.LineFormatter;
 import dev.ssdd.rtdb.playground.http.params.HttpParams;
 import dev.ssdd.rtdb.playground.http.util.Args;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.io.IOException;
 
 /**
  * Abstract base class for HTTP message writers that serialize output to

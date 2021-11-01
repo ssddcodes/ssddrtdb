@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.config;
 
+import dev.ssdd.rtdb.playground.http.util.Args;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import dev.ssdd.rtdb.playground.http.util.Args;
 
 /**
  * Builder for {@link Registry} instances.

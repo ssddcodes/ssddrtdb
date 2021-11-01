@@ -27,9 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.protocol;
 
-import java.nio.charset.Charset;
-
 import dev.ssdd.rtdb.playground.http.Consts;
+
+import java.nio.charset.Charset;
 
 /**
  * Constants and static helpers related to the HTTP protocol.

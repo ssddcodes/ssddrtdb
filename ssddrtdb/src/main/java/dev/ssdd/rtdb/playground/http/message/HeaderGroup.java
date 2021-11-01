@@ -27,15 +27,15 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
+import dev.ssdd.rtdb.playground.http.Header;
+import dev.ssdd.rtdb.playground.http.HeaderIterator;
+import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import dev.ssdd.rtdb.playground.http.Header;
-import dev.ssdd.rtdb.playground.http.HeaderIterator;
-import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
 
 /**
  * A class for combining a set of headers.

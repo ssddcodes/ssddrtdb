@@ -27,14 +27,14 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.io.Serializable;
-
 import dev.ssdd.rtdb.playground.http.Header;
 import dev.ssdd.rtdb.playground.http.HeaderElement;
 import dev.ssdd.rtdb.playground.http.ParseException;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.io.Serializable;
 
 /**
  * Basic implementation of {@link Header}.

@@ -27,13 +27,13 @@
 
 package dev.ssdd.rtdb.playground.http.impl;
 
-import java.util.Locale;
-
 import dev.ssdd.rtdb.playground.http.HttpStatus;
 import dev.ssdd.rtdb.playground.http.ReasonPhraseCatalog;
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.Args;
+
+import java.util.Locale;
 
 /**
  * English reason phrases for HTTP status codes.

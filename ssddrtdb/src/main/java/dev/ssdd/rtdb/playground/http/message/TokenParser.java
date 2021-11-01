@@ -27,11 +27,11 @@
 
 package dev.ssdd.rtdb.playground.http.message;
 
-import java.util.BitSet;
-
-import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.annotation.Contract;
+import dev.ssdd.rtdb.playground.http.annotation.ThreadingBehavior;
 import dev.ssdd.rtdb.playground.http.util.CharArrayBuffer;
+
+import java.util.BitSet;
 
 /**
  * Low level parser for header field elements. The parsing routines of this class are designed

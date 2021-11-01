@@ -17,7 +17,6 @@
 
 package dev.ssdd.rtdb.playground.commons.codec.net;
 
-
 import dev.ssdd.rtdb.playground.commons.codec.DecoderException;
 
 /**

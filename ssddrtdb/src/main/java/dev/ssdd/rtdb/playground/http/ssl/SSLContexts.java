@@ -27,10 +27,9 @@
 
 package dev.ssdd.rtdb.playground.http.ssl;
 
+import javax.net.ssl.SSLContext;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-
-import javax.net.ssl.SSLContext;
 
 /**
  * {@link SSLContext} factory methods.

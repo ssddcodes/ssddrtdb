@@ -1,139 +1,74 @@
 package dev.ssdd.rtdb;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
-    EditText editText;
+
+    TextView t;
+    EditText et;
     Button button;
-    RecyclerView recyclerView;
-    Adapter adapter;
-
-    String TAG = "MainAc";
-    boolean ijCon = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText = findViewById(R.id.et);
-        button = findViewById(R.id.btn);
-        recyclerView = findViewById(R.id.recy);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
 
-        TextView textView = findViewById(R.id.tmx);
-
-        editText.setText("abc/xyz/xyz1");
+        t= findViewById(R.id.tv);
+        et = findViewById(R.id.et);
+        button = findViewById(R.id.btm);
 
         try {
-            SSDD SSDD = new SSDD(new URI("ws://192.168.0.105:19194/"));
-            SSDD.child(editText.getText().toString());
+            SSDD ssdd = new SSDD(new URI("ws://10.42.0.1:19194/"));
+            et.setText("abc/xyz/xyz1");
+            ssdd.child(et.getText().toString());
 
-            for (int i = 0; i < 100; i++) {
-                SSDD.children.clear();
-                SSDD.child(editText.getText().toString()).push().setValue(i);
-                Log.d(TAG, "onCreate: "+i);
-            }
-
-            SSDD.addSingleValueEventListener(new SingleValueEventListener() {
+            et.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onDataChange(@Nullable Object o) {
-                    runOnUiThread(()->{
-                        assert o != null;
-                        runOnUiThread(()->{
-                            textView.setText(o.toString());
-                        });
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    ssdd.setValue(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            button.setOnClickListener(v->{
+                for (int i = 0; i < 1000; i++) {
+                    ssdd.setValue(i);
+                }
+            });
+
+            ssdd.addSingleValueEventListener(new SingleValueEventListener() {
+                @Override
+                public void onDataChange(@org.jetbrains.annotations.Nullable Object data) {
+                    runOnUiThread(() -> {
+                        assert data != null;
+                        t.setText(data.toString());
                     });
                 }
 
                 @Override
-                public void onError(@Nullable Exception e) {
+                public void onError(@org.jetbrains.annotations.Nullable Exception e) {
 
                 }
             });
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
     }
 }
-/*
-    public Interpreter child(String path){
-        if(isRunun){
-            StringBuilder sb = new StringBuilder(path);
-            try {
-                if(childrenChecker(path)){
-                    if(!path.startsWith("/")){
-                        path = "/"+path;
-                        if(path.endsWith("/")){
-                            path = sb.deleteCharAt(path.length()-1).toString();
-                            children = children+path;
-                        }
-                    }else {
-                        if(path.endsWith("/")){
-                            path = sb.deleteCharAt(path.length()-1).toString();
-                            children = children+path;
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return this;
-    }
-
-    private boolean childrenChecker(String children) throws Exception{
-        if(children.contains("\"")){
-            throw new Exception("Child:- you can not put double inverted commas \"\" in children");
-        }else {
-            return true;
-        }
-    }
-    public void setValue(String value){
-        if(isRunun){
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("id","sv");
-                String x  = children+"="+value;
-                jsonObject.put("message",x);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void setValue(Object value){
-        if(isRunun){
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream out;
-            try {
-                out = new ObjectOutputStream(bos);
-                out.writeObject(value);
-                out.flush();
-                byte[] bytes = bos.toByteArray();
-                wsClient.send(bytes);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    bos.close();
-                } catch (IOException ex) {
-                    // ignore close exception
-                }
-            }
-        }
-    }
- */

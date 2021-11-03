@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <EditText
-        android:layout_width="match_parent"
+        android:hint="hint"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBaseline_toTopOf="parent"
         android:id="@+id/et"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btn"
-        android:layout_gravity="center"
-        android:text="push"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:textSize="25sp"
-        android:id="@+id/tmx"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btm"
+        android:text="loop 100"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_weight="1"
-    android:id="@+id/recy"
-    android:layout_width="match_parent"
-     android:layout_height="0dp"/>
-
 
 </LinearLayout>

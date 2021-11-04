@@ -20,14 +20,18 @@ ___Implimentation___
 </dependency>
 ```
 
-1. Implement the **Server**.
-____Version 1.*___
-V1 is beta channel for the SSDD RTDB.
-> Server Implementation would be generated soon.
+1. Implement the Server.
 
-____Version 1.* +___
+___Version 1.*___
+
+V1 is beta channel for the SSDD RTDB.
+> Server Implementation would be uploaded soon.
+
+___Version 1.* +___
+
 Any version except 1.* Would be stable release.
-> Server Implementation would be generated soon.
+
+> Server Implementation would be uploaded soon.
 
 2. Connect to the server.
 
@@ -35,9 +39,6 @@ Any version except 1.* Would be stable release.
 
 3. Info.
 
-```
-private SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO to setup server see method 1.
-```
 Available parameters.
 
 | **Methods/params** | **uses** |
@@ -50,6 +51,8 @@ Available parameters.
 | push() | used to generate a unique keyID for the database. |
 
 4. Implementation.
-
-** Would be uploaded soon.**
+```
+private SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO to setup server see method 1.
+```
+**More information will be uploaded soon.**
 

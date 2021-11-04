@@ -33,11 +33,7 @@ Any version except 1.* Would be stable release.
 
 > Server Implementation would be uploaded soon.
 
-2. Connect to the server.
-
-> Connection method might be changed after stable release (i.e. 1.*+).
-
-3. Info.
+2. Info.
 
 Available parameters.
 
@@ -50,7 +46,7 @@ Available parameters.
 | children | it's list or children which was created by child(), used to clear the list if needed |
 | push() | used to generate a unique keyID for the database. |
 
-4. Implementation.
+3. Implementation.
 ```
 private SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO to setup server see method 1.
 ```

@@ -36,7 +36,7 @@ Any version except 1.* Would be stable release.
 3. Info.
 
 ```
-private SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO server see method 1 to setup server.
+private SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO to setup server see method 1.
 ```
 Available parameters.
 

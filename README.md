@@ -1,4 +1,4 @@
-# ssddrtdb
+# SSDD Realtime Database
 This is SSDD's Realtime database. Which provides you realtime Database service on your **own** VPS/pc.
 
 ___Implimentation___

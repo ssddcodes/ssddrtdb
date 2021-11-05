@@ -692,13 +692,14 @@ public class DataSnapshot {
     public DataSnapshot(String json) {
         this.json = json;
     }
+
     public <T> T getValue(Class<T> valueType){
         try {
             return new Gson().fromJson(json,valueType);
         }catch (Exception e){
             String TAG = "SSDDRTDB";
-            Log.e(TAG, e +" getValue: something went wrong (maybe the json format is incorrect) file received: "+ json);
-            return new Gson().fromJson(new Gson().toJson(valueType),valueType);
+            Log.e(TAG, e +" something went wrong (maybe the json format is incorrect) file received: "+ json);
+                return null;
         }
     }
 }

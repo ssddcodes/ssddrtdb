@@ -39,11 +39,11 @@ Available parameters.
 
 | **Methods/params** | **uses** |
 | ------------------ | :------: |
-| setValue()   | used to push object to database. |
+| setValue()   | used to push an object to database. |
 | addValueEventListener() |  used to query and listen to *multiple* values |
 | addSingleValueEventListener() | used to query and listen to *single* value object |
 | child() | it's used to refer a path in the database |
-| children | it's list or children which was created by child(), used to clear the list if needed |
+| children | it's list of children which was created by child(), used to clear the list if needed |
 | push() | used to generate a unique keyID for the database. |
 
 3. Implementation.

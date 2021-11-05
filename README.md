@@ -6,7 +6,7 @@ ___Implimentation___
 *Gradle*
 
 ```
- implementation 'io.github.ssddcodes:rtdb:1.0.1'
+ implementation 'io.github.ssddcodes:rtdb:1.0.1-BETA'
 ```
 
 *Maven*

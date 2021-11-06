@@ -1,22 +1,32 @@
 # SSDD Realtime Database
+
 This is SSDD's Realtime database. Which provides you realtime Database service on your **own** VPS/pc.
 
-___Implimentation___
+| -     | -                               |
+| -----:|:------------------------------- |
+| 📩    | [Download](#Download) |
+| 📋    | [AvailableParameters](#AvailableParameters) |
+| 🧾    | [Changelog](#Changelog)         |
+| 🏆    | [Credits](#Credits)             |
+| ⚖️    | [License](#License)             |
 
-*Gradle*
+## Download
 
-```
+### *Gradle*
+
+```groovy
  implementation 'io.github.ssddcodes:rtdb:1.0.1-BETA'
 ```
 
-*Maven*
+### *Maven*
 
-```
+```xml
+
 <dependency>
-  <groupId>io.github.ssddcodes</groupId>
-  <artifactId>rtdb</artifactId>
-  <version>1.0.1</version>
-  <type>aar</type>
+    <groupId>io.github.ssddcodes</groupId>
+    <artifactId>rtdb</artifactId>
+    <version>1.0.1</version>
+    <type>aar</type>
 </dependency>
 ```
 
@@ -35,7 +45,7 @@ Any version except 1.* Would be stable release.
 
 2. Info.
 
-Available parameters.
+## AvailableParameters
 
 | **Methods/params** | **uses** |
 | ------------------ | :------: |
@@ -50,34 +60,39 @@ Available parameters.
 
 *initiate connection:-
 
-```
+```java
 SSDD ssdd = new SSDD("yourServerIp/location", "wss"); //TODO to setup server see method 1.
 ```
 
-*to nevigate to specific location:-
-```
+*to navigate to specific location:-
+
+```java
 ssdd.child("path/to/success");
 ```
 
 *to add/set value to the database:-
 
-```
+```java
 ssdd.setValue("one step closer to success."); 
 // you can use push() method to generate unique id.
 ```
-**OR**
-```
-//you can even set children location just before setting values.
 
+**OR**
+
+```java
+//you can even set children location just before setting values.
 ssdd.child("path/to/success").setValue("one step closer to success.");
 ```
+
 **OR**
-```
+
+```java
 ssdd.child("path").child("to").child("success").setValue("one step closer to success.");
 ```
 
-*to listen to a single value:- 
-```
+*to listen to a single value:-
+
+```java
 ssdd.addSingleValueEventListener(new SingleValueEventListener() {
                 @Override
                 public void onDataChange(@Nullable Object data) {
@@ -95,8 +110,10 @@ ssdd.addSingleValueEventListener(new SingleValueEventListener() {
                 }
             });
    ```
+
 *to listen to multiple values
-```
+
+```java
 List<Model> models = new ArrayList<>();
 
             ssdd.addValueEventListener(new ValueEventListener() {
@@ -121,7 +138,19 @@ List<Model> models = new ArrayList<>();
                 }
             });
 ```
- 
 
 **More information will be uploaded soon.**
 
+## Changelog
+
+## Credits
+
+## Licence
+
+> RTDB is licensed under the **[GNU General  
+> Public License v3.0](./LICENSE.md)**  
+> Permissions of this strong copyleft license are conditioned on making  
+> available complete source code of licensed works and modifications,  
+> which include larger works using a licensed work, under the same  
+> license. Copyright and license notices must be preserved. Contributors  
+> provide an express grant of patent rights.

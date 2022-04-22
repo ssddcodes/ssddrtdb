@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+    <script type="text/javascript">
+    window.onload=function(){
+var canvas = document.getElementById('myChart');
+
+const getData = () => {
+  return [100, 10, 20, 0, 0, 100, 200,230,90,32,41,11];
+};
+
+var data = {
+  labels: ["Jan", "Feb", "March", "Apr", "May", "Jun", "July", "Aug", "Sept","Oct","Nov","Dec"],
+  datasets: [{
+    label: 'Counts',
+    data: getData(),
+    fill: false,
+    lineTension: 0.1,
+    backgroundColor: 'rgba(75,192,192,0.4)',
+    borderWidth: 3,
+    borderColor: 'rgba(75,192,192,1)',
+    borderCapStyle: 'round',
+    borderJoinStyle: 'round',
+    pointBorderColor: 'rgba(75,192,192,1)',
+    pointBackgroundColor: '#fff',
+    pointBorderWidth: 1,
+    pointHoverRadius: 5,
+    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+    pointHoverBorderColor: 'rgba(220,220,220,1)',
+    pointHoverBorderWidth: 2,
+    pointRadius: 3,
+    pointHitRadius: 20,
+    pointStyle: 'circle',
+  }]
+};
+
+var myBarChart = Chart.Line(canvas, {
+  data: data,
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 330
+        }
+      }]
+    }
+  }
+});
+}
+
+myBarChart.data.datasets[0].bars[2].value = 50;
+
+// animate update of 'March' from 90 to 50.
+myBarChart.update();
+
+</script>
+</head>
+<body>
+<canvas id="myChart" width="500" height="300"></canvas>
+</body>
+</html>

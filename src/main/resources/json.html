@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zot JSON Editor</title>
+    <link TYPE="text/css" href="style.css" media="screen" rel="stylesheet">
+</head>
+<body bgcolor="#1c2833" rightmargin="25px">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="./dist/jquery.json-editor.min.js"></script>
+
+<input type="password" id="pw">
+<input type="checkbox" onclick="myFunction()">Show Password
+<button id="submit">connect</button>
+
+<p id="json-input"></p>
+<button id="translate">Update JSON</button>
+<pre id="json-display"></pre>
+
+<script type="text/javascript">
+  var x = document.getElementById("pw");
+  x.type = "password";
+  let jsonDisplay = document.getElementById("json-display");
+
+function myFunction() {
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+    let msgHolder = "";
+    const ws = new WebSocket("ws://localhost:19194/");
+
+    $('#submit').on('click', function(){
+    let tmppw = x.value;
+    x.value = "";
+        if ("WebSocket" in window) {
+            let tmp = {
+                        "pw": tmppw,
+                        "id": "ssddNotifier07!",
+                        "path": "",
+                        "dbid": "ssddTmpDBNotifID"
+                    }
+        ws.send(JSON.stringify(tmp));
+        ws.onmessage = function (evt) {
+            if (msgHolder !== evt.data && evt.data !== "AD.") {
+                msgHolder = evt.data;
+
+                try{
+                    const y = JSON.parse(evt.data);
+                let editor = new JsonEditor(jsonDisplay, y);
+                editor.load(y);
+
+                $('#translate').on('click', function () {
+                    try {
+                        let tmp = {
+                            "pw": tmppw,
+                            "id": "ssddUpdator07!",
+                            "message": editor.get(),
+                            "path": "",
+                            "dbid": "ssddTmpDBNotifID"
+                        }
+                        ws.send(JSON.stringify(tmp));
+                    } catch(x){
+                    alert("invalid format or JSON unavailable");
+                    console.log(x);
+                    }
+                });
+                jsonDisplay.addEventListener("keyup", enterpressalert);
+
+                function enterpressalert(e) {
+                const code = (e.keyCode ? e.keyCode : e.which);
+
+                if (code === 13) {
+                    try {
+                        let tmp = {
+                            "pw": tmppw,
+                            "id": "ssddUpdator07!",
+                            "message": editor.get(),
+                            "path": "",
+                            "dbid": "ssddTmpDBNotifID"
+                        }
+                        ws.send(JSON.stringify(tmp));
+                        } catch(x){
+                        alert("invalid format or JSON unavailable");
+                        console.log(x);
+                    }
+                }
+            }
+                }catch(e){
+                    alert("incorrect json format.");
+                }
+            }else if (evt.data == "AD."){
+                alert("Access denied! Please recheck your password.");
+            }
+        };
+        } else {
+        // The browser doesn't support WebSocket
+        alert("UH-OH your Browser is NOT supported :(");
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Management</title>
+</head>
+<body bgcolor="#1c2833" rightmargin="25px">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<input type="password" id="pw" placeholder="Enter password">
+<input type="checkbox" onclick="myFunction()">Show Password
+<button id= "submit">connect</button>
+
+<br>
+<br>
+<div id="new">
+<button id="resetpw" onclick="resetpw()">Reset password?</button>
+</div>
+
+<ul id="serverlist">
+
+</ul>
+<script type="text/javascript">
+    let pwSt = "";
+      var x = document.getElementById("pw");
+      function resetpw(){
+    const ws = new WebSocket("ws://localhost:19194/zotws");
+    let tmp = {"id": "ssddResetPw07!"}
+    ws.onopen = function(){
+        ws.send(JSON.stringify(tmp));
+        alert("Please check your server terminal to reset password.");
+    }
+}
+
+function myFunction() {
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+    let msgHolder = "";
+    const ws = new WebSocket("ws://localhost:19194/zotws");
+
+    function killServer(servername){
+    let tmp = {
+        "pw": pwSt,
+        "id": "ssddKillServer07!",
+        "dbid": servername
+    }
+    ws.send(JSON.stringify(tmp));
+}
+function launchServer(servername){
+    let tmp = {
+        "pw": pwSt,
+        "id": "ssddLaunchServer07!",
+        "dbid": servername
+    }
+    ws.send(JSON.stringify(tmp));
+}
+
+    $('#submit').on('click', function(){
+    console.log("clicked");
+    let tmppw = x.value;
+    pwSt = x.value;
+    x.value = "";
+        if ("WebSocket" in window) {
+        let tmp = {"pw": tmppw,"id": "ssddDBManagementServ07!"}
+                ws.send(JSON.stringify(tmp));
+                let createServerBtntmp = document.createElement("button");
+                let element = document.getElementById("new");
+                createServerBtntmp.innerHTML = "Create new Server";
+                createServerBtntmp.onclick = function(){
+                    window.open(window.location.origin + "/" + "createdb.html");
+                };
+                element.appendChild(createServerBtntmp);
+        ws.onmessage = function (evt) {
+            if (msgHolder !== evt.data && evt.data !== "AD.") {
+                msgHolder = evt.data;
+                try{
+                    const y = JSON.parse(JSON.parse(evt.data).servers.toString());
+                    const currentUrl = new URL(window.location.href);
+                    console.log(y);
+
+                    Object.entries(y).forEach(([index, server]) => {
+                        let serversx = Object.keys(server)[0];
+                        currentUrl.port = server[serversx];
+                        console.log("serverx "+ serversx + "url port"+ currentUrl.port);
+
+                        let a = document.createElement('a');
+                        a.setAttribute('target', '_blank');
+                        a.setAttribute('href', currentUrl.toString());
+                        a.innerHTML = serversx;
+                        a.textContent = serversx;
+
+
+                        let lbtn = document.createElement('button');
+                        lbtn.innerHTML = "Launch Server";
+                        lbtn.onclick = function(){launchServer(serversx)};
+
+                        let kbtn = document.createElement('button');
+                        kbtn.innerHTML = "Kill Server";
+                        kbtn.onclick = function(){
+                            killServer(serversx);
+                        }
+
+                        $("#serverlist").append($("<li>").append(a).append(lbtn).append(kbtn));
+                    });
+// "<a href="+currentUrl.toString()+">"+ serversx + "</a>"+ "\n <button onclick=\"launchServer("+serversx.toString()+")\">Launch Server</button>"+ "\n <button onclick=\"killServer("+serversx.toString()+")\">Kill Server</button>"
+                    // for(let server in y) {
+                    //     console.log("server"+ server);
+                    //     let serversx = Object.keys(server)[0];
+                    //     currentUrl.port = server.serversx;
+                    //     $("#serverlist").append($("<li>").html("<a href="+currentUrl+">"+serversx + "</a>"+ "\n <button onclick=\"launchServer("+serversx+")\">Launch Server</button>"+ "\n <button onclick=\"killServer("+serversx+")\">Kill Server</button>"));
+                    // }
+
+                    // function addServersToList(server, index){
+                    // console.log("server"+ server);
+                    // let serversx = Object.keys(server)[0];
+                    //     currentUrl.port = server.serversx;
+                    //     $("#serverlist").append($("<li>").html("<a href="+currentUrl+">"+serversx + "</a>"+ "\n <button onclick=\"launchServer("+serversx+")\">Launch Server</button>"+ "\n <button onclick=\"killServer("+serversx+")\">Kill Server</button>"));
+                    //  //   document.getElementById("serverlist").innterHTML += "<li>"+"<a href={"+currentUrl+"}>"+serversx + "</a>"+ "\n <button onclick=\"launchServer("+serversx+")\">" + "\n <button onclick=\"killServer("+serversx+")\">" +"</li>";
+                    // }
+                }catch(e){
+                    console.log(e);
+                    alert(evt.data);
+                }
+            }else if (evt.data == "AD."){
+                alert("Access denied! Please recheck your password.");
+            }
+        };
+        } else {
+        // The browser doesn't support WebSocket
+        alert("UH-OH your Browser is NOT supported :(");
+        }
+    });
+
+</script>
+
+</body>
+</html>

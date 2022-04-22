@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create DB</title>
+</head>
+<body>
+    <input id="pw" type="text" name="Password" placeholder="Enter password">
+    <input id="dbname" type="text" name="DB Name" placeholder="Enter DB Name">
+    <input id="port" type="text" name="port Name" placeholder="Enter port (>1024 and exclude 19194)">
+    <button id="create">Create DB</button>
+    <script type="text/javascript">
+        let pw = document.getElementById("pw");
+        let dbn = document.getElementById("dbname");
+        let ptn = document.getElementById("port");
+        const ws = new WebSocket("ws://localhost:19194/zotws");
+        let btn = document.getElementById("create");
+        btn.onclick = function(){
+            let tmp = {
+                "id": "ssddCreateServer07!",
+                "pw": pw.value,
+                "dbid": dbn.value,
+                "port": ptn.value
+            }
+            ws.send(JSON.stringify(tmp));
+        }
+            ws.onmessage = function(evt){
+                alert(evt.data);
+            }
+    </script>
+</body>
+</html>

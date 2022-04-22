@@ -9,178 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a849a0cb-072b-4e0b-a87d-cb2157b043ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/zotdb_server_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/GenFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/GetUID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/PewPew.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/WebSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/Insts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsFileMaster.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsGenFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsHTMLNotifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsSingleValueEveResponder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsValueEveResponder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsWebSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Access.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Base64.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/CustomErrorPages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ExceptionHandlerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ExceptionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Experimental.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Filter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/FilterImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/HaltException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ModelAndView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/QueryParamsMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Redirect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Request.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/RequestResponseFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ResponseTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ResponseTransformerRouteImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Routable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Route.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/RouteGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/RouteImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Service.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/Session.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/TemplateEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/TemplateViewRoute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/TemplateViewRouteImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ZotWS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/EmbeddedServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/EmbeddedServerFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/EmbeddedServers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/NotSupportedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/EmbeddedJettyFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/EmbeddedJettyServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/HttpRequestWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/JettyHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/JettyServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/JettyServerFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/SocketConnectorFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/websocket/WebSocketCreatorFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/websocket/WebSocketHandlerClassWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/websocket/WebSocketHandlerInstanceWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/websocket/WebSocketHandlerWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/embeddedserver/jetty/websocket/WebSocketServletContextHandlerFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/globalstate/ServletFlag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/AfterAfterFilters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/AfterFilters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/BeforeFilters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/Body.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/GeneralError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/Halt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/RequestWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/ResponseWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/RouteContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/matching/Routes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/AbstractFileResolvingResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/AbstractResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/AbstractResourceHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/ClassPathResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/ClassPathResourceHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/ExternalResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/ExternalResourceHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/InputStreamResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/Resource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/resource/UriPath.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/route/HttpMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/route/RouteEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/route/Routes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/route/ServletRoutes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/route/SimpleRouteMatcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/routematch/RouteMatch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/serialization/BytesSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/serialization/DefaultSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/serialization/InputStreamSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/serialization/Serializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/serialization/SerializerChain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/servlet/FilterTools.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/servlet/SparkApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/servlet/SparkFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/ssl/SslStores.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/staticfiles/DirectoryTraversal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/staticfiles/MimeType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/staticfiles/StaticFilesConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/staticfiles/StaticFilesFolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/Assert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/ClassUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/CollectionUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/GzipUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/IOUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/MimeParse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/ObjectUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/ResourceUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/SparkUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/StringUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/Wrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/urldecoding/TypeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/urldecoding/UrlDecode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/urldecoding/Utf8Appendable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/ws/utils/urldecoding/Utf8StringBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/LICENSE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/auto/auto.esm.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/auto/auto.esm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/auto/auto.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/auto/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/dist/chart.esm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/dist/chart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/dist/chart.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/dist/chunks/helpers.segment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/dist/helpers.esm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/helpers/helpers.esm.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/helpers/helpers.esm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/helpers/helpers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/helpers/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/adapters.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/animation.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/basic.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/color.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/element.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/geometric.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.canvas.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.collection.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.color.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.core.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.curve.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.dom.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.easing.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.extras.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.interpolation.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.intl.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.math.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.options.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.rtl.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/helpers.segment.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/helpers/index.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/index.esm.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/layout.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/chart.js/types/utils.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/createdb.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/dist/jquery.json-editor.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/json.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/style.css" afterDir="false" />
+    <list default="true" id="a849a0cb-072b-4e0b-a87d-cb2157b043ce" name="Changes" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/GenFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/rtdb/GenFile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,22 +41,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/sr480/IdeaProjects/zotdb_serverx/src/main/resources",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sr480/IdeaProjects/zotdb_serverx/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dev.ssdd.sms" />
@@ -257,6 +89,14 @@
       <option name="presentableId" value="Default" />
       <updated>1650547308678</updated>
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1650637813786</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650637813786</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,5 +109,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
 </project>

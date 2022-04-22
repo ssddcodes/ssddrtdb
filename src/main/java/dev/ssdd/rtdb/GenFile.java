@@ -91,17 +91,19 @@ public class GenFile {
         System.out.println("Enter port for new server (>1024 and exclude 19194)");
         int port = sc.nextInt();
         if (!(port < 1024)) {
-            JSONArray array = new JSONArray(getDB());
-            for (Object o : array) {
-                Map<String, Object> jo = new JSONObject(o.toString()).toMap();
-                for (Object x : jo.values()) {
-                    if(Integer.parseInt(x.toString()) == port){
-                        System.err.println("Please enter port such that port>1024, exclude 19194 and all other ports of different servers");
-                        inputNewPort(sc);
-                        break;
+            try{
+                JSONArray array = new JSONArray(getDB());
+                for (Object o : array) {
+                    Map<String, Object> jo = new JSONObject(o.toString()).toMap();
+                    for (Object x : jo.values()) {
+                        if(Integer.parseInt(x.toString()) == port){
+                            System.err.println("Please enter port such that port>1024, exclude 19194 and all other ports of different servers");
+                            inputNewPort(sc);
+                            break;
+                        }
                     }
                 }
-            }
+            }catch (Exception ignored){}
         }else {
             System.err.println("Please enter port such that port>1024, exclude 19194 and all other ports of different servers");
             inputNewPort(sc);

@@ -36,7 +36,7 @@ public class SmsWebSocket {
 
     @OnWebSocketConnect
     public void connected(Session session) {
-        System.out.println("Connected ssdd");
+        System.out.println("Client Connected");
         sessions.add(session);
         shn = new SmsHTMLNotifier();
         shns.put(session, shn);
@@ -44,6 +44,7 @@ public class SmsWebSocket {
 
     @OnWebSocketClose
     public void closed(Session session, int statusCode, String reason) {
+        System.out.println("Client Disconnected");
         sessions.remove(session);
         shns.remove(session);
         svers.remove(session);
@@ -53,7 +54,6 @@ public class SmsWebSocket {
     @OnWebSocketMessage
     public void message(Session session, String message) throws IOException {
         System.out.println(message);
-
         if (!(message.equals("ssdd"))) {
             JSONObject j = new JSONObject(message);
             String id = j.getString("id");

@@ -79,6 +79,7 @@ public class WebSocket {
 
     @OnWebSocketClose
     public void closed(Session session, int statusCode, String reason) {
+        System.out.println("Client Disconnected");
         sessions.remove(session);
 /*
         System.out.println("disconnected " + clientDentifier.get(session) + " " + reason + "status-code: "+statusCode);
@@ -110,8 +111,6 @@ public class WebSocket {
 
     @OnWebSocketMessage
     public void message(Session session, String message) throws IOException {
-        System.out.println(message);
-
         String cred = readFileAndReturnCred();
         String key = new JSONObject(cred).getString("key");
 
@@ -246,7 +245,6 @@ public class WebSocket {
     }
 
     public static synchronized void sendClient(Session session, String msg) {
-        System.out.println("sending "+ msg);
         try {
             session.getRemote().sendString(msg);
         } catch (IOException e) {

@@ -8,7 +8,6 @@ public class SmsSingleValueEveResponder {
     public boolean check = false;
     public SmsFileMaster g;
 
-
     void gitChildren(String path, Session session, String reqid, String dbid) {
         if (path.contains("/")) {
             String[] x = path.split("/");
@@ -25,7 +24,6 @@ public class SmsSingleValueEveResponder {
             g = new SmsFileMaster(dbid) {
                 @Override
                 public void readFileResult(String json) {
-
                     try {
                         JSONObject o = new JSONObject(json).getJSONObject(dbid);
                         if (path.length == 0) {
@@ -82,9 +80,7 @@ public class SmsSingleValueEveResponder {
     }
 
     private void semd(String msg, Session session) {
-        if (WebSocket.sessions.contains(session)) {
-            System.out.println("sent SSVER");
-            WebSocket.sendClient(session, msg);
-        }
+        System.out.println("sent SSVER");
+        WebSocket.sendClient(session, msg);
     }
 }

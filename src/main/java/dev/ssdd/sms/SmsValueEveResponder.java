@@ -74,9 +74,7 @@ public class SmsValueEveResponder {
     }
 
     private void semd(String msg, Session session) {
-        if (WebSocket.sessions.contains(session)) {
-            System.out.println("Sent SVER");
-            WebSocket.sendClient(session, msg);
-        }
+        System.out.println("Sent SVER");
+        WebSocket.sendClient(session, msg);
     }
 }

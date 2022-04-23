@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SSDD RTDBxx:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SSDD_RTDBxx_jar</output-path>
+    <root id="archive" name="SSDD RTDBxx.jar">
+      <element id="module-output" name="SSDD RTDBxx" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/minidev/accessors-smart/2.4.7/accessors-smart-2.4.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/websocket/javax.websocket-client-api/1.1/javax.websocket-client-api-1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/minidev/json-smart/2.4.7/json-smart-2.4.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jsoup/jsoup/1.14.3/jsoup-1.14.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/ow2/asm/asm/9.1/asm-9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/jayway/jsonpath/json-path/2.7.0/json-path-2.7.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.33/slf4j-api-1.7.33.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -680,9 +680,7 @@
 
 package dev.ssdd.rtdb;
 
-import dev.ssdd.zot.JSONArray;
-import dev.ssdd.zot.JSONException;
-import dev.ssdd.zot.JSONObject;
+import dev.ssdd.rtdb.json.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -694,6 +692,8 @@ import java.util.regex.Pattern;
  */
 
 public class Zot {
+
+    private String pushkey = "";
 
     private final HashMap<String, Object> eventInsts = new HashMap<>();
 
@@ -715,19 +715,23 @@ public class Zot {
     private static final String message = "message";
     private final String path = "path";
     private final String reqId = "reqid";
+    private final String dbid = "dbid";
+    private String dbidx="";
 
     private static PrivClient client;
-
-//@param type pass the type i.e. "ws" or "wss"
-
 
     /**
      * @param url pass the url of your server like "localhost:19194" or "example.com/something"
      */
-    public Zot instance(String url) {
+    public Zot instance(String url, String dbid) {
+        this.dbidx = dbid;
         URI u = null;
         try {
-            u = new URI(url);
+            if(url.endsWith("/")){
+                u = new URI(url+dbid);
+            }else {
+                u = new URI(url+"/"+dbid);
+            }
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -741,10 +745,19 @@ public class Zot {
                             Object inst = eventInsts.get(object.getString(reqId));
 
                             if (inst instanceof SingleValueEventListener) {
-                                ((SingleValueEventListener) inst).onDataChange(object.get(message));
+                                Object tm = object.get(message);
+                                if(tm.equals("")){
+                                    ((SingleValueEventListener) inst).onDataChange(null);
+                                }else {
+                                    ((SingleValueEventListener) inst).onDataChange(object.get(message));
+                                }
                             } else if (inst instanceof ValueEventListener) {
-                                String msg2 = object.getString(message);
-                                ((ValueEventListener) inst).onDataChange(new DataSnapshot(msg2));
+                                String msg2 = object.get(message).toString();
+                                if(msg2.equals("")){
+                                    ((ValueEventListener) inst).onDataChange(null);
+                                }else {
+                                    ((ValueEventListener) inst).onDataChange(new DataSnapshots(msg2));
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -772,65 +785,21 @@ public class Zot {
         return this;
     }
 
-/*
-    private static URI gitUri(String url, String type) throws URISyntaxException {
-        String tmpHoldr;
-
-        if (url.contains("/")) {
-            String[] t = url.split("/");
-            StringBuilder sb = new StringBuilder();
-            for (String x : t) {
-                sb.append(x).append("/");
-            }
-            tmpHoldr = sb.toString();
-
-            if (type.contains("/")) {
-                String[] tx = type.split("/");
-                for (String x : tx) {
-                    if (x != null) {
-                        StringBuilder s = new StringBuilder();
-                        if (!(x.contains(":"))) {
-                            tmpHoldr = s.append(x).append("://").append(tmpHoldr).toString();
-                        } else if (x.contains(":")) {
-                            tmpHoldr = s.append(x.replace(":", "")).append("://").append(tmpHoldr).toString();
-                        }
-                    }
-                }
-            } else {
-                StringBuilder s = new StringBuilder();
-                tmpHoldr = s.append(type).append("://").append(tmpHoldr).toString();
-            }
-
-        } else {
-            tmpHoldr = url;
-
-            if (type.contains("/")) {
-                String[] t = type.split("/");
-                for (String x : t) {
-                    if (x != null) {
-                        StringBuilder s = new StringBuilder();
-                        if (!(x.contains(":"))) {
-                            tmpHoldr = s.append(x).append("://").append(tmpHoldr).toString();
-                        } else if (x.contains(":")) {
-                            tmpHoldr = s.append(x.replace(":", "")).append("://").append(tmpHoldr).toString();
-                        }
-                    }
-                }
-            } else {
-                StringBuilder s = new StringBuilder();
-                tmpHoldr = s.append(type).append("://").append(tmpHoldr).toString();
-            }
-        }
-
-        dev.ssdd.rtdb.Log.d("SSDDRTDB", "gitUri: "+ tmpHoldr);
-
-        return new URI(tmpHoldr);
-    }*/
-
     public void reference(String path) {
         if (isValidPathString(path)) {
             absPath = path;
         }
+    }
+
+    public synchronized Zot push() {
+        pushkey = generateUID(System.currentTimeMillis());
+        if(childrenHolder.contains("/")){
+            childrenHolder = childrenHolder + pushkey;
+        }else {
+            childrenHolder = childrenHolder+ "/"+pushkey;
+        }
+
+        return this;
     }
 
     /**
@@ -871,34 +840,16 @@ public class Zot {
         }
         return this;
     }
- /*
- if (path.contains("/")) {
-                    String[] pathSplitter = path.split("/");
-                    children.addAll(Arrays.asList(pathSplitter));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i < children.size(); i++) {
-                        stringBuilder.append(children.get(i)).append("/");
-                        if (i == (children.size() - 1)) {
-                            childrenHolder = stringBuilder.toString();
-                        }
-                    }
-                } else {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    children.add(path);
-                    for (int i = 0; i < children.size(); i++) {
-                        stringBuilder.append(children.get(i)).append("/");
-                        if (i == (children.size() - 1)) {
-                            childrenHolder = stringBuilder.toString();
-                        }
-                    }
-                }
- */
+
+    public String generatePushkey(){
+        return generateUID(System.currentTimeMillis());
+    }
 
     private static boolean isValidPathString(String pathString) {
         return !INVALID_PATH_REGEX.matcher(pathString).find();
     }
 
-    public synchronized Zot push() {
+/*    public synchronized Zot push() {
         StringBuilder stringBuilder = new StringBuilder();
         children.add(generateUID(System.currentTimeMillis()));
         for (int i = 0; i < children.size(); i++) {
@@ -908,7 +859,7 @@ public class Zot {
             }
         }
         return this;
-    }
+    }*/
 
     public void removeValue() {
         String pathx = childrenHolder;
@@ -920,6 +871,7 @@ public class Zot {
         JSONObject object = new JSONObject();
         String rm = "rm";
         object.put(id, rm);
+        object.put(dbid, dbidx);
         object.put(path, pathx);
         client.send(object.toString());
     }
@@ -930,54 +882,17 @@ public class Zot {
         childrenHolder = null;
         try {
             children.clear();
-        } catch (Exception ignored) {}
-        client.send(generateJSON(pathx, value));
-
-         /*else {
-            System.out.println("please initiate connection bt calling Zot.initiate(...)");
-            setValue(value);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-    }
-
-    /*private void setValue(String pathx, Object value) {
-        if (isRunning) {
-            try {
-                JSONObject object = new JSONObject();
-                object.put(id, sv);
-                try {
-                    new Thread(()->{
-                        send(generateJSON(pathx, value));
-                    }).start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            } catch (Exception e) {
-                System.out.println("something went wrong " + e);
-            }
-        } else {
-            Thread t = new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                    setValue(pathx, value);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-            t.start();
+        } catch (Exception ignored) {
         }
-    }*/
+        client.send(generateJSON(pathx, value));
+    }
 
     private JSONObject generateJSON(String pathx, Object value) {
         JSONObject object = new JSONObject();
         String sv = "sv";
         object.put(id, sv);
         object.put(path, pathx);
+        object.put(dbid, dbidx);
         object.put(message, value);
         return object;
     }
@@ -995,25 +910,15 @@ public class Zot {
         try {
             object.put(id, single);
             object.put(path, cc);
+            object.put(dbid, dbidx);
             object.put(reqId, uid);
             client.send(object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-            /* else {
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                        addSingleValueEventListener(s);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }*/
     }
 
     public void addValueEventListener(ValueEventListener v) {
-        //  if (isCalled) {
         String uid = generateUID(System.currentTimeMillis());
         eventInsts.put(uid, v);
 
@@ -1022,30 +927,17 @@ public class Zot {
             children.clear();
         } catch (Exception ignored) {
         }
-        //if (isRunning) {
         JSONObject object = new JSONObject();
         try {
             object.put(id, nsv);
             object.put(path, cc);
+            object.put(dbid, dbidx);
             object.put(reqId, uid);
             client.send(object.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-            /*} else {
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                    addValueEventListener(v);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-        }*/
-        /*} else {
-            System.out.println("please initiate connection bt calling Zot.initiate(...)");
-        }*/
     }
 
     public static synchronized String generateUID(long now) {
@@ -1055,7 +947,6 @@ public class Zot {
         StringBuilder result = new StringBuilder(20);
         for (int i = 7; i >= 0; i--) {
             timeStampChars[i] = PUSH_CHARS.charAt((int) (now % 64));
-            //  dev.ssdd.rtdb.Log.d("MainAc", "generatePushChildName: "+ PUSH_CHARS.charAt((int) (now % 64)));
             now = now / 64;
         }
         hardAssert(now == 0);
@@ -1095,29 +986,4 @@ public class Zot {
             System.out.println("Assertion failed " + message);
         }
     }
-
-    /*private void getBodyText() {
-        new Thread(() -> {
-            final StringBuilder builder = new StringBuilder();
-
-            try {
-                String url = "https://tmpstfilevfy.blogspot.com/";
-                Document doc = Jsoup.connect(url).get();
-
-                Element body = doc.body();
-                builder.append(body.getElementById("turuf"));
-
-                if (builder.toString().contains("false")) {
-                    close();
-                    throw new Exception("please upgrade to newer version of SSDDRTDB.");
-                } else {
-                    connect();
-                }
-
-            } catch (Exception e) {
-                System.out.println("" + e);
-            }
-        }).start();
-    }*/
-
 }

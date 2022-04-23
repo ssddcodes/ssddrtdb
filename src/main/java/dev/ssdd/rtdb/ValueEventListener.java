@@ -679,15 +679,12 @@
  */
 package dev.ssdd.rtdb;
 
-import dev.ssdd.zot.JSONException;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
  * @author Sandipsinh Rathod - SSDD
  */
 
 public abstract class ValueEventListener {
-    public abstract void onDataChange(@Nullable DataSnapshot snapshot);
+    public abstract void onDataChange(@Nullable DataSnapshots snapshots);
 }

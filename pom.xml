@@ -6,7 +6,7 @@
 
     <groupId>dev.ssdd</groupId>
     <artifactId>rtdb</artifactId>
-    <version>2.2</version>
+    <version>2.5</version>
     <name>SSDD</name>
     <description>This is SSDD's Real Time Database</description>
     <url>https://github.com/ssddcodes/ssddrtdb/</url>
@@ -46,11 +46,6 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.ssdd</groupId>
-            <artifactId>json</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>

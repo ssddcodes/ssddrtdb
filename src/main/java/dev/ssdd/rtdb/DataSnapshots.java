@@ -683,29 +683,49 @@ package dev.ssdd.rtdb;
 import com.google.gson.Gson;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import dev.ssdd.rtdb.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author Sandipsinh Rathod - SSDD
  */
-public class DataSnapshot {
+public class DataSnapshots {
     private final String json;
 
-    public DataSnapshot(String json) {
+    public DataSnapshots(String json) {
         this.json = json;
     }
 
-    public <T> T getValue(Class<T> valueType){
+    public <T> List<T> getValue(Class<T> valueType){
         try {
             DocumentContext context = JsonPath.parse(json);
-            String queryResult = context.read("$.*").toString();
-            return new Gson().fromJson(queryResult,valueType);
+            List<LinkedHashMap> snapshots = context.read("$.*");
+            List<T> ts = new ArrayList<>();
+            for (LinkedHashMap s : snapshots) {
+                ts.add(new Gson().fromJson(String.valueOf(s),valueType));
+            }
+            return ts;
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println(e +" something went wrong (maybe the json format is incorrect) file received: "+ json);
                 return null;
         }
     }
-    public String getValue(){
+    public List<Snapshot> getValue(){
         DocumentContext context = JsonPath.parse(json);
-        return context.read("$.*").toString();
+        List<LinkedHashMap> l = context.read("$.*");
+        List<Snapshot> s = new ArrayList<>();
+        for (int i=0; i<l.size(); i++) {
+            LinkedHashMap ll = l.get(i);
+            s.add(new Snapshot(ll).setParentkey(getKeys()[i].toString()));
+        }
+        return s;
+    }
+
+    public Object[] getKeys(){
+        return new JSONObject(json).keySet().toArray();
     }
 }

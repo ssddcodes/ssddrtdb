@@ -23,7 +23,7 @@ The Main class is ZotDB, to initiate the class please use init() method.
 
 ## Usage
  
-Example available at `/example` folder. 
+Example available at `/test` folder. 
 
 To initiate:- 
 
@@ -91,10 +91,10 @@ To update some value:-
 To get unique key:- 
 ```dart
 String uid = zotDB.getPushKey();
-//please check examples folder for more details
+//please check test folder for more details
 ```
 
-To listen to multiple values please checkout example at `/examples`
+To listen to multiple values please checkout example at `/test`
 
 ## Additional information
 

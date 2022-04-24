@@ -23,7 +23,7 @@ void main() {
   ZotDB zotDB = ZotDB.init("ws://localhost:19195/ssdd").child("abc/xyz/xyz1");
 
 
-  /// to listen to single value.
+  /// used to listen to single value.
   /// the output should be "ayo"
   zotDB.addSingleValueEventListener((snap) {
     print(snap);

@@ -53,7 +53,6 @@ public class SmsWebSocket {
 
     @OnWebSocketMessage
     public void message(Session session, String message) throws IOException {
-        System.out.println(message);
         if (!(message.equals("ssdd"))) {
             JSONObject j = new JSONObject(message);
             String id = j.getString("id");

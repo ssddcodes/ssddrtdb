@@ -67,6 +67,13 @@ public class SmsSingleValueEveResponder {
                                         semd(xx.toString(), session);
                                         check = true;
                                     }
+                                }else {
+                                    JSONObject xx = new JSONObject();
+                                    xx.put("id", "single");
+                                    xx.put("message", "");
+                                    xx.put("reqid", reqid);
+                                    semd(xx.toString(), session);
+                                    check = true;
                                 }
                             }
                         }
@@ -80,7 +87,6 @@ public class SmsSingleValueEveResponder {
     }
 
     private void semd(String msg, Session session) {
-        System.out.println("sent SSVER");
         WebSocket.sendClient(session, msg);
     }
 }

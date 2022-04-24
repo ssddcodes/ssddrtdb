@@ -62,6 +62,13 @@ public class SmsValueEveResponder {
                                     semd(queryResultToJson.toString(), session);
                                     check = true;
                                 }
+                            }else {
+                                JSONObject xx = new JSONObject();
+                                xx.put("id", "single");
+                                xx.put("message", "");
+                                xx.put("reqid", reqid);
+                                semd(xx.toString(), session);
+                                check = true;
                             }
                         }
                     } catch (Exception e) {
@@ -74,7 +81,6 @@ public class SmsValueEveResponder {
     }
 
     private void semd(String msg, Session session) {
-        System.out.println("Sent SVER");
         WebSocket.sendClient(session, msg);
     }
 }

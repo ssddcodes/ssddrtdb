@@ -28,7 +28,7 @@ Example available at `/example` folder.
 To initiate:- 
 
 ```dart
-  ZotDB zotDB = ZotDB.init("ws://<serverip>/dbid");
+  ZotDB zotDB = ZotDB.init("ws://<serverip>:<port>/<dbid>");
 //dbid is the root name of your json, for more details please see server logs
 ```
 

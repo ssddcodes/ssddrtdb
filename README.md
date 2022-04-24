@@ -14,7 +14,6 @@ This is SSDD's Realtime database. Which provides you realtime Database service o
 
 ### *Gradle*
 
-groovy
 ```groovy
  implementation 'dev.ssdd:rtdb:2.6'
 ```

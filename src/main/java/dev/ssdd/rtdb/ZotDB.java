@@ -691,9 +691,10 @@ import java.util.regex.Pattern;
  * @author Sandipsinh Rathod - SSDD
  */
 
-public class Zot {
+public class ZotDB {
 
     private String pushkey = "";
+    private String vfy = "";
 
     private final HashMap<String, Object> eventInsts = new HashMap<>();
 
@@ -716,22 +717,19 @@ public class Zot {
     private final String path = "path";
     private final String reqId = "reqid";
     private final String dbid = "dbid";
-    private String dbidx="";
+    private final String dbidx;
 
-    private static PrivClient client;
+    private PrivClient client;
 
-    /**
-     * @param url pass the url of your server like "localhost:19194" or "example.com/something"
-     */
-    public Zot instance(String url, String dbid) {
+    public ZotDB(String url, String dbid) {
         this.dbidx = dbid;
+        start(url);
+    }
+
+    void start(String url){
         URI u = null;
         try {
-            if(url.endsWith("/")){
-                u = new URI(url+dbid);
-            }else {
-                u = new URI(url+"/"+dbid);
-            }
+            u = new URI(url);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -739,28 +737,31 @@ public class Zot {
             @Override
             public void onText(Object msg) {
                 new Thread(() -> {
-                    if (!(msg.toString().equals(ssddKeepAlive))) {
-                        try {
-                            JSONObject object = new JSONObject(msg.toString());
-                            Object inst = eventInsts.get(object.getString(reqId));
+                    if(!msg.toString().equals(vfy)){
+                        vfy = msg.toString();
+                        if (!(msg.toString().equals(ssddKeepAlive))) {
+                            try {
+                                JSONObject object = new JSONObject(msg.toString());
+                                Object inst = eventInsts.get(object.getString(reqId));
 
-                            if (inst instanceof SingleValueEventListener) {
-                                Object tm = object.get(message);
-                                if(tm.equals("")){
-                                    ((SingleValueEventListener) inst).onDataChange(null);
-                                }else {
-                                    ((SingleValueEventListener) inst).onDataChange(object.get(message));
+                                if (inst instanceof SingleValueEventListener) {
+                                    Object tm = object.get(message);
+                                    if(tm.equals("")){
+                                        ((SingleValueEventListener) inst).onDataChange(null);
+                                    }else {
+                                        ((SingleValueEventListener) inst).onDataChange(object.get(message));
+                                    }
+                                } else if (inst instanceof ValueEventListener) {
+                                    String msg2 = object.get(message).toString();
+                                    if(msg2.equals("")){
+                                        ((ValueEventListener) inst).onDataChange(null);
+                                    }else {
+                                        ((ValueEventListener) inst).onDataChange(new DataSnapshots(msg2));
+                                    }
                                 }
-                            } else if (inst instanceof ValueEventListener) {
-                                String msg2 = object.get(message).toString();
-                                if(msg2.equals("")){
-                                    ((ValueEventListener) inst).onDataChange(null);
-                                }else {
-                                    ((ValueEventListener) inst).onDataChange(new DataSnapshots(msg2));
-                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
                 }).start();
@@ -775,14 +776,20 @@ public class Zot {
                     }, 82800000, 82800000);
                 }).start();
             }
-
             @Override
             public void onOpen() {
                 super.onOpen();
             }
         };
         client.connect();
-        return this;
+    }
+
+    /**
+     * @param url pass the url of your server like "ws://localhost:19195/foo/" or "wss://example.com/foo/"
+     */
+    public static ZotDB instance(String url) {
+        String[] dbtmp = url.split("/");
+        return new ZotDB(url, dbtmp[dbtmp.length-1]);
     }
 
     public void reference(String path) {
@@ -791,7 +798,7 @@ public class Zot {
         }
     }
 
-    public synchronized Zot push() {
+    public synchronized ZotDB push() {
         pushkey = generateUID(System.currentTimeMillis());
         if(childrenHolder.contains("/")){
             childrenHolder = childrenHolder + pushkey;
@@ -805,7 +812,7 @@ public class Zot {
     /**
      * @param path this is the reference path to the database.
      */
-    public Zot child(String path) {
+    public ZotDB child(String path) {
         if (isValidPathString(path)) {
             path = absPath + path;
             if (path.contains("/")) {

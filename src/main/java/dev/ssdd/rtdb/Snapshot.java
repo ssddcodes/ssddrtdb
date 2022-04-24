@@ -111,6 +111,11 @@ public class Snapshot {
         this.populateMap(bean);
     }
 
+    public Snapshot(Object x, String key){
+        this();
+        this.map.put(key, x);
+    }
+
     private Snapshot(Object bean, Set<Object> objectsRecord) {
         this();
         this.populateMap(bean, objectsRecord);

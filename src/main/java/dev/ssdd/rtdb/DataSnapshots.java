@@ -702,25 +702,33 @@ public class DataSnapshots {
     public <T> List<T> getValue(Class<T> valueType){
         try {
             DocumentContext context = JsonPath.parse(json);
-            List<LinkedHashMap> snapshots = context.read("$.*");
+            List<LinkedHashMap<String, Object>> snapshots = context.read("$.*");
             List<T> ts = new ArrayList<>();
-            for (LinkedHashMap s : snapshots) {
-                ts.add(new Gson().fromJson(String.valueOf(s),valueType));
+            for (LinkedHashMap<String, Object> s : snapshots) {
+                try{
+                    ts.add(new Gson().fromJson(String.valueOf(s),valueType));
+                }catch (Exception ignored){}
             }
             return ts;
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println(e +" something went wrong (maybe the json format is incorrect) file received: "+ json);
+            System.err.println(e +" something went wrong (maybe the json format is incorrect) file received: "+ json);
                 return null;
         }
     }
     public List<Snapshot> getValue(){
         DocumentContext context = JsonPath.parse(json);
-        List<LinkedHashMap> l = context.read("$.*");
+        List<LinkedHashMap<String, Object>> l = context.read("$.*");
         List<Snapshot> s = new ArrayList<>();
         for (int i=0; i<l.size(); i++) {
-            LinkedHashMap ll = l.get(i);
-            s.add(new Snapshot(ll).setParentkey(getKeys()[i].toString()));
+            try{
+                LinkedHashMap<String, Object> ll = l.get(i);
+                s.add(new Snapshot(ll).setParentkey(getKeys()[i].toString()));
+            }catch (Exception ignored){
+                Object ll = l.get(i);
+                String key = getKeys()[i].toString();
+                s.add(new Snapshot(ll,key).setParentkey(key));
+            }
         }
         return s;
     }

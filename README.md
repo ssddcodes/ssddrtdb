@@ -124,7 +124,7 @@ For more info please checkout [Example](https://github.com/ssddcodes/ssddrtdb/tr
 
 #Demo
 
-![Demo]()
+![Demo](https://github.com/ssddcodes/ssddrtdb/blob/flutterlib/demo.gif)
 
 ## Changelog
 * v2.6(dependency) :- major update and stable release 

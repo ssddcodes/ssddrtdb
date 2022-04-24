@@ -6,7 +6,7 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 |----:|:--------------------------------------------|
 |  📩 | [Download](#Implement)                      |
 |  📋 | [AvailableParameters](#AvailableParameters) |
-|  💻 | [Impl](#Implementation.)                    |
+|  💻 | [Implementation](#Implementation.)          |
 |  🧾 | [Changelog](#Changelog)                     |
 |  🏆 | [Credits](#Credits)                         |
 |  ⚖️ | [License](#License)                         |

@@ -36,6 +36,8 @@ void main() {
   /// adds numbers 0-4 with a unique identifier.
   for(int x=0; x<5; x++){
     zotDB.child("abc/xyz/xyz1").push().setValue(x);
+    // alternatively you can use getPushKey() method which returns unique id (String) like:-
+    //zotDB.child("abc/xyz/xyz1").child(getPushKey()).setValue(x);
   }
   // now json looks like {
   //

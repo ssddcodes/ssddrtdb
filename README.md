@@ -88,6 +88,12 @@ To update some value:-
 // }
 ```
 
+To get unique key:- 
+```dart
+String uid = zotDB.getPushKey();
+//please check examples folder for more details
+```
+
 To listen to multiple values please checkout example at `/examples`
 
 ## Additional information

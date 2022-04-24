@@ -6,7 +6,7 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 |----:|:--------------------------------------------|
 |  📩 | [Download](#Implement)                      |
 |  📋 | [AvailableParameters](#AvailableParameters) |
-|  💻 | [Implementation](#Implementation.)          |
+|  💻 | [Implementation](#Implementation)           |
 |  🧾 | [Changelog](#Changelog)                     |
 |  🏆 | [Credits](#Credits)                         |
 |  ⚖️ | [License](#License)                         |
@@ -45,7 +45,7 @@ Please checkout [server branch](https://github.com/ssddcodes/ssddrtdb/tree/serve
 | push()                        | used to generate a unique keyID for the database and add to path referance |
 | getPushKey()                  |                        returns string of unique id                         |
 
-## Implementation.
+## Implementation
 
 * To initiate:-
 

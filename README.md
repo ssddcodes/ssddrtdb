@@ -1,6 +1,6 @@
-# SSDD Realtime Database
+# SSDD Realtime Database (ZotDB)
 
-This is SSDD's Realtime database. Which provides you realtime Database service on your own VPS/pc.
+ZotDB provides you realtime Database service on your own VPS/pc.
 
 |   - | -                                           |
 |----:|:--------------------------------------------|
@@ -121,6 +121,10 @@ zotDB.child("abc/xyz/xyz1").addSingleValueEventListener(new SingleValueEventList
 ```
 
 For more info please checkout [Example](https://github.com/ssddcodes/ssddrtdb/tree/server/test/java/Main.java)
+
+#Demo
+
+![Demo]()
 
 ## Changelog
 * v2.6(dependency) :- major update and stable release 

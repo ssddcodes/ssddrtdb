@@ -135,7 +135,7 @@ For more info please checkout [Example](https://github.com/ssddcodes/ssddrtdb/tr
 > 
 > [Yamin](https://github.com/yamin8000):- Publishing and management.
 
-## Licence
+## License
 
 > RTDB is licensed under the [GNU General Public License v3.0](./LICENSE.md)  
 > Permissions of this strong copyleft license are conditioned on making  

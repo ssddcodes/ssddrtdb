@@ -1,7 +1,6 @@
 import 'package:zotdb_flutter/zotdb_flutter.dart';
 
 void main() {
-
   ///let's say we have a JSON like:-
   //{
   //
@@ -15,13 +14,11 @@ void main() {
   //
   // }
 
-
   ///TO Init just call static init() method and pass DB url.
   ///child() method is used to pass location of something in json, and path can either be used as:-
   ///zotDB.child("foo/abc") or zotDB.child("foo").child("abc")
 
   ZotDB zotDB = ZotDB.init("ws://localhost:19195/ssdd").child("abc/xyz/xyz1");
-
 
   /// used to listen to single value.
   /// the output should be "ayo"
@@ -34,7 +31,7 @@ void main() {
   zotDB.child("abc/xyz/xyz1").setValue("hie");
 
   /// adds numbers 0-4 with a unique identifier.
-  for(int x=0; x<5; x++){
+  for (int x = 0; x < 5; x++) {
     zotDB.child("abc/xyz/xyz1").push().setValue(x);
     // alternatively you can use getPushKey() method which returns unique id (String) like:-
     //zotDB.child("abc/xyz/xyz1").child(getPushKey()).setValue(x);
@@ -56,7 +53,6 @@ void main() {
   //     }
   //
   // }
-
 
   /// this is used to listen to miltiple values, it returns list of JSON
   zotDB.child("abc/xyz/xyz1").addValueEventListener((snap) {

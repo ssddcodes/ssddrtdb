@@ -1,7 +1,6 @@
 import 'dart:math';
 
-class PathGen{
-
+class PathGen {
   static const String _PUSH_CHARS =
       '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
 
@@ -10,13 +9,13 @@ class PathGen{
   static int _lastPushTime = 0;
 
   static final List<int> _lastRandChars =
-  List<int>.filled(12, 0, growable: false);
+      List<int>.filled(12, 0, growable: false);
   static String generatePushChildName(int now) {
     final bool duplicateTime = (now == _lastPushTime);
     _lastPushTime = now;
 
     final List<String> timeStampChars =
-    List<String>.filled(8, "", growable: false);
+        List<String>.filled(8, "", growable: false);
     // final List<String> timeStampChars = List<String>(8);
     for (int i = 7; i >= 0; i--) {
       timeStampChars[i] = _PUSH_CHARS[now % 64];

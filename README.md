@@ -87,6 +87,11 @@ To update some value:-
 //
 // }
 ```
+To remove Value:-
+```dart
+zotDB.child("abc/xyz/xyz1").removeValue();
+//this will remove value at 'abc/xyz/xyz1'
+```
 
 To get unique key:- 
 ```dart

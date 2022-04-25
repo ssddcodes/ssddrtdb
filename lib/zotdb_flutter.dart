@@ -22,6 +22,7 @@ class ZotDB {
       _single = "single",
       _nsv = "nsv",
       _sv = "sv",
+      _rm = "rm",
       _message = "message",
       _path = "path",
       _dbid = "dbid",
@@ -50,7 +51,8 @@ class ZotDB {
           if (object[_id] == _nsv) {
             List<String> z = [];
             final arr = JsonPath(r'$.*');
-            arr.read(object[_message])
+            arr
+                .read(object[_message])
                 .map((match) => '${match.pointer}:\t${match.value}')
                 .forEach((element) {
               z.add(jsonEncode(element));
@@ -134,8 +136,9 @@ class ZotDB {
 
   ///this adds unique identifier for between the path
 
-  ZotDB push(){
-    String path = PathGen.generatePushChildName(DateTime.now().millisecondsSinceEpoch);
+  ZotDB push() {
+    String path =
+        PathGen.generatePushChildName(DateTime.now().millisecondsSinceEpoch);
     if (_childrenHolder.endsWith("/")) {
       _childrenHolder = _childrenHolder + path;
     } else {
@@ -144,8 +147,17 @@ class ZotDB {
     return this;
   }
 
-  String getPushKey(){
-    return PathGen.generatePushChildName(DateTime.now().millisecondsSinceEpoch);
+  void removeValue(){
+    Map tmp = {};
+    tmp[_id] = _rm;
+    tmp[_path] = _childrenHolder;
+    _childrenHolder = "";
+    _children = [];
+    tmp[_dbid] = _dbidx;
+    _channel.sink.add(jsonEncode(tmp));
   }
 
+  String getPushKey() {
+    return PathGen.generatePushChildName(DateTime.now().millisecondsSinceEpoch);
+  }
 }

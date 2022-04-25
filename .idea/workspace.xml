@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ssddrtdb:jar" />
+      <artifact name="zotdb_server:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,10 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a849a0cb-072b-4e0b-a87d-cb2157b043ce" name="Changes" comment="init">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsSingleValueEveResponder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsSingleValueEveResponder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsValueEveResponder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsValueEveResponder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/ssdd/sms/SmsWebSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,16 +44,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/ssdd/IdeaProjects/zotdb_server/src/main/resources",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dev.ssdd.sms" />
@@ -75,7 +73,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="semeru-1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="dev.ssdd.rtdb.Main" />
-      <module name="ssddrtdb" />
+      <module name="zotdb_server" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

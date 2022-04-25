@@ -632,8 +632,8 @@
  * state the exclusion of warranty; and each file should have at least
  * the "copyright" line and a pointer to where the full notice is found.
  *
- *     <one line to give the program's name and a brief idea of what it does.>
- *     Copyright (C) <year>  <name of author>
+ *     Realtime Database.
+ *     Copyright (C) 2022  Sandip
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -653,7 +653,7 @@
  *   If the program does terminal interaction, make it output a short
  * notice like this when it starts in an interactive mode:
  *
- *     <program>  Copyright (C) <year>  <name of author>
+ *     ZotDB  Copyright (C) 2022 Sandip
  *     This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
  *     This is free software, and you are welcome to redistribute it
  *     under certain conditions; type `show c' for details.
@@ -693,7 +693,6 @@ import java.util.regex.Pattern;
 
 public class ZotDB {
 
-    private String pushkey = "";
     private String vfy = "";
 
     private final HashMap<String, Object> eventInsts = new HashMap<>();
@@ -721,7 +720,10 @@ public class ZotDB {
 
     private PrivClient client;
 
-    public ZotDB(String url, String dbid) {
+    public ZotDB(String url, String dbid) throws Exception {
+        if(url==null || url.equals("") || dbid== null || dbid.equals("")){
+            throw new Exception("Please init with init() method. Please refer:- " + "https://github.com/ssddcodes/ssddrtdb#Implementation"+ " for more info." );
+        }
         this.dbidx = dbid;
         start(url);
     }
@@ -735,13 +737,14 @@ public class ZotDB {
         }
         client = new PrivClient(u) {
             @Override
-            public void onText(Object msg) {
+            public void onText(Object msgx) {
+                String msg = msgx.toString();
                 new Thread(() -> {
-                    if(!msg.toString().equals(vfy)){
-                        vfy = msg.toString();
-                        if (!(msg.toString().equals(ssddKeepAlive))) {
+                    if(!msg.equals(vfy)){
+                        vfy = msg;
+                        if (!(msg.equals(ssddKeepAlive))) {
                             try {
-                                JSONObject object = new JSONObject(msg.toString());
+                                JSONObject object = new JSONObject(msg);
                                 Object inst = eventInsts.get(object.getString(reqId));
 
                                 if (inst instanceof SingleValueEventListener) {
@@ -787,9 +790,13 @@ public class ZotDB {
     /**
      * @param url pass the url of your server like "ws://localhost:19195/foo/" or "wss://example.com/foo/"
      */
-    public static ZotDB instance(String url) {
+    public static ZotDB init(String url) {
         String[] dbtmp = url.split("/");
-        return new ZotDB(url, dbtmp[dbtmp.length-1]);
+        try {
+            return new ZotDB(url, dbtmp[dbtmp.length-1]);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void reference(String path) {
@@ -799,11 +806,11 @@ public class ZotDB {
     }
 
     public synchronized ZotDB push() {
-        pushkey = generateUID(System.currentTimeMillis());
+        String pushkey = generateUID(System.currentTimeMillis());
         if(childrenHolder.contains("/")){
             childrenHolder = childrenHolder + pushkey;
         }else {
-            childrenHolder = childrenHolder+ "/"+pushkey;
+            childrenHolder = childrenHolder+ "/"+ pushkey;
         }
 
         return this;

@@ -115,6 +115,12 @@ zotDB.child("abc/xyz/xyz1").addSingleValueEventListener(new SingleValueEventList
 
 ```
 
+* To remove Value:-
+```java
+zotDB.child("abc/xyz/xyz1").removeValue();
+//this will remove value at 'abc/xyz/xyz1'
+```
+
 * To listen to multiple values
 
 ```java

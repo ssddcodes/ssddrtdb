@@ -25,7 +25,7 @@ public class Main {
          * child() method is used to pass location of something in json, and path can either be used as:-
          * zotDB.child("foo/abc") or zotDB.child("foo").child("abc")
          */
-        ZotDB zotDB = ZotDB.instance("ws://localhost:19195/ssdd").child("abc/xyz/xyz1");
+        ZotDB zotDB = ZotDB.init("ws://localhost:19195/ssdd").child("abc/xyz/xyz1");
 
         /**
          * used to listen to single value.

@@ -9,6 +9,7 @@
         <module name="SSDD RTDB" />
         <module name="SSDD RTDBxx" />
         <module name="zotlib" />
+        <module name="ssddrtdb" />
       </profile>
     </annotationProcessing>
   </component>

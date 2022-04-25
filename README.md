@@ -2,6 +2,7 @@
 
 ZotDB provides you realtime Database service on your own VPS/pc.
 
+***
 |   - | -                                           |
 |----:|:--------------------------------------------|
 |  📩 | [Download](#Implement)                      |
@@ -12,7 +13,7 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 |  ⚖️ | [License](#License)                         |
 
 ## Implement
-
+***
 ### *Gradle*
 
 ```groovy
@@ -29,10 +30,12 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 ```
 
 ## Implement the Server.
+***
 
 Please checkout [server branch](https://github.com/ssddcodes/ssddrtdb/tree/server)
 
 ## Info.
+***
 
 ## AvailableParameters
 
@@ -46,7 +49,7 @@ Please checkout [server branch](https://github.com/ssddcodes/ssddrtdb/tree/serve
 | getPushKey()                  |                        returns string of unique id                         |
 
 ## Implementation
-
+***
 * To initiate:-
 
 ```java
@@ -130,10 +133,12 @@ zotDB.child("abc/xyz/xyz1").removeValue();
 For more info please checkout [Example](https://github.com/ssddcodes/ssddrtdb/tree/server/test/java/Main.java)
 
 # Demo
+***
 
 ![Demo](https://github.com/ssddcodes/ssddrtdb/blob/flutterlib/demo.gif)
 
 ## Changelog
+***
 * v2.6(dependency) :- major update and stable release 
 * v2.6(server):- major update with feature to add multiple servers in the same server file.
 * V-1.0.4-BETA:- Public beta, extended support for all java projects. 
@@ -142,12 +147,13 @@ For more info please checkout [Example](https://github.com/ssddcodes/ssddrtdb/tr
 * V-1.0.1-BETA:- Major bug fixes. 
 * V-1.0.1:- Major bug fixes.
 ## Credits
+> ***
 > [Sandip](https://github.com/ssddcodes):- Creator, Developer of SSDDRTDB.
 > 
 > [Yamin](https://github.com/yamin8000):- Publishing and management.
 
 ## License
-
+***
 > RTDB is licensed under the [GNU General Public License v3.0](./LICENSE.md)  
 > Permissions of this strong copyleft license are conditioned on making  
 > available complete source code of licensed works and modifications,  

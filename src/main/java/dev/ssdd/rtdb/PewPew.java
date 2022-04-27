@@ -4,8 +4,7 @@ import dev.ssdd.zot.JSONObject;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.io.Console;
-import java.io.File;
+import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -107,4 +106,23 @@ public class PewPew {
             System.out.println("Something went wrong, please delete the folder:- " + System.getProperty("user.home") + File.separator + ".ssddrtdb");
         }
     }
+
+    static void verifypw(String path) {
+        String x = readFileAndReturnCred();
+        File f = new File(path);
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            String pw = bf.readLine();
+            PewPew pew = new PewPew(pw);
+            String key = new JSONObject(x).getString("key");
+            if (!pew.verifyPassword(key, pw)) {
+                System.err.println("Incorrect Password.");
+                System.exit(1);
+            }
+        } catch (Exception ignored) {
+            System.out.println("File path incorrect");
+        }
+
+    }
+
 }

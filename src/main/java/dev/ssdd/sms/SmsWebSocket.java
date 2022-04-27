@@ -7,6 +7,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -53,12 +54,14 @@ public class SmsWebSocket {
 
     @OnWebSocketMessage
     public void message(Session session, String message) throws IOException {
+        System.out.println(message);
         if (!(message.equals("ssdd"))) {
             JSONObject j = new JSONObject(message);
             String id = j.getString("id");
             if (id.equals("sv")) {
 
-                String[] x = j.getString("path").split("/");
+                String[] x = Arrays.stream(j.getString("path").split("/")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+
                 childManager(x,j.get("message"), j.getString("dbid"));
 
             } else if (id.equals("nsv")) {

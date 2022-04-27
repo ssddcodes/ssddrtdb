@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class GenFile {
+    static boolean bps=false;
     public static final File credFile = new File(System.getProperty("user.home") + File.separator + ".ssddrtdb" + File.separator + "creds.json");
 
     //            dbfile = new File(System.getProperty("user.home") + File.separator + ".ssddrtdb" + File.separator + "db.json")
@@ -37,7 +38,9 @@ public class GenFile {
                 e.printStackTrace();
             }
         } else {
-            PewPew.verifypw(scanner);
+            if(!bps){
+                PewPew.verifypw(scanner);
+            }
         }
     }
 

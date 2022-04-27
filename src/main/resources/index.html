@@ -24,7 +24,7 @@
     let pwSt = "";
       var x = document.getElementById("pw");
       function resetpw(){
-    const ws = new WebSocket("ws://localhost:19194/zotws");
+    const ws = new WebSocket(window.location.protocol.toString().replace("http", "ws") + "//" + window.location.hostname + ":" + window.location.port + "/zotws");
     let tmp = {"id": "ssddResetPw07!"}
     ws.onopen = function(){
         ws.send(JSON.stringify(tmp));
@@ -40,7 +40,7 @@ function myFunction() {
   }
 }
     let msgHolder = "";
-    const ws = new WebSocket("ws://localhost:19194/zotws");
+    const ws = new WebSocket(window.location.protocol.toString().replace("http", "ws") + "//" + window.location.hostname + ":" + window.location.port + "/zotws");
 
     function killServer(servername){
     let tmp = {

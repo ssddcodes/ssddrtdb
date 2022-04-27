@@ -112,6 +112,7 @@ public class SmsMain {
                 "        }\n" +
                 "    }, window.JsonEditor = n\n" +
                 "}(jQuery);";
+
         String htm = "<!doctype html>\n" +
                 "<html>\n" +
                 "<head>\n" +
@@ -222,7 +223,7 @@ public class SmsMain {
                 "    \n" +
                 "</script>\n" +
                 "</body>\n" +
-                "</html>", htmfin = htm.replace("ws://localhost:19194/", "ws://localhost:"+ port +"/"+dbid).replace("ssddTmpDBNotifID", dbid)
+                "</html>", htmfin = htm.replace("\"ws://localhost:19194/\"", "window.location.protocol.toString().replace(\"http\", \"ws\")+\"//\"+ window.location.hostname +\":\"" + "+window.location.port+" + "\"/" + dbid + "\"").replace("ssddTmpDBNotifID", dbid)
                 .replace("ssddTmpDBPort", String.valueOf(port));
 
         String stylecss = "pre {margin-left: 20px;}\n" +

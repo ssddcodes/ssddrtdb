@@ -30,3 +30,7 @@
 * We recommend you to operate the server in some secure workspace.
 * Always use WSS connections, for that you can setup nginx and proxy pass it.
 * Setup some Client Authentication by HTTP for example make http request to nginx and somehow authenticate request then upgrade connection to ws.
+
+## Changelog:- 
+* With version 2.6.1, you can pass password to the jar file from a text file by:- 
+`java -jar zotdb_server -pw /path/to/txt/file.txt`

@@ -17,7 +17,7 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 ### *Gradle*
 
 ```groovy
- implementation 'dev.ssdd:rtdb:2.6'
+ implementation 'dev.ssdd:rtdb:2.6.1'
 ```
 ### *Maven*
 
@@ -25,7 +25,7 @@ ZotDB provides you realtime Database service on your own VPS/pc.
 <dependency>
   <groupId>dev.ssdd</groupId>
   <artifactId>rtdb</artifactId>
-  <version>2.6</version>
+  <version>2.6.1</version>
 </dependency>
 ```
 
